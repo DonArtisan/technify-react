@@ -10,9 +10,11 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "eslint": "^8.23.1",
     "formik": "^2.2.9",
     "framer-motion": "^7.3.2",
     "got": "^12.4.1",
+    "graphql": "^16.6.0",
     "ky": "^0.31.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -51,7 +53,7 @@
   },
   "devDependencies": {
     "babel-plugin-relay": "^14.1.0",
-    "graphql": "^16.6.0",
+    "eslint-plugin-relay": "^1.8.3",
     "relay-compiler": "^14.1.0"
   }
 }
