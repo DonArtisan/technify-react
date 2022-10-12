@@ -1,4 +1,5 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { AUTH_TOKEN } from './constants';
 async function fetchGraphQL(params, variables) {
   console.log(variables);
   const response = await fetch('http://technify-api.test/graphql', {
@@ -7,6 +8,7 @@ async function fetchGraphQL(params, variables) {
       variables,
     }),
     headers: {
+      Authorization: `bearer ${AUTH_TOKEN}`,
       'Content-Type': 'application/json',
     },
     method: 'POST',

@@ -9,7 +9,7 @@ import { Route } from 'react-router-dom';
 import Register from './pages/register/Register';
 import { ChakraProvider } from '@chakra-ui/react';
 import { RelayEnvironmentProvider } from 'react-relay';
-import RelayEnvironment from './RelayEnvironment';
+import RelayEnvironment from './RelayEnvironment.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

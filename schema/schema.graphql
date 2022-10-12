@@ -100,7 +100,8 @@ type UserEdge {
 }
 
 type Mutation {
-  userCreate(input: UserInput!): UserCreatePayload
+  userRegister(input: UserInput!): UserRegisterPayload
+  userLogin(input: UserLoginInput!): UserLoginPayload
 }
 
 input UserInput {
@@ -111,8 +112,19 @@ input UserInput {
   password: String
 }
 
-type UserCreatePayload {
+type UserRegisterPayload {
   userEdge: UserEdge
+  userErrors: [UserError]
+  userToken: String
+}
+
+"""Represents an error in the input of a mutation."""
+type UserError implements DisplayableError {
+  """The path to the input field that caused the error."""
+  field: [String!]
+
+  """The error message."""
+  message: String!
 }
 
 """Represents an error in the input of a mutation."""
@@ -124,13 +136,15 @@ interface DisplayableError {
   message: String!
 }
 
-"""Represents an error in the input of a mutation."""
-type UserError implements DisplayableError {
-  """The path to the input field that caused the error."""
-  field: [String!]
+input UserLoginInput {
+  email: String!
+  password: String!
+}
 
-  """The error message."""
-  message: String!
+type UserLoginPayload {
+  userAuth: User
+  userErrors: [UserError]
+  userToken: String
 }
 
 """Directions for ordering a list of records."""
