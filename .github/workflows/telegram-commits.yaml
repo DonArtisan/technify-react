@@ -14,7 +14,7 @@ jobs:
         disable_web_page_preview: true
         message: |
             [${{ github.event.repository.name }}:${{ github.ref_name }}](https://github.com/${{ github.repository }}/tree/${{github.ref_name}}) new commit by ${{ github.actor }}:
-              `${{ github.event.commits[0].message }}`
+              `${{ github.event.head_commit.message }}`
     
   master-check:
     if: github.ref == 'refs/heads/master'
@@ -29,6 +29,6 @@ jobs:
         disable_web_page_preview: true
         message: |
             [${{ github.event.repository.name }}:${{ github.ref_name }}](https://github.com/${{ github.repository }}/commit/${{github.sha}}) new commit by ${{ github.actor }}:
-              `${{ github.event.commits[0].message }}`
+              `${{ github.event.head_commit.message }}`
 
 
