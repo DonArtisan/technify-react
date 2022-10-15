@@ -48,7 +48,6 @@ function AuthProvider(props) {
 
   const signin = (userData) => {
     localStorage.setItem(AUTH_TOKEN, userData.userToken);
-    console.log(userData);
     dispatch({
       type: 'SIGNIN',
       payload: userData,

@@ -1,15 +1,13 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import Register from './pages/register/Register';
-import { ChakraProvider } from '@chakra-ui/react';
 import { RelayEnvironmentProvider } from 'react-relay';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { AuthProvider } from './context/AuthContext';
+import './index.css';
 import RelayEnvironment from './RelayEnvironment.js';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,13 +15,9 @@ root.render(
     <BrowserRouter>
       <RelayEnvironmentProvider environment={RelayEnvironment}>
         <ChakraProvider>
-          <Routes>
-            <Route path="/" element={<App />} />
-            {/* <Route element={<Login />} path="login" /> */}
-            <Route element={<Register />} path="register" />
-            {/* <Route path="expenses" element={<Expenses />} /> */}
-            {/* <Route path="invoices" element={<Invoices />} /> */}
-          </Routes>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </ChakraProvider>
       </RelayEnvironmentProvider>
     </BrowserRouter>
