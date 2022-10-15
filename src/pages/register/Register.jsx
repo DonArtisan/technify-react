@@ -16,6 +16,7 @@ import { useMutation } from 'react-relay';
 import { graphql } from 'babel-plugin-relay/macro';
 import * as Yup from 'yup';
 import { AUTH_TOKEN } from '../../constants';
+import { useAuth } from '../../context/AuthContext';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
@@ -24,16 +25,23 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string().required('Required'),
 });
 
-function Register() {
+export function Register() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   let navigate = useNavigate();
+  const auth = useAuth();
 
   const [commit] = useMutation(
     graphql`
       mutation RegisterUserMutation($input: UserInput!) {
         userRegister(input: $input) {
           userToken
+          userEdge {
+            node {
+              firstName
+              lastName
+            }
+          }
         }
       }
     `
@@ -50,11 +58,10 @@ function Register() {
         },
       },
       onCompleted({ userRegister }) {
-        localStorage.setItem(AUTH_TOKEN, userRegister.userToken);
+        auth.signin(userRegister);
+        navigate('/');
       },
     });
-
-    navigate('/');
   }
 
   return (
@@ -144,5 +151,3 @@ function Register() {
     </Center>
   );
 }
-
-export default Register;

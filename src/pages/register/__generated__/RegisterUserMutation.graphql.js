@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<123fc922ceeeeb1b2deda947a67be87d>>
+ * @generated SignedSource<<05fc1844650e36b5729b15d9827fe9e9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,37 +18,76 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "UserRegisterPayload",
-    "kind": "LinkedField",
-    "name": "userRegister",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "userToken",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "userToken",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "firstName",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "lastName",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "RegisterUserMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "UserRegisterPayload",
+        "kind": "LinkedField",
+        "name": "userRegister",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "UserEdge",
+            "kind": "LinkedField",
+            "name": "userEdge",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -57,19 +96,63 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "RegisterUserMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "UserRegisterPayload",
+        "kind": "LinkedField",
+        "name": "userRegister",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "UserEdge",
+            "kind": "LinkedField",
+            "name": "userEdge",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "552f0d21230f4440403d815f17ce6bf1",
+    "cacheID": "726beeb4ddddc6a31c5dbcaa027bcd26",
     "id": null,
     "metadata": {},
     "name": "RegisterUserMutation",
     "operationKind": "mutation",
-    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n  }\n}\n"
+    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    userEdge {\n      node {\n        firstName\n        lastName\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "c6565a3d19556b8d16b91d749f15df08";
+node.hash = "758a3b8f85dbab335ab89e27082ce6ab";
 
 module.exports = node;
