@@ -14,7 +14,7 @@ jobs:
         disable_web_page_preview: true
         message: |
             [${{ github.event.repository.name }}:${{ github.ref_name }}](https://github.com/${{ github.repository }}/tree/${{github.ref_name}}) new commit by ${{ github.actor }}:
-              `${{join(github.event.commits.*.message, ', ') }}`
+              `${{join(github.event.commits.*.message, '\n ') }}`
     
   master-check:
     if: github.ref == 'refs/heads/master'
