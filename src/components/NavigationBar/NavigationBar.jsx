@@ -1,7 +1,15 @@
 import { SearchIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, IconButton, Link, Text } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Link,
+  Text,
+} from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 export default function NavigationBar() {
   const LINKS = [
@@ -36,13 +44,13 @@ export default function NavigationBar() {
   ];
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" borderBlockEnd="1px" borderColor="gray.400">
       <Flex
         height="44px"
         backgroundColor="blackAlpha.900"
         justify="space-between"
         color="white"
-        paddingX={20}
+        paddingX={60}
         align="center"
       >
         <Text>Mon-Thur: 9:00 AM - 5:30 PM</Text>
@@ -51,13 +59,13 @@ export default function NavigationBar() {
         </Text>
         <Text>Call Us: (00) 1234 5678</Text>
       </Flex>
-      <Flex paddingX={20} paddingY={4} justify="space-between">
-        <Box>
+      <Flex paddingX={60} paddingY={4} justify="space-between" align="center">
+        <Box marginInlineStart="120px">
           {LINKS.map((link) => {
             return (
               <Link
                 fontWeight="semibold"
-                marginInlineEnd="20px"
+                marginInlineEnd="25px"
                 as={ReactRouterLink}
                 to={link.href}
               >
@@ -77,17 +85,25 @@ export default function NavigationBar() {
             Our Deals
           </Button>
         </Box>
-        <Flex>
+        <Flex align="center">
           <IconButton
+            size="lg"
+            borderRadius="full"
+            variant="ghost"
             colorScheme="blue"
             aria-label="Search database"
             icon={<SearchIcon />}
           />
           <IconButton
+            marginInlineEnd="25px"
+            size="lg"
+            borderRadius="full"
+            variant="ghost"
             colorScheme="blue"
             aria-label="Search database"
             icon={<FiShoppingCart />}
           />
+          <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
         </Flex>
         {/* <Input height="60px" placeholder="Search entire store here..." /> */}
       </Flex>
