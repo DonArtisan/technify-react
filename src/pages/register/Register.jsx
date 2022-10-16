@@ -68,7 +68,7 @@ export function Register() {
           const { errors } = formatGraphQLErrors(userErrors);
           formikBag.setErrors(errors);
         }
-        if (!userErrors) {
+        if (userErrors.length === 0) {
           auth.signin(userRegister);
           navigate('/');
         }
