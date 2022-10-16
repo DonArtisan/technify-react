@@ -1,0 +1,8 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "plugins": ["relay"],
+  "rules": {
+    "import/no-anonymous-default-export": "off",
+    "relay/generated-flow-types": "off"
+  }
+}
