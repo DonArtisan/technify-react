@@ -29,6 +29,6 @@ jobs:
         disable_web_page_preview: true
         message: |
             [${{ github.event.repository.name }}:${{ github.ref_name }}](https://github.com/${{ github.repository }}/commit/${{github.sha}}) new commit by ${{ github.actor }}:
-              `${{join(github.event.commits.*.message, '\n' }}`
+              `${{join(github.event.commits.*.message, \n }}`
 
 
