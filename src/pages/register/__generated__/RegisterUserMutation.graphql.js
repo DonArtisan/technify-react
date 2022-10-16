@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<05fc1844650e36b5729b15d9827fe9e9>>
+ * @generated SignedSource<<401b6185b1d1038fd906ff4778c4c0e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,6 +43,31 @@ v4 = {
   "kind": "ScalarField",
   "name": "lastName",
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "UserError",
+  "kind": "LinkedField",
+  "name": "userErrors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "message",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -83,7 +108,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -136,23 +162,24 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "726beeb4ddddc6a31c5dbcaa027bcd26",
+    "cacheID": "1e30bdd806b2a1c5b19ef75123b35f2d",
     "id": null,
     "metadata": {},
     "name": "RegisterUserMutation",
     "operationKind": "mutation",
-    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    userEdge {\n      node {\n        firstName\n        lastName\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    userEdge {\n      node {\n        firstName\n        lastName\n        id\n      }\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "758a3b8f85dbab335ab89e27082ce6ab";
+node.hash = "365296516f3386065a57cc52ca2553ee";
 
 module.exports = node;

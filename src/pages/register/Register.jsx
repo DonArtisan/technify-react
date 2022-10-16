@@ -1,22 +1,22 @@
 import {
   Button,
-  Center,
+  Flex,
   FormControl,
   FormErrorMessage,
+  FormLabel,
   Heading,
   Input,
-  InputGroup,
-  InputRightElement,
-  VStack,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
+import { graphql } from 'babel-plugin-relay/macro';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-relay';
-import { graphql } from 'babel-plugin-relay/macro';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { AUTH_TOKEN } from '../../constants';
 import { useAuth } from '../../context/AuthContext';
+import { formatGraphQLErrors } from '../../utils/formik/formatGraphQlErrors';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
@@ -42,6 +42,10 @@ export function Register() {
               lastName
             }
           }
+          userErrors {
+            field
+            message
+          }
         }
       }
     `
@@ -58,22 +62,45 @@ export function Register() {
         },
       },
       onCompleted({ userRegister }) {
-        auth.signin(userRegister);
-        navigate('/');
+        const { userErrors } = userRegister;
+
+        if (userErrors && userErrors.length > 0) {
+          const { errors } = formatGraphQLErrors(userErrors);
+          formikBag.setErrors(errors);
+        }
+        if (!userErrors) {
+          auth.signin(userRegister);
+        }
+      },
+      onError({ userRegister }) {
+        console.log(userRegister);
       },
     });
   }
 
   return (
-    <Center minH="100vh" bgColor="gray.100">
-      <VStack
+    <Flex
+      minH="100vh"
+      bgColor="graylight"
+      align="center"
+      //   justifyContent="center"
+      flexDirection="column"
+    >
+      <Flex
+        flexDir="column"
         borderRadius="lg"
         p="30px"
         bgColor="white"
-        spacing={4}
-        maxW="500px"
+        maxW="400px"
+        mb="16px"
       >
-        <Heading>Register</Heading>
+        <Heading as="h6" fontSize="16px" marginBlockEnd="8px">
+          Welcome!
+        </Heading>
+        <Text color="text" fontSize="24px" marginBlockEnd="16px">
+          Enter your details to create an account.
+        </Text>
+
         <Formik
           initialValues={{
             firstName: '',
@@ -86,68 +113,78 @@ export function Register() {
         >
           {({ errors, touched }) => (
             <Form>
-              <VStack>
+              <Stack spacing={4}>
                 <FormControl
                   isInvalid={!!errors.firstName && touched.firstName}
                 >
+                  <FormLabel fontWeight="700" color="text">
+                    First Name:
+                  </FormLabel>
                   <Field
                     as={Input}
                     id="firstName"
                     name="firstName"
-                    type="firstName"
-                    placeholder="Your First Name"
-                    variant="filled"
+                    type="name"
+                    bg="graylight"
                   />
                   <FormErrorMessage>{errors.firstName}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.lastName && touched.lastName}>
+                  <FormLabel fontWeight="700" color="text">
+                    Last Name:
+                  </FormLabel>
                   <Field
                     as={Input}
                     id="lastName"
                     name="lastName"
-                    type="lastName"
-                    placeholder="Your Last Name"
-                    variant="filled"
+                    type="name"
+                    bg="graylight"
                   />
                   <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.email && touched.email}>
+                  <FormLabel fontWeight="700" color="text">
+                    Email:
+                  </FormLabel>
+
                   <Field
                     as={Input}
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="Your email"
-                    variant="filled"
+                    bg="graylight"
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.password && touched.password}>
-                  <InputGroup>
-                    <Field
-                      as={Input}
-                      id="password"
-                      name="password"
-                      type={show ? 'text' : 'password'}
-                      variant="filled"
-                      placeholder="Enter password"
-                    />
-                    <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick}>
-                        {show ? 'Hide' : 'Show'}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
+                  <FormLabel fontWeight="700" color="text">
+                    Password:
+                  </FormLabel>
+                  <Field
+                    as={Input}
+                    id="password"
+                    name="password"
+                    type="password"
+                    bg="graylight"
+                  />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
-                <Button type="submit" colorScheme="teal">
-                  Sign Up
-                </Button>
-              </VStack>
+              </Stack>
+              <Button
+                type="submit"
+                marginBlockStart="32px"
+                width="336px"
+                height="48px"
+              >
+                Sign Up
+              </Button>
             </Form>
           )}
         </Formik>
-      </VStack>
-    </Center>
+      </Flex>
+      <Text color="#9A9AA4" maxW="400px" align="center">
+        By creating an account, you agree to our Terms.
+      </Text>
+    </Flex>
   );
 }
