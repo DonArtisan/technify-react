@@ -70,6 +70,7 @@ export function Register() {
         }
         if (!userErrors) {
           auth.signin(userRegister);
+          navigate('/');
         }
       },
       onError({ userRegister }) {
