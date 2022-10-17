@@ -8,28 +8,28 @@ import {
   Input,
   Stack,
   Text,
-} from '@chakra-ui/react';
-import { graphql } from 'babel-plugin-relay/macro';
-import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-import { useMutation } from 'react-relay';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useAuth } from '../../context/AuthContext';
-import { formatGraphQLErrors } from '../../utils/formik/formatGraphQlErrors';
+} from '@chakra-ui/react'
+import {graphql} from 'babel-plugin-relay/macro'
+import {Field, Form, Formik} from 'formik'
+import {useState} from 'react'
+import {useMutation} from 'react-relay'
+import {useNavigate} from 'react-router-dom'
+import * as Yup from 'yup'
+import {useAuth} from '../../context/AuthContext'
+import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   lastName: Yup.string().required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required'),
-});
+})
 
 export function Register() {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
-  let navigate = useNavigate();
-  const auth = useAuth();
+  const [show, setShow] = useState(false)
+  const handleClick = () => setShow(!show)
+  let navigate = useNavigate()
+  const auth = useAuth()
 
   const [commit] = useMutation(
     graphql`
@@ -49,7 +49,7 @@ export function Register() {
         }
       }
     `
-  );
+  )
 
   function handleSubmit(values, formikBag) {
     commit({
@@ -61,22 +61,22 @@ export function Register() {
           password: values.password,
         },
       },
-      onCompleted({ userRegister }) {
-        const { userErrors } = userRegister;
+      onCompleted({userRegister}) {
+        const {userErrors} = userRegister
 
         if (userErrors && userErrors.length > 0) {
-          const { errors } = formatGraphQLErrors(userErrors);
-          formikBag.setErrors(errors);
+          const {errors} = formatGraphQLErrors(userErrors)
+          formikBag.setErrors(errors)
         }
         if (userErrors.length === 0) {
-          auth.signin(userRegister);
-          navigate('/');
+          auth.signin(userRegister)
+          navigate('/')
         }
       },
-      onError({ userRegister }) {
-        console.log(userRegister);
+      onError({userRegister}) {
+        console.log(userRegister)
       },
-    });
+    })
   }
 
   return (
@@ -112,7 +112,7 @@ export function Register() {
           validationSchema={SignupSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({errors, touched}) => (
             <Form>
               <Stack spacing={4}>
                 <FormControl
@@ -187,5 +187,5 @@ export function Register() {
         By creating an account, you agree to our Terms.
       </Text>
     </Flex>
-  );
+  )
 }

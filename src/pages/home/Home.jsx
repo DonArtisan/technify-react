@@ -1,6 +1,6 @@
-import { Box, Divider, Flex, Heading, Link } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import {Box, Divider, Flex, Heading, Link} from '@chakra-ui/react'
+import {Link as ReactRouterLink} from 'react-router-dom'
+import ProductCard from '../../components/ProductCard/ProductCard'
 
 export default function Home() {
   return (
@@ -38,5 +38,5 @@ export default function Home() {
         <Divider />
       </Flex>
     </>
-  );
+  )
 }

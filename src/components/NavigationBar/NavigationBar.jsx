@@ -1,4 +1,4 @@
-import { SearchIcon } from '@chakra-ui/icons';
+import {SearchIcon} from '@chakra-ui/icons'
 import {
   Avatar,
   Box,
@@ -7,9 +7,9 @@ import {
   IconButton,
   Link,
   Text,
-} from '@chakra-ui/react';
-import { FiShoppingCart } from 'react-icons/fi';
-import { Link as ReactRouterLink } from 'react-router-dom';
+} from '@chakra-ui/react'
+import {FiShoppingCart} from 'react-icons/fi'
+import {Link as ReactRouterLink} from 'react-router-dom'
 
 export default function NavigationBar() {
   const LINKS = [
@@ -41,7 +41,7 @@ export default function NavigationBar() {
       text: 'Repairs',
       href: '/',
     },
-  ];
+  ]
 
   return (
     <Flex direction="column" borderBlockEnd="1px" borderColor="gray.400">
@@ -72,7 +72,7 @@ export default function NavigationBar() {
               >
                 {link.text}
               </Link>
-            );
+            )
           })}
           <Button
             paddingX="26px"
@@ -109,5 +109,5 @@ export default function NavigationBar() {
         {/* <Input height="60px" placeholder="Search entire store here..." /> */}
       </Flex>
     </Flex>
-  );
+  )
 }

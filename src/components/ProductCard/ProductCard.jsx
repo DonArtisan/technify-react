@@ -1,5 +1,5 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import StarRating from './components/StarRating/StarRating';
+import {Box, Flex, Image, Text} from '@chakra-ui/react'
+import StarRating from './components/StarRating/StarRating'
 
 export default function ProductCard() {
   return (
@@ -32,5 +32,5 @@ export default function ProductCard() {
         $499.00
       </Text>
     </Box>
-  );
+  )
 }

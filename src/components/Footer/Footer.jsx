@@ -1,7 +1,7 @@
-import { Link } from '@chakra-ui/react';
-import { Divider } from '@chakra-ui/react';
-import { Box, Button, Flex, Heading, Input, Text } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import {Link} from '@chakra-ui/react'
+import {Divider} from '@chakra-ui/react'
+import {Box, Button, Flex, Heading, Input, Text} from '@chakra-ui/react'
+import {Link as ReactRouterLink} from 'react-router-dom'
 
 export default function Footer() {
   const LINKS = [
@@ -71,7 +71,7 @@ export default function Footer() {
         },
       ],
     },
-  ];
+  ]
   return (
     <Flex
       height="500px"
@@ -121,10 +121,10 @@ export default function Footer() {
                 </Link>
               ))}
             </Flex>
-          );
+          )
         })}
       </Flex>
       <Divider />
     </Flex>
-  );
+  )
 }
