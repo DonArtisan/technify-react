@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import SiteLayout from './components/Layout/SiteLayout';
 import { AuthProvider } from './context/AuthContext';
 import './index.css';
 import RelayEnvironment from './RelayEnvironment.js';
@@ -16,7 +17,9 @@ root.render(
       <RelayEnvironmentProvider environment={RelayEnvironment}>
         <ChakraProvider>
           <AuthProvider>
-            <App />
+            <SiteLayout>
+              <App />
+            </SiteLayout>
           </AuthProvider>
         </ChakraProvider>
       </RelayEnvironmentProvider>
