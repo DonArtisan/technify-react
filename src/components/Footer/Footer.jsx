@@ -104,17 +104,18 @@ export default function Footer() {
         </Flex>
       </Flex>
       <Flex marginBlock="45px" width="full">
-        {LINKS.map((list) => {
+        {LINKS.map((list, index) => {
           return (
-            <Flex direction="column" marginInlineEnd="60px">
+            <Flex direction="column" marginInlineEnd="60px" key={index}>
               <Heading as="h4" fontSize="18px" marginBlockEnd="24px">
                 {list.title}
               </Heading>
-              {list.links.map((link) => (
+              {list.links.map((link, i) => (
                 <Link
                   marginInlineEnd="25px"
                   as={ReactRouterLink}
                   to={link.href}
+                  key={i}
                 >
                   {link.text}
                 </Link>
