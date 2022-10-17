@@ -10,7 +10,7 @@ export default function ProductCard() {
         align="center"
         paddingInline="24px"
         paddingBlockStart="10px"
-        paddingBlockEnd="4px"
+        paddingBlockEnd="10px"
       >
         <StarRating />
         <Text
@@ -22,7 +22,7 @@ export default function ProductCard() {
           Reviews (4)
         </Text>
       </Flex>
-      <Text paddingInline="24px">
+      <Text paddingInline="24px" marginBlockEnd="10px">
         EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...
       </Text>
       <Text paddingInline="24px" color="gray.500" textDecoration="line-through">
