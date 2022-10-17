@@ -61,9 +61,10 @@ export default function NavigationBar() {
       </Flex>
       <Flex paddingX={60} paddingY={4} justify="space-between" align="center">
         <Box marginInlineStart="120px">
-          {LINKS.map((link) => {
+          {LINKS.map((link, index) => {
             return (
               <Link
+                key={index}
                 fontWeight="semibold"
                 marginInlineEnd="25px"
                 as={ReactRouterLink}
