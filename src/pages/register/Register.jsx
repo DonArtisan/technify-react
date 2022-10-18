@@ -1,4 +1,6 @@
 import {
+  Box,
+  Icon,
   Button,
   Flex,
   FormControl,
@@ -8,21 +10,28 @@ import {
   Input,
   Stack,
   Text,
-} from '@chakra-ui/react';
-import { graphql } from 'babel-plugin-relay/macro';
-import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-import { useMutation } from 'react-relay';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useAuth } from '../../context/AuthContext';
-import { formatGraphQLErrors } from '../../utils/formik/formatGraphQlErrors';
+  Link as LinkC,
+  UnorderedList,
+  ListItem,
+} from "@chakra-ui/react";
+import { graphql } from "babel-plugin-relay/macro";
+import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { useMutation } from "react-relay";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { useAuth } from "../../context/AuthContext";
+import { formatGraphQLErrors } from "../../utils/formik/formatGraphQlErrors";
+import accountIcon from "../../utils/assets/account.svg";
+import pricetagIcon from "../../utils/assets/pricetag.svg";
+import supportIcon from "../../utils/assets/support.svg";
 
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required('Required'),
-  lastName: Yup.string().required('Required'),
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+  firstName: Yup.string().required("Required"),
+  lastName: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().required("Required"),
 });
 
 export function Register() {
@@ -30,6 +39,27 @@ export function Register() {
   const handleClick = () => setShow(!show);
   let navigate = useNavigate();
   const auth = useAuth();
+
+  const servicesMenu = [
+    {
+      icon: accountIcon,
+      name: "Product Support",
+      description:
+        "Up to 3 years on-site warranty available for your peace of mind.",
+    },
+    {
+      icon: pricetagIcon,
+      name: "Personal Account",
+      description:
+        "With big discounts, free delivery and a dedicated support specialist.",
+    },
+    {
+      icon: supportIcon,
+      name: "Amazing Savings",
+      description:
+        "Up to 70% off new Products, you can be sure of the best price.",
+    },
+  ];
 
   const [commit] = useMutation(
     graphql`
@@ -70,7 +100,7 @@ export function Register() {
         }
         if (userErrors.length === 0) {
           auth.signin(userRegister);
-          navigate('/');
+          navigate("/");
         }
       },
       onError({ userRegister }) {
@@ -80,34 +110,28 @@ export function Register() {
   }
 
   return (
-    <Flex
-      minH="100vh"
-      bgColor="graylight"
-      align="center"
-      //   justifyContent="center"
-      flexDirection="column"
-    >
-      <Flex
-        flexDir="column"
-        borderRadius="lg"
-        p="30px"
-        bgColor="white"
-        maxW="400px"
-        mb="16px"
-      >
-        <Heading as="h6" fontSize="16px" marginBlockEnd="8px">
-          Welcome!
-        </Heading>
-        <Text color="text" fontSize="24px" marginBlockEnd="16px">
-          Enter your details to create an account.
-        </Text>
+    <Flex flexDir="column" rowGap="16px">
+      <Heading padding="16px 16px 0px" fontSize="18px" fontWeight="600">
+        Customer Login
+      </Heading>
 
+      <Flex
+        margin="0px 16px"
+        padding="20px 18px"
+        bg="bgBeige"
+        flexDir="column"
+        rowGap="16px"
+      >
+        <Text fontSize="14px" fontWeight="600" color="text">
+          Registered Customers
+        </Text>
+        <Text>If you have an account, sign in with your email address.</Text>
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={handleSubmit}
@@ -170,22 +194,74 @@ export function Register() {
                   />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
+
+                <Flex
+                  alignItems="center"
+                  justifyContent="center"
+                  columnGap="16px"
+                >
+                  <Button
+                    w="133px"
+                    borderRadius="50px"
+                    color="white"
+                    bg="bgPrimary"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                  <Link to="/">
+                    <LinkC color="bgPrimary">Forgot Your Password?</LinkC>
+                  </Link>
+                </Flex>
               </Stack>
-              <Button
-                type="submit"
-                marginBlockStart="32px"
-                width="336px"
-                height="48px"
-              >
-                Sign Up
-              </Button>
             </Form>
           )}
         </Formik>
       </Flex>
-      <Text color="#9A9AA4" maxW="400px" align="center">
-        By creating an account, you agree to our Terms.
-      </Text>
+      <Flex
+        flexDirection="column"
+        margin="0px 16px"
+        rowGap="22px"
+        padding="70px 18px 33px 18px"
+        bg="bgBeige"
+      >
+        <Text fontSize="14px" fontWeight="600" color="text">
+          New Customer?
+        </Text>
+        <Flex flexDirection="column" rowGap="48px">
+          <Text>Creating an account has many benefits:</Text>
+          <UnorderedList>
+            <ListItem>Check out faster</ListItem>
+            <ListItem>Keep more that on address</ListItem>
+            <ListItem>Track orders and more</ListItem>
+          </UnorderedList>
+        </Flex>
+        <Link to="/">
+          <Button
+            as="a"
+            height="38px"
+            borderRadius="50px"
+            color="white"
+            bg="bgPrimary"
+          >
+            Create An Account
+          </Button>
+        </Link>
+      </Flex>
+      <Flex
+        bg="bgBeige"
+        flexDirection="column"
+        rowGap="20px"
+        alignItems="center"
+      >
+        {servicesMenu.map((service, index) => (
+          <Box textAlign="center" w="300px" key={index}>
+            <Icon as={service.icon}></Icon>
+            <Text>{service.name}</Text>
+            <Text>{service.description}</Text>
+          </Box>
+        ))}
+      </Flex>
     </Flex>
   );
 }
