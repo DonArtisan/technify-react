@@ -96,7 +96,7 @@ export default function Header() {
               <Input
                 borderRadius="full"
                 backgroundColor="#fff"
-                width="518px"
+                width={{base: '227px', md: '518px'}}
                 placeholder="Search Here"
               />
             </InputGroup>
