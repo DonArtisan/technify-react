@@ -22,7 +22,7 @@ import CategoriesList from './components/CategoriesList/CategoriesList'
 export default function Home() {
   return (
     <>
-      <Box
+      {/* <Box
         marginBlockEnd="30px"
         backgroundColor="gray.300"
         width="full"
@@ -172,7 +172,7 @@ export default function Home() {
             </Text>
           </Flex>
         </HStack>
-      </Flex>
+      </Flex> */}
     </>
   )
 }
