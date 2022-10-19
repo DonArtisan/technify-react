@@ -8,7 +8,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Stack,
   Text,
   Link as LinkC,
   UnorderedList,
@@ -23,9 +22,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import { formatGraphQLErrors } from "../../utils/formik/formatGraphQlErrors";
-import accountIcon from "../../utils/assets/account.svg";
-import pricetagIcon from "../../utils/assets/pricetag.svg";
-import supportIcon from "../../utils/assets/support.svg";
+import { servicesMenu } from "../../utils/servicesmenu/servicesMenu";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
@@ -39,27 +36,6 @@ export function Register() {
   const handleClick = () => setShow(!show);
   let navigate = useNavigate();
   const auth = useAuth();
-
-  const servicesMenu = [
-    {
-      icon: accountIcon,
-      name: "Product Support",
-      description:
-        "Up to 3 years on-site warranty available for your peace of mind.",
-    },
-    {
-      icon: pricetagIcon,
-      name: "Personal Account",
-      description:
-        "With big discounts, free delivery and a dedicated support specialist.",
-    },
-    {
-      icon: supportIcon,
-      name: "Amazing Savings",
-      description:
-        "Up to 70% off new Products, you can be sure of the best price.",
-    },
-  ];
 
   const [commit] = useMutation(
     graphql`
@@ -110,154 +86,183 @@ export function Register() {
   }
 
   return (
-    <Flex flexDir="column" rowGap="16px">
-      <Heading padding="16px 16px 0px" fontSize="18px" fontWeight="600">
-        Customer Login
+    <Flex flexDir={{ base: "column" }} rowGap="16px">
+      <Heading
+        padding={{
+          base: "16px 16px 0px",
+          md: "32px 32px 0px",
+          "2xl": "56px 262px 0px",
+        }}
+        fontSize="18px"
+        fontWeight="600"
+      >
+        Customer Register
       </Heading>
-
       <Flex
-        margin="0px 16px"
-        padding="20px 18px"
-        bg="bgBeige"
-        flexDir="column"
-        rowGap="16px"
+        gap={{ base: "16px", md: "22px" }}
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent={{ lg: "center" }}
       >
-        <Text fontSize="14px" fontWeight="600" color="text">
-          Registered Customers
-        </Text>
-        <Text>If you have an account, sign in with your email address.</Text>
-        <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-          }}
-          validationSchema={SignupSchema}
-          onSubmit={handleSubmit}
+        <Flex
+          margin="0px 16px"
+          padding="20px 18px"
+          bg="bgBeige"
+          flexDir="column"
+          rowGap={{ base: "16px", md: "26px" }}
         >
-          {({ errors, touched }) => (
-            <Form>
-              <Stack spacing={4}>
-                <FormControl
-                  isInvalid={!!errors.firstName && touched.firstName}
-                >
-                  <FormLabel fontWeight="700" color="text">
-                    First Name:
-                  </FormLabel>
-                  <Field
-                    as={Input}
-                    id="firstName"
-                    name="firstName"
-                    type="name"
-                    bg="graylight"
-                  />
-                  <FormErrorMessage>{errors.firstName}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={!!errors.lastName && touched.lastName}>
-                  <FormLabel fontWeight="700" color="text">
-                    Last Name:
-                  </FormLabel>
-                  <Field
-                    as={Input}
-                    id="lastName"
-                    name="lastName"
-                    type="name"
-                    bg="graylight"
-                  />
-                  <FormErrorMessage>{errors.lastName}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={!!errors.email && touched.email}>
-                  <FormLabel fontWeight="700" color="text">
-                    Email:
-                  </FormLabel>
+          <Text fontSize="14px" fontWeight="600" color="text">
+            Registered Customers
+          </Text>
+          <Text>If you have an account, sign in with your email address.</Text>
 
-                  <Field
-                    as={Input}
-                    id="email"
-                    name="email"
-                    type="email"
-                    bg="graylight"
-                  />
-                  <FormErrorMessage>{errors.email}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={!!errors.password && touched.password}>
-                  <FormLabel fontWeight="700" color="text">
-                    Password:
-                  </FormLabel>
-                  <Field
-                    as={Input}
-                    id="password"
-                    name="password"
-                    type="password"
-                    bg="graylight"
-                  />
-                  <FormErrorMessage>{errors.password}</FormErrorMessage>
-                </FormControl>
-
-                <Flex
-                  alignItems="center"
-                  justifyContent="center"
-                  columnGap="16px"
-                >
-                  <Button
-                    w="133px"
-                    borderRadius="50px"
-                    color="white"
-                    bg="bgPrimary"
-                    type="submit"
-                  >
-                    Submit
-                  </Button>
-                  <Link to="/">
-                    <LinkC color="bgPrimary">Forgot Your Password?</LinkC>
-                  </Link>
-                </Flex>
-              </Stack>
-            </Form>
-          )}
-        </Formik>
-      </Flex>
-      <Flex
-        flexDirection="column"
-        margin="0px 16px"
-        rowGap="22px"
-        padding="70px 18px 33px 18px"
-        bg="bgBeige"
-      >
-        <Text fontSize="14px" fontWeight="600" color="text">
-          New Customer?
-        </Text>
-        <Flex flexDirection="column" rowGap="48px">
-          <Text>Creating an account has many benefits:</Text>
-          <UnorderedList>
-            <ListItem>Check out faster</ListItem>
-            <ListItem>Keep more that on address</ListItem>
-            <ListItem>Track orders and more</ListItem>
-          </UnorderedList>
-        </Flex>
-        <Link to="/">
-          <Button
-            as="a"
-            height="38px"
-            borderRadius="50px"
-            color="white"
-            bg="bgPrimary"
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={handleSubmit}
           >
-            Create An Account
-          </Button>
-        </Link>
+            {({ errors, touched }) => (
+              <Form>
+                <Flex rowGap="16px" flexDirection="column">
+                  <FormControl
+                    isInvalid={!!errors.firstName && touched.firstName}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      First Name:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="firstName"
+                      name="firstName"
+                      type="name"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.firstName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.lastName && touched.lastName}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Last Name:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="lastName"
+                      name="lastName"
+                      type="name"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.lastName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={!!errors.email && touched.email}>
+                    <FormLabel fontWeight="700" color="text">
+                      Email:
+                    </FormLabel>
+
+                    <Field
+                      as={Input}
+                      id="email"
+                      name="email"
+                      type="email"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.email}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.password && touched.password}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Password:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="password"
+                      name="password"
+                      type="password"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.password}</FormErrorMessage>
+                  </FormControl>
+
+                  <Flex
+                    alignItems="center"
+                    justifyContent="center"
+                    columnGap="16px"
+                  >
+                    <Button
+                      w="133px"
+                      borderRadius="50px"
+                      color="white"
+                      bg="bgPrimary"
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                    <Link to="/">
+                      <LinkC color="bgPrimary">Forgot Your Password?</LinkC>
+                    </Link>
+                  </Flex>
+                </Flex>
+              </Form>
+            )}
+          </Formik>
+        </Flex>
+        <Flex
+          flexDirection="column"
+          margin="0px 16px"
+          rowGap="22px"
+          padding="70px 18px 33px 18px"
+          bg="bgBeige"
+        >
+          <Text fontSize="14px" fontWeight="600" color="text">
+            New Customer?
+          </Text>
+          <Flex flexDirection="column" rowGap="48px">
+            <Text>Creating an account has many benefits:</Text>
+            <UnorderedList>
+              <ListItem>Check out faster</ListItem>
+              <ListItem>Keep more that on address</ListItem>
+              <ListItem>Track orders and more</ListItem>
+            </UnorderedList>
+          </Flex>
+          <Link to="/register">
+            <Button
+              as="a"
+              height="38px"
+              borderRadius="50px"
+              color="white"
+              bg="bgPrimary"
+            >
+              Create An Account
+            </Button>
+          </Link>
+        </Flex>
       </Flex>
       <Flex
         bg="bgBeige"
-        flexDirection="column"
+        flexDirection={{ base: "column", md: "row" }}
         rowGap="20px"
-        alignItems="center"
+        alignItems={{ base: "center", md: "baseline" }}
+        p="26px"
+        justifyContent={{ lg: "center" }}
       >
         {servicesMenu.map((service, index) => (
-          <Box textAlign="center" w="300px" key={index}>
-            <Icon as={service.icon}></Icon>
-            <Text>{service.name}</Text>
+          <Box rowGap="6px" textAlign="center" w="300px" key={index}>
+            <Icon
+              borderRadius="50px"
+              w="45px"
+              h="45px"
+              p="12px"
+              bg="bgPrimary"
+              as={service.icon}
+            ></Icon>
+            <Text fontSize="14px" fontWeight="700">
+              {service.name}
+            </Text>
             <Text>{service.description}</Text>
           </Box>
         ))}
