@@ -22,19 +22,14 @@ import CategoriesList from './components/CategoriesList/CategoriesList'
 export default function Home() {
   return (
     <>
-      {/* <Box
+      <Box
         marginBlockEnd="30px"
         backgroundColor="gray.300"
         width="full"
         height="400px"
       />
       <Flex width="full" direction="column">
-        <Flex
-          width="full"
-          justify="space-between"
-          align="center"
-          marginBlockEnd="20px"
-        >
+        <Flex justify="space-between" align="center" marginBlockEnd="20px">
           <Heading>New Products</Heading>
           <Link
             textDecor="underline"
@@ -47,13 +42,18 @@ export default function Home() {
             See all New Products
           </Link>
         </Flex>
-        <Flex>
+        <Flex width="100%" maxWidth="full" overflowX="scroll">
           {[...new Array(6)].map((product, index) => (
             <ProductCard key={index} />
           ))}
         </Flex>
         <Divider marginBlock="20px" />
-        <Flex marginBlockEnd="38px">
+        <Flex
+          marginBlockEnd="38px"
+          width="100%"
+          maxWidth="full"
+          overflowX="scroll"
+        >
           <CategoriesList title="Custom Builds" />
         </Flex>
         <Box>
@@ -64,13 +64,13 @@ export default function Home() {
               <Tab>MSI GL Series</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel paddingY="20px" paddingX="0">
+              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
                 <CategoriesList title="MSI Laptops" />
               </TabPanel>
-              <TabPanel paddingY="20px" paddingX="0">
+              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
                 <CategoriesList title="MSI Laptops" />
               </TabPanel>
-              <TabPanel paddingY="20px" paddingX="0">
+              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
                 <CategoriesList title="MSI Laptops" />
               </TabPanel>
             </TabPanels>
@@ -83,20 +83,20 @@ export default function Home() {
               <Tab>MSI Triden</Tab>
               <Tab>MSI GL Series</Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels width="100%" maxWidth="full" overflowX="scroll">
               <TabPanel paddingBlock="20px 0" paddingX="0">
                 <CategoriesList title="Desktops" />
               </TabPanel>
-              <TabPanel paddingBlock="20px 0" paddingX="0">
+              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
                 <CategoriesList title="Desktops" />
               </TabPanel>
-              <TabPanel paddingBlock="20px 0" paddingX="0">
+              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
                 <CategoriesList title="Desktops" />
               </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
-        <Flex>
+        <Flex width="100%" maxWidth="full" overflowX="scroll">
           <CategoriesList title="Gaming Monitors" />
         </Flex>
         <Divider marginBlockStart="30px" />
@@ -172,7 +172,7 @@ export default function Home() {
             </Text>
           </Flex>
         </HStack>
-      </Flex> */}
+      </Flex>
     </>
   )
 }

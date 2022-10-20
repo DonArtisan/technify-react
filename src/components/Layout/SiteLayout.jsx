@@ -5,7 +5,7 @@ export default function SiteLayout({children}) {
   return (
     <>
       <Header />
-      <Flex direction="column" paddingX={{lg: 60}}>
+      <Flex direction="column" paddingX={{md: 20, lg: 52}}>
         {children}
       </Flex>
       <Footer />

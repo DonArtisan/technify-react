@@ -100,7 +100,7 @@ export default function Footer() {
           </Heading>
           <Text>Be the first to hear about the latest news</Text>
         </Box>
-        <Flex direction="row" align="center" justify={{base: 'center'}}>
+        <Flex direction="row" justify={{base: 'center'}}>
           <Input
             width={{base: '186px', lg: '380px'}}
             height="50px"

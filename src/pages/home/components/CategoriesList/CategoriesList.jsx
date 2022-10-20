@@ -8,8 +8,8 @@ export default function CategoriesList({title}) {
       <Flex
         direction="column"
         align="center"
-        width="233px"
-        height="350px"
+        width="234px"
+        // height="350px"
         backgroundColor="gray.200"
         textAlign="center"
       >

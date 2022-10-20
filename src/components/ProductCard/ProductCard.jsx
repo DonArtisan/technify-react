@@ -3,8 +3,14 @@ import StarRating from './components/StarRating/StarRating'
 
 export default function ProductCard() {
   return (
-    <Box width="234px">
-      <Image marginInline="42px" height="140px" width="140px" />
+    <Box
+      direction="column"
+      width="234px"
+      //   border="solid"
+      //   borderColor="red"
+      align="center"
+    >
+      <Image height="140px" width="140px" />
       <Flex
         direction="row"
         align="center"
