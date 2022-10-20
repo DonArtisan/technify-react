@@ -80,23 +80,29 @@ export default function Footer() {
   ]
   return (
     <Flex
-      height="500px"
+      height={{base: '700px', lg: '500px'}}
       direction="column"
       backgroundColor="blackAlpha.900"
       color="white"
-      paddingX={{base: '0', md: 14, lg: 60}}
+      paddingX={{base: 0, sm: 5, md: 10, lg: 40}}
       align="center"
     >
-      <Flex width="full" justify="space-between" marginBlockStart="47px">
-        <Box>
+      <Flex
+        direction={{base: 'column', md: 'row'}}
+        width="full"
+        justify="space-between"
+        marginBlockStart="47px"
+        marginBlockEnd="25px"
+      >
+        <Box textAlign={{base: 'center'}} marginBlockEnd={{base: 8}}>
           <Heading marginBlockEnd="8px" fontSize={{md: 22}}>
             Sign Up to Our Newsletter
           </Heading>
           <Text>Be the first to hear about the latest news</Text>
         </Box>
-        <Flex direction="row" align="center">
+        <Flex direction="row" align="center" justify={{base: 'center'}}>
           <Input
-            width={{md: '186px', lg: '380px'}}
+            width={{base: '186px', lg: '380px'}}
             height="50px"
             marginInlineEnd="22px"
             placeholder="Your Email"
@@ -112,11 +118,11 @@ export default function Footer() {
         </Flex>
       </Flex>
       <Show above="lg">
-        <Flex marginBlock="45px" width="full">
+        <Flex marginBlockEnd="45px" width="full">
           {LINKS.map((list, index) => {
             return (
               <Flex direction="column" marginInlineEnd="60px" key={index}>
-                <Heading as="h4" fontSize="18px" marginBlockEnd="24px">
+                <Heading as="h4" fontSize="18px" marginBlockEnd="14px">
                   {list.title}
                 </Heading>
                 {list.links.map((link, i) => (
@@ -147,7 +153,7 @@ export default function Footer() {
                     <AccordionIcon />
                   </AccordionButton>
                   {list.links.map((link, i) => (
-                    <AccordionPanel paddingBlock={1}>
+                    <AccordionPanel paddingBlockEnd={1}>
                       <Link as={ReactRouterLink} to={link.href} key={i}>
                         {link.text}
                       </Link>
