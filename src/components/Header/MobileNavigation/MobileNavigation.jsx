@@ -4,12 +4,12 @@ import {GiHamburgerMenu} from 'react-icons/gi'
 
 export default function MobileNavigation({links}) {
   return (
-    <Flex width="full">
+    <Flex>
       <IconButton
-        size="lg"
+        fontSize={{base: '20px', sm: '32px'}}
         color="#fff"
         background="#0156FF"
-        icon={<GiHamburgerMenu style={{height: '26px', width: '20px'}} />}
+        icon={<GiHamburgerMenu />}
       />
     </Flex>
   )

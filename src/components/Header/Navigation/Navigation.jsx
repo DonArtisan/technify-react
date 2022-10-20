@@ -1,15 +1,17 @@
+import {Text} from '@chakra-ui/react'
 import {Box, Button, Link} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
 
 export default function Navigation({links}) {
   return (
-    <Box marginInlineStart={36}>
+    <Box justifyContent={{lg: 'space-around'}}>
       {links.map((link, index) => {
         return (
           <Link
+            fontSize={{md: '14px', xl: '16px'}}
             key={index}
             fontWeight="semibold"
-            marginInlineEnd="25px"
+            marginInlineEnd={{md: '10px', lg: '14px', xl: '25px'}}
             as={ReactRouterLink}
             to={link.href}
           >
@@ -18,7 +20,7 @@ export default function Navigation({links}) {
         )
       })}
       <Button
-        paddingX="26px"
+        paddingX={{md: '20px', lg: '10px', xl: '26px'}}
         color="#0156FF"
         variant="outline"
         borderRadius="50px"
@@ -26,7 +28,7 @@ export default function Navigation({links}) {
         as={ReactRouterLink}
         to="/"
       >
-        Our Deals
+        <Text>Deals</Text>
       </Button>
     </Box>
   )

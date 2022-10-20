@@ -2,6 +2,7 @@ import {Icon, SearchIcon} from '@chakra-ui/icons'
 import {
   Flex,
   Hide,
+  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -55,7 +56,7 @@ export default function Header() {
         backgroundColor="blackAlpha.900"
         justify="space-between"
         color="white"
-        paddingX={{base: '0', md: 28, lg: 60}}
+        paddingX={{base: 2, sm: 5, md: 10, lg: 10, xl: 40}}
         align="center"
       >
         <Text>Mon-Thur: 9:00 AM - 5:30 PM</Text>
@@ -73,57 +74,77 @@ export default function Header() {
         </Show>
       </Flex>
       <Flex
-        paddingX={{base: 4, lg: 60}}
+        paddingX={{base: 0, sm: 4, lg: 10}}
         paddingY={{base: 2, lg: 4}}
-        justify="space-between"
+        justify={{base: 'space-between', lg: 'space-around'}}
         align="center"
         backgroundColor={{base: '#0156FF', lg: '#fff'}}
       >
-        <Show above="lg">
+        <Hide below="lg">
           <Navigation links={LINKS} />
-        </Show>
+        </Hide>
         <Show below="lg">
           <MobileNavigation links={LINKS} />
+          <InputGroup flexGrow={1} marginInlineStart={{base: 0, sm: 0, md: 10}}>
+            <InputLeftElement
+              paddingInlineStart="2"
+              pointerEvents="none"
+              children={<SearchIcon size="lg" color="gray.400" />}
+            />
+            <Input
+              borderRadius="full"
+              backgroundColor="#fff"
+              maxWidth={{base: '210x', sm: '518px'}}
+              placeholder="Search Here"
+            />
+          </InputGroup>
         </Show>
-        <Flex align="center" paddingInlineEnd={2}>
-          <Show below="lg">
-            <InputGroup>
-              <InputLeftElement
-                paddingInlineStart="2"
-                pointerEvents="none"
-                children={<SearchIcon size="lg" color="gray.400" />}
-              />
-              <Input
-                borderRadius="full"
-                backgroundColor="#fff"
-                width={{base: '227px', md: '518px'}}
-                placeholder="Search Here"
-              />
-            </InputGroup>
-          </Show>
+        <Flex
+          align="center"
+          justify={{md: 'space-evenly'}}
+          paddingInlineEnd={{xl: 2}}
+        >
           <Show above="lg">
             <IconButton
-              size="lg"
+              color={{lg: 'black'}}
+              fontSize={{sm: '22px'}}
+              //   size={{lg: 'sm', xl: 'lg'}}
               borderRadius="full"
+              //   style={{lg: {height: '32px', width: '32px'}}}
               variant="ghost"
               colorScheme="blue"
               aria-label="Search database"
               icon={<SearchIcon />}
             />
           </Show>
-
-          <IconButton
-            marginInlineStart={8}
-            color={{base: '#fff', lg: 'black'}}
-            marginInlineEnd="25px"
-            borderRadius="full"
-            variant="ghost"
-            colorScheme="blue"
-            aria-label="Search database"
-            icon={<FiShoppingCart style={{height: '32px', width: '32px'}} />}
-          />
-          <Icon color="#fff" height="32px" width="32px" as={BsPersonCircle} />
-          {/* <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" /> */}
+          <HStack
+            spacing={{base: 0, sm: 4, md: 4}}
+            marginInlineEnd={{base: 2, sm: 2, md: 0}}
+          >
+            <IconButton
+              fontSize={{base: '20px', sm: '22px'}}
+              // marginInlineStart={{base: 10, md: 0, xl: 2}}
+              color={{base: '#fff', lg: 'black'}}
+              marginInlineEnd={{sm: 2, md: 0, xl: 2}}
+              borderRadius="full"
+              variant="ghost"
+              colorScheme="blue"
+              aria-label="why margin"
+              icon={
+                <FiShoppingCart
+                //   style={{
+                //     lg: {height: '32px', width: '32px'},
+                //   }}
+                />
+              }
+            />
+            <Icon
+              marginInlineEnd={{base: 1, md: 0}}
+              color={{base: '#fff', lg: 'black'}}
+              fontSize={{base: '20px', sm: '26px'}}
+              as={BsPersonCircle}
+            />
+          </HStack>
         </Flex>
         {/* <Input height="60px" placeholder="Search entire store here..." /> */}
       </Flex>
