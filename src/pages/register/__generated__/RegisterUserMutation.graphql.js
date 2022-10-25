@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<401b6185b1d1038fd906ff4778c4c0e2>>
+ * @generated SignedSource<<2b53302512101ab5d63e158d99cc2422>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -88,24 +88,13 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "UserEdge",
+            "concreteType": "User",
             "kind": "LinkedField",
-            "name": "userEdge",
+            "name": "user",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "User",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/)
-                ],
-                "storageKey": null
-              }
+              (v3/*: any*/),
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -135,29 +124,18 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "UserEdge",
+            "concreteType": "User",
             "kind": "LinkedField",
-            "name": "userEdge",
+            "name": "user",
             "plural": false,
             "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "User",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  }
-                ],
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
             ],
@@ -170,16 +148,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1e30bdd806b2a1c5b19ef75123b35f2d",
+    "cacheID": "f94d171989820f2075dfedbd48eb15a3",
     "id": null,
     "metadata": {},
     "name": "RegisterUserMutation",
     "operationKind": "mutation",
-    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    userEdge {\n      node {\n        firstName\n        lastName\n        id\n      }\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
+    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    user {\n      firstName\n      lastName\n      id\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "365296516f3386065a57cc52ca2553ee";
+node.hash = "2e24bf8ce2ee547c52974a69d601c62b";
 
 module.exports = node;

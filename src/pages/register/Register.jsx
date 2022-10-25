@@ -12,23 +12,23 @@ import {
   Link as LinkC,
   UnorderedList,
   ListItem,
-} from "@chakra-ui/react";
-import { graphql } from "babel-plugin-relay/macro";
-import { Field, Form, Formik } from "formik";
-import { useState } from "react";
-import { useMutation } from "react-relay";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import * as Yup from "yup";
-import { useAuth } from "../../context/AuthContext";
-import { formatGraphQLErrors } from "../../utils/formik/formatGraphQlErrors";
-import { servicesMenu } from "../../utils/servicesmenu/servicesMenu";
+} from '@chakra-ui/react';
+import { graphql } from 'babel-plugin-relay/macro';
+import { Field, Form, Formik } from 'formik';
+import { useState } from 'react';
+import { useMutation } from 'react-relay';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { useAuth } from '../../context/AuthContext';
+import { formatGraphQLErrors } from '../../utils/formik/formatGraphQlErrors';
+import { servicesMenu } from '../../utils/servicesmenu/servicesMenu';
 
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
+  firstName: Yup.string().required('Required'),
+  lastName: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
 });
 
 export function Register() {
@@ -42,11 +42,9 @@ export function Register() {
       mutation RegisterUserMutation($input: UserInput!) {
         userRegister(input: $input) {
           userToken
-          userEdge {
-            node {
-              firstName
-              lastName
-            }
+          user {
+            firstName
+            lastName
           }
           userErrors {
             field
@@ -76,7 +74,7 @@ export function Register() {
         }
         if (userErrors.length === 0) {
           auth.signin(userRegister);
-          navigate("/");
+          navigate('/');
         }
       },
       onError({ userRegister }) {
@@ -86,12 +84,12 @@ export function Register() {
   }
 
   return (
-    <Flex flexDir={{ base: "column" }} rowGap="16px">
+    <Flex flexDir={{ base: 'column' }} rowGap="16px">
       <Heading
         padding={{
-          base: "16px 16px 0px",
-          md: "32px 32px 0px",
-          "2xl": "56px 262px 0px",
+          base: '16px 16px 0px',
+          md: '32px 32px 0px',
+          '2xl': '56px 262px 0px',
         }}
         fontSize="18px"
         fontWeight="600"
@@ -99,16 +97,16 @@ export function Register() {
         Customer Register
       </Heading>
       <Flex
-        gap={{ base: "16px", md: "22px" }}
-        flexDirection={{ base: "column", md: "row" }}
-        justifyContent={{ lg: "center" }}
+        gap={{ base: '16px', md: '22px' }}
+        flexDirection={{ base: 'column', md: 'row' }}
+        justifyContent={{ lg: 'center' }}
       >
         <Flex
           margin="0px 16px"
           padding="20px 18px"
           bg="bgBeige"
           flexDir="column"
-          rowGap={{ base: "16px", md: "26px" }}
+          rowGap={{ base: '16px', md: '26px' }}
         >
           <Text fontSize="14px" fontWeight="600" color="text">
             Registered Customers
@@ -117,10 +115,10 @@ export function Register() {
 
           <Formik
             initialValues={{
-              firstName: "",
-              lastName: "",
-              email: "",
-              password: "",
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
             }}
             validationSchema={SignupSchema}
             onSubmit={handleSubmit}
@@ -244,11 +242,11 @@ export function Register() {
       </Flex>
       <Flex
         bg="bgBeige"
-        flexDirection={{ base: "column", md: "row" }}
+        flexDirection={{ base: 'column', md: 'row' }}
         rowGap="20px"
-        alignItems={{ base: "center", md: "baseline" }}
+        alignItems={{ base: 'center', md: 'baseline' }}
         p="26px"
-        justifyContent={{ lg: "center" }}
+        justifyContent={{ lg: 'center' }}
       >
         {servicesMenu.map((service, index) => (
           <Box rowGap="6px" textAlign="center" w="300px" key={index}>
