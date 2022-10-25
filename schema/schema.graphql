@@ -3,16 +3,16 @@ Indicates what fields are available at the top level of a query operation.
 """
 type Query {
   """Find a single user by an identifying attribute."""
-  user(
+  seller(
     """Search by primary key."""
     id: ID
 
     """Search by email address."""
     email: String
-  ): User
+  ): Seller
 
   """List multiple users."""
-  users(
+  sellers(
     """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
     name: String
 
@@ -21,23 +21,25 @@ type Query {
 
     """A cursor after which elements are returned."""
     after: String
-  ): UserConnection
+  ): SellerConnection
 }
 
 """Account of a person who utilizes this application."""
-type User {
+type Seller {
   """Unique primary key."""
   id: ID!
 
-  """User first name."""
+  """Seller first name."""
   firstName: String!
 
-  """User last name."""
+  """Seller last name."""
   lastName: String!
 
   """Unique email address."""
   email: String!
   password: String!
+  carnet: String!
+  hiredAt: Date!
 
   """When the email was verified."""
   email_verified_at: DateTime
@@ -49,18 +51,21 @@ type User {
   updated_at: DateTime!
 }
 
+"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+scalar Date
+
 """
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
 
-"""A paginated list of User edges."""
-type UserConnection {
+"""A paginated list of Seller edges."""
+type SellerConnection {
   """Pagination information about the list of edges."""
   pageInfo: PageInfo!
 
-  """A list of User edges."""
-  edges: [UserEdge!]!
+  """A list of Seller edges."""
+  edges: [SellerEdge!]!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -90,10 +95,10 @@ type PageInfo {
   lastPage: Int!
 }
 
-"""An edge that contains a node of type User and a cursor."""
-type UserEdge {
-  """The User node."""
-  node: User!
+"""An edge that contains a node of type Seller and a cursor."""
+type SellerEdge {
+  """The Seller node."""
+  node: Seller!
 
   """A unique cursor that can be used for pagination."""
   cursor: String!
@@ -102,6 +107,8 @@ type UserEdge {
 type Mutation {
   userRegister(input: UserInput!): UserRegisterPayload
   userLogin(input: UserLoginInput!): UserLoginPayload
+  sellerRegister(input: SellerInput!): SellerRegisterPayload
+  sellerLogin(input: SellerLoginInput!): SellerLoginPayload
 }
 
 input UserInput {
@@ -113,9 +120,34 @@ input UserInput {
 }
 
 type UserRegisterPayload {
-  userEdge: UserEdge
+  user: User
   userErrors: [UserError]
   userToken: String
+}
+
+"""Account of a person who utilizes this application."""
+type User {
+  """Unique primary key."""
+  id: ID!
+
+  """User first name."""
+  firstName: String!
+
+  """User last name."""
+  lastName: String!
+
+  """Unique email address."""
+  email: String!
+  password: String!
+
+  """When the email was verified."""
+  email_verified_at: DateTime
+
+  """When the account was created."""
+  created_at: DateTime!
+
+  """When the account was last updated."""
+  updated_at: DateTime!
 }
 
 """Represents an error in the input of a mutation."""
@@ -145,6 +177,33 @@ type UserLoginPayload {
   userAuth: User
   userErrors: [UserError]
   userToken: String
+}
+
+input SellerInput {
+  id: ID
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  carnet: String
+  hiredAt: Date
+}
+
+type SellerRegisterPayload {
+  seller: Seller
+  userErrors: [UserError]
+  sellerToken: String
+}
+
+input SellerLoginInput {
+  email: String!
+  password: String!
+}
+
+type SellerLoginPayload {
+  seller: Seller
+  userErrors: [UserError]
+  sellerToken: String!
 }
 
 """Directions for ordering a list of records."""

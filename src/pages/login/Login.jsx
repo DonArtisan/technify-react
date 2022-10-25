@@ -12,20 +12,20 @@ import {
   ListItem,
   UnorderedList,
   Link as LinkC,
-} from "@chakra-ui/react";
-import { graphql } from "babel-plugin-relay/macro";
-import { Field, Form, Formik } from "formik";
-import { useMutation } from "react-relay";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import * as Yup from "yup";
-import { useAuth } from "../../context/AuthContext";
-import { formatGraphQLErrors } from "../../utils/formik/formatGraphQlErrors";
-import { servicesMenu } from "../../utils/servicesmenu/servicesMenu";
+} from '@chakra-ui/react';
+import { graphql } from 'babel-plugin-relay/macro';
+import { Field, Form, Formik } from 'formik';
+import { useMutation } from 'react-relay';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { useAuth } from '../../context/AuthContext';
+import { formatGraphQLErrors } from '../../utils/formik/formatGraphQlErrors';
+import { servicesMenu } from '../../utils/servicesmenu/servicesMenu';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
 });
 export function Login() {
   let navigate = useNavigate();
@@ -65,8 +65,8 @@ export function Login() {
         }
         if (userErrors.length === 0) {
           auth.login(userLogin);
-          console.log("pasa?");
-          navigate("/");
+          console.log('pasa?');
+          navigate('/');
         }
       },
       onError({ userLogin }) {
@@ -78,9 +78,9 @@ export function Login() {
     <Flex flexDir="column" rowGap="16px">
       <Heading
         padding={{
-          base: "16px 16px 0px",
-          md: "32px 32px 0px",
-          "2xl": "56px 262px 0px",
+          base: '16px 16px 0px',
+          md: '32px 32px 0px',
+          '2xl': '56px 262px 0px',
         }}
         fontSize="18px"
         fontWeight="600"
@@ -88,16 +88,16 @@ export function Login() {
         Customer Login
       </Heading>
       <Flex
-        gap={{ base: "16px", md: "22px" }}
-        flexDirection={{ base: "column", md: "row" }}
-        justifyContent={{ lg: "center" }}
+        gap={{ base: '16px', md: '22px' }}
+        flexDirection={{ base: 'column', md: 'row' }}
+        justifyContent={{ lg: 'center' }}
       >
         <Flex
           margin="0px 16px"
           padding="20px 18px"
           bg="bgBeige"
           flexDir="column"
-          rowGap={{ base: "16px", md: "26px" }}
+          rowGap={{ base: '16px', md: '26px' }}
         >
           <Text fontSize="14px" fontWeight="600" color="text">
             Registered Customers
@@ -107,8 +107,8 @@ export function Login() {
           {/* <Form> */}
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              email: '',
+              password: '',
             }}
             validationSchema={LoginSchema}
             onSubmit={handleSubmit}
@@ -197,11 +197,11 @@ export function Login() {
       </Flex>
       <Flex
         bg="bgBeige"
-        flexDirection={{ base: "column", md: "row" }}
+        flexDirection={{ base: 'column', md: 'row' }}
         rowGap="20px"
-        alignItems={{ base: "center", md: "baseline" }}
+        alignItems={{ base: 'center', md: 'baseline' }}
         p="26px"
-        justifyContent={{ lg: "center" }}
+        justifyContent={{ lg: 'center' }}
       >
         {servicesMenu.map((service, index) => (
           <Box rowGap="6px" textAlign="center" w="300px" key={index}>
