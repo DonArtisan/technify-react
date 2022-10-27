@@ -80,6 +80,7 @@ export default function Footer() {
   ]
   return (
     <Flex
+    marginBlockStart="50px"
       height={{base: '700px', lg: '500px'}}
       direction="column"
       backgroundColor="blackAlpha.900"

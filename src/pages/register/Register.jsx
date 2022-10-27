@@ -103,6 +103,7 @@ export function Register() {
         <Flex
           margin="0px 16px"
           padding="20px 18px"
+          borderRadius="10px"
           bg="bgBeige"
           flexDir="column"
           rowGap={{base: '16px', md: '26px'}}
@@ -211,6 +212,7 @@ export function Register() {
         <Flex
           flexDirection="column"
           margin="0px 16px"
+          borderRadius="10px"
           rowGap="22px"
           padding="70px 18px 33px 18px"
           bg="bgBeige"
@@ -241,6 +243,7 @@ export function Register() {
       </Flex>
       <Flex
         bg="bgBeige"
+        borderRadius="10px"
         flexDirection={{base: 'column', md: 'row'}}
         rowGap="20px"
         alignItems={{base: 'center', md: 'baseline'}}
