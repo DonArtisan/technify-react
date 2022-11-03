@@ -33,7 +33,7 @@ export default function Home() {
           <Heading>New Products</Heading>
           <Link
             textDecor="underline"
-            color="#0156FF"
+            color="blue.900"
             fontWeight="semibold"
             marginInlineEnd="25px"
             as={ReactRouterLink}
@@ -110,7 +110,7 @@ export default function Home() {
             <Flex
               height="65px"
               width="65px"
-              bgColor="#0156FF"
+              bgColor="blue.900"
               borderRadius="50%"
               justify="center"
               align="center"
@@ -133,7 +133,7 @@ export default function Home() {
             <Flex
               height="65px"
               width="65px"
-              bgColor="#0156FF"
+              bgColor="blue.900"
               borderRadius="50%"
               justify="center"
               align="center"
@@ -157,7 +157,7 @@ export default function Home() {
             <Flex
               height="65px"
               width="65px"
-              bgColor="#0156FF"
+              bgColor="blue.900"
               borderRadius="50%"
               justify="center"
               align="center"

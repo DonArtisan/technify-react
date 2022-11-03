@@ -8,7 +8,7 @@ export default function MobileNavigation({links}) {
       <IconButton
         fontSize={{base: '20px', sm: '32px'}}
         color="#fff"
-        background="#0156FF"
+        background="blue.900"
         icon={<GiHamburgerMenu />}
       />
     </Flex>
