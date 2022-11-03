@@ -19,16 +19,8 @@ export default function Navigation({links}) {
           </Link>
         )
       })}
-      <Button
-        paddingX={{md: '20px', lg: '10px', xl: '26px'}}
-        color="#0156FF"
-        variant="outline"
-        borderRadius="50px"
-        borderColor="#0156FF"
-        as={ReactRouterLink}
-        to="/"
-      >
-        <Text>Deals</Text>
+      <Button variant="outline" as={ReactRouterLink} to="/">
+        deals
       </Button>
     </Box>
   )
