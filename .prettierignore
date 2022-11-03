@@ -1,0 +1,7 @@
+.cache
+package.json
+package-lock.json
+public
+data
+__generated__
+src/generated

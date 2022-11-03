@@ -93,6 +93,7 @@ export function Login() {
         justifyContent={{ lg: 'center' }}
       >
         <Flex
+          borderRadius="10px"
           margin="0px 16px"
           padding="20px 18px"
           bg="bgBeige"
@@ -169,6 +170,7 @@ export function Login() {
           rowGap="22px"
           padding="70px 18px 33px 18px"
           bg="bgBeige"
+          borderRadius="10px"
         >
           <Text fontSize="14px" fontWeight="600" color="text">
             New Customer?
@@ -197,6 +199,7 @@ export function Login() {
       </Flex>
       <Flex
         bg="bgBeige"
+        borderRadius="10px"
         flexDirection={{ base: 'column', md: 'row' }}
         rowGap="20px"
         alignItems={{ base: 'center', md: 'baseline' }}
