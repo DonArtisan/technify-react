@@ -1,12 +1,19 @@
-import {Link} from '@chakra-ui/react'
-import {Show} from '@chakra-ui/react'
-import {AccordionItem} from '@chakra-ui/react'
-import {AccordionIcon} from '@chakra-ui/react'
-import {AccordionPanel} from '@chakra-ui/react'
-import {AccordionButton} from '@chakra-ui/react'
-import {Accordion} from '@chakra-ui/react'
-import {Divider} from '@chakra-ui/react'
-import {Box, Button, Flex, Heading, Input, Text} from '@chakra-ui/react'
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Input,
+  Link,
+  Show,
+  Text,
+} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
 
 export default function Footer() {
@@ -80,7 +87,7 @@ export default function Footer() {
   ]
   return (
     <Flex
-    marginBlockStart="50px"
+      marginBlockStart="50px"
       height={{base: '700px', lg: '500px'}}
       direction="column"
       backgroundColor="blackAlpha.900"
@@ -109,7 +116,7 @@ export default function Footer() {
             placeholder="Your Email"
           />
           <Button
-            backgroundColor="#0156FF"
+            backgroundColor="blue.900"
             borderRadius="full"
             height="50px"
             width={{md: '130px', lg: '150px'}}
