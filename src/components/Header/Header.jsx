@@ -78,7 +78,7 @@ export default function Header() {
         paddingY={{base: 2, lg: 4}}
         justify={{base: 'space-between', lg: 'space-around'}}
         align="center"
-        backgroundColor={{base: '#0156FF', lg: '#fff'}}
+        backgroundColor={{base: 'blue.900', lg: '#fff'}}
       >
         <Hide below="lg">
           <Navigation links={LINKS} />

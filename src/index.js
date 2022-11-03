@@ -1,5 +1,4 @@
 import {ChakraProvider} from '@chakra-ui/react'
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {RelayEnvironmentProvider} from 'react-relay'
 import {BrowserRouter} from 'react-router-dom'
@@ -8,12 +7,13 @@ import {AuthProvider} from './context/AuthContext'
 import './index.css'
 import RelayEnvironment from './RelayEnvironment.js'
 import reportWebVitals from './reportWebVitals'
-import {theme} from '../src/utils/chakratheme'
+import theme from './theme'
 import SiteLayout from './components/Layout/SiteLayout'
+import {StrictMode} from 'react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <RelayEnvironmentProvider environment={RelayEnvironment}>
         <ChakraProvider theme={theme}>
@@ -25,7 +25,7 @@ root.render(
         </ChakraProvider>
       </RelayEnvironmentProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function
