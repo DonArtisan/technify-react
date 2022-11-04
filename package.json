@@ -58,5 +58,8 @@
     "babel-plugin-relay": "^14.1.0",
     "eslint-plugin-relay": "^1.8.3",
     "relay-compiler": "^14.1.0"
+  },
+  "volta": {
+    "node": "16.18.0"
   }
 }
