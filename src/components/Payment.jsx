@@ -29,16 +29,30 @@ export default function Payment() {
       <Heading as="h2" fontSize="24px">
         Resumen
       </Heading>
-      <Text as="h4" fontSize="18px">
-        Envío e impuesto estimado
+      <Text
+        as="h4"
+        fontSize="18px"
+        maxWidth="360px"
+        noOfLines={2}
+        height="fit-content"
+        overflow="hidden"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque,
+        aspernatur corrupti debitis corporis sed dolores? Quasi porro
+        necessitatibus vel, architecto nihil dolorem, mollitia eius ipsa
+        laboriosam deleniti natus ratione velit!
       </Text>
-      {data.map((element) => (
-        <Flex justifyContent="space-between" textTransform="capitalize">
+      {data.map((element, key) => (
+        <Flex
+          justifyContent="space-between"
+          textTransform="capitalize"
+          key={key}
+        >
           <Text fontWeight="bold">{element.tab}</Text>
           <Text>${element.value}</Text>
         </Flex>
       ))}
-      <Button alig width="full" backgroundColor="blue.900">
+      <Button width="full" backgroundColor="blue.900">
         Proceder a pagar
       </Button>
     </Stack>
