@@ -1,7 +1,13 @@
-"""
-Indicates what fields are available at the top level of a query operation.
-"""
 type Query {
+  """Find a single user by an identifying attribute."""
+  user(
+    """Search by primary key."""
+    id: ID
+
+    """Search by email address."""
+    email: String
+  ): User
+
   """Find a single user by an identifying attribute."""
   seller(
     """Search by primary key."""
@@ -10,6 +16,21 @@ type Query {
     """Search by email address."""
     email: String
   ): Seller
+
+  """List multiple users."""
+  users(
+    """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
+    name: String
+
+    """Filters users by query in name"""
+    query: String
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): UserConnection
 
   """List multiple users."""
   sellers(
@@ -23,6 +44,37 @@ type Query {
     after: String
   ): SellerConnection
 }
+
+"""Account of a person who utilizes this application."""
+type User {
+  """Unique primary key."""
+  id: ID!
+
+  """User first name."""
+  firstName: String!
+
+  """User last name."""
+  lastName: String!
+
+  """Unique email address."""
+  email: String!
+  isBlocked: Boolean
+  password: String!
+
+  """When the email was verified."""
+  email_verified_at: DateTime
+
+  """When the account was created."""
+  created_at: DateTime!
+
+  """When the account was last updated."""
+  updated_at: DateTime!
+}
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
 
 """Account of a person who utilizes this application."""
 type Seller {
@@ -54,18 +106,13 @@ type Seller {
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
 scalar Date
 
-"""
-A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
-"""
-scalar DateTime
-
-"""A paginated list of Seller edges."""
-type SellerConnection {
+"""A paginated list of User edges."""
+type UserConnection {
   """Pagination information about the list of edges."""
   pageInfo: PageInfo!
 
-  """A list of Seller edges."""
-  edges: [SellerEdge!]!
+  """A list of User edges."""
+  edges: [UserEdge!]!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -95,6 +142,24 @@ type PageInfo {
   lastPage: Int!
 }
 
+"""An edge that contains a node of type User and a cursor."""
+type UserEdge {
+  """The User node."""
+  node: User!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
+"""A paginated list of Seller edges."""
+type SellerConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of Seller edges."""
+  edges: [SellerEdge!]!
+}
+
 """An edge that contains a node of type Seller and a cursor."""
 type SellerEdge {
   """The Seller node."""
@@ -107,14 +172,17 @@ type SellerEdge {
 type Mutation {
   userRegister(input: UserInput!): UserRegisterPayload
   userLogin(input: UserLoginInput!): UserLoginPayload
-  sellerRegister(input: SellerInput!): SellerRegisterPayload
+  userUpdate(input: UserInput!): UserUpdatePayload
+  sellerCreate(input: SellerInput!): SellerCreatePayload
   sellerLogin(input: SellerLoginInput!): SellerLoginPayload
+  sellerUpdate(input: SellerInput): SellerUpdatePayload
 }
 
 input UserInput {
   id: ID
   firstName: String
   lastName: String
+  isBlocked: Boolean
   email: String
   password: String
 }
@@ -123,31 +191,6 @@ type UserRegisterPayload {
   user: User
   userErrors: [UserError]
   userToken: String
-}
-
-"""Account of a person who utilizes this application."""
-type User {
-  """Unique primary key."""
-  id: ID!
-
-  """User first name."""
-  firstName: String!
-
-  """User last name."""
-  lastName: String!
-
-  """Unique email address."""
-  email: String!
-  password: String!
-
-  """When the email was verified."""
-  email_verified_at: DateTime
-
-  """When the account was created."""
-  created_at: DateTime!
-
-  """When the account was last updated."""
-  updated_at: DateTime!
 }
 
 """Represents an error in the input of a mutation."""
@@ -179,17 +222,23 @@ type UserLoginPayload {
   userToken: String
 }
 
-input SellerInput {
-  id: ID
-  firstName: String
-  lastName: String
-  email: String
-  password: String
-  carnet: String
-  hiredAt: Date
+type UserUpdatePayload {
+  user: User
+  userErrors: [UserError]
 }
 
-type SellerRegisterPayload {
+input SellerInput {
+  carnet: String!
+  email: String!
+  firstName: String!
+  hiredAt: Date!
+  id: ID
+  lastName: String!
+  password: String!
+  passwordConfirmed: String!
+}
+
+type SellerCreatePayload {
   seller: Seller
   userErrors: [UserError]
   sellerToken: String
@@ -204,6 +253,20 @@ type SellerLoginPayload {
   seller: Seller
   userErrors: [UserError]
   sellerToken: String!
+}
+
+type SellerUpdatePayload {
+  seller: Seller
+  userErrors: [UserError]
+}
+
+"""Product status"""
+enum ProductStatus {
+  """Active"""
+  ACTIVE
+
+  """Inactive"""
+  INACTIVE
 }
 
 """Directions for ordering a list of records."""
