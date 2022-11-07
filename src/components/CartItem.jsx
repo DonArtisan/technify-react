@@ -1,3 +1,4 @@
+import { CloseIcon } from '@chakra-ui/icons'
 import {
   Flex,
   Image,
@@ -8,9 +9,9 @@ import {
   NumberInputStepper,
   Td,
   Text,
-  Tr,
+  Tr
 } from '@chakra-ui/react'
-import {useState} from 'react'
+import { useState } from 'react'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.price)
@@ -41,6 +42,7 @@ export default function CartItem({data}) {
       <Td>
         <NumberInput
           size="md"
+          maxWidth={20}
           max={10}
           min={1}
           defaultValue={1}
@@ -55,6 +57,19 @@ export default function CartItem({data}) {
       </Td>
       <Td fontWeight="bold" fontSize="22px" maxWidth="145px" flexWrap="wrap">
         ${subTotal}
+      </Td>
+      <Td>
+        <Flex
+          color="gray.400"
+          border="1px solid"
+          borderColor="gray.400"
+          padding="8px"
+          cursor="pointer"
+          onClick={() => console.log(data)}
+          borderRadius="full"
+        >
+          <CloseIcon width="12px" height="12px" />
+        </Flex>
       </Td>
     </Tr>
   )
