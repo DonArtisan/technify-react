@@ -1,8 +1,8 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import Home from './pages/home/Home';
-import { Login } from './pages/login';
-import { Register } from './pages/register';
+import {Route, Routes} from 'react-router-dom'
+import './App.css'
+import Home from './pages/home'
+import {Login} from './pages/login'
+import {Register} from './pages/register'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       {/* <Route path="expenses" element={<Expenses />} /> */}
       {/* <Route path="invoices" element={<Invoices />} /> */}
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App
