@@ -14,8 +14,8 @@ import {
 import {BsPersonCircle} from 'react-icons/bs'
 import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import MobileNavigation from './MobileNavigation/MobileNavigation'
-import Navigation from './Navigation/Navigation'
+import MobileNavigation from './MobileNavigation'
+import Navigation from './DesktopNavigation'
 
 export default function Header() {
   const LINKS = [

@@ -1,7 +1,7 @@
 import {Flex} from '@chakra-ui/react'
-import Footer from '../Footer/Footer'
-import Header from '../Header/Header'
-export default function SiteLayout({children}) {
+import Footer from './Footer'
+import Header from './Header'
+export default function Layout({children}) {
   return (
     <>
       <Header />

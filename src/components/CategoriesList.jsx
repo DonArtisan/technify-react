@@ -1,6 +1,6 @@
 import {Flex, Heading, Link} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import ProductCard from '../../../../components/ProductCard/ProductCard'
+import ProductCard from './ProductCard'
 
 export default function CategoriesList({title}) {
   return (

@@ -16,8 +16,8 @@ import {
 import {FiHeadphones} from 'react-icons/fi'
 import {IoIosPricetag, IoMdContact} from 'react-icons/io'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import ProductCard from '../../components/ProductCard/ProductCard'
-import CategoriesList from './components/CategoriesList/CategoriesList'
+import ProductCard from '../../components/ProductCard'
+import CategoriesList from '../../components/CategoriesList'
 
 export default function Home() {
   return (

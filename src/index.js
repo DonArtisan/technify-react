@@ -8,7 +8,7 @@ import './index.css'
 import RelayEnvironment from './RelayEnvironment.js'
 import reportWebVitals from './reportWebVitals'
 import theme from './theme'
-import SiteLayout from './components/Layout/SiteLayout'
+import Layout from './components/Layout'
 import {StrictMode} from 'react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -18,9 +18,9 @@ root.render(
       <RelayEnvironmentProvider environment={RelayEnvironment}>
         <ChakraProvider theme={theme}>
           <AuthProvider>
-            <SiteLayout>
+            <Layout>
               <App />
-            </SiteLayout>
+            </Layout>
           </AuthProvider>
         </ChakraProvider>
       </RelayEnvironmentProvider>

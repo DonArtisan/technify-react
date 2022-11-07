@@ -16,75 +16,76 @@ import {
 } from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
 
+const links = [
+  {
+    title: 'Information',
+    links: [
+      {
+        text: 'About Us',
+        href: '/',
+      },
+      {
+        text: 'About Zip',
+        href: '/',
+      },
+      {
+        text: 'Privacy Policy',
+        href: '/',
+      },
+      {
+        text: 'Search',
+        href: '/',
+      },
+      {
+        text: 'Terms',
+        href: '/',
+      },
+      {
+        text: 'Order and Returns',
+        href: '/',
+      },
+      {
+        text: 'Contact Us',
+        href: '/',
+      },
+    ],
+  },
+  {
+    title: 'PC Parts',
+    links: [
+      {
+        text: 'CPUs',
+        href: '/',
+      },
+      {
+        text: 'Add On Cards',
+        href: '/',
+      },
+      {
+        text: 'Hard Drives (Internal)',
+        href: '/',
+      },
+      {
+        text: 'Graphic Cards',
+        href: '/',
+      },
+      {
+        text: 'Keyboard /  Mice',
+        href: '/',
+      },
+      {
+        text: 'Order and Returns',
+        href: '/',
+      },
+      {
+        text: 'Contact Us',
+        href: '/',
+      },
+    ],
+  },
+]
+
 export default function Footer() {
-  const LINKS = [
-    {
-      title: 'Information',
-      links: [
-        {
-          text: 'About Us',
-          href: '/',
-        },
-        {
-          text: 'About Zip',
-          href: '/',
-        },
-        {
-          text: 'Privacy Policy',
-          href: '/',
-        },
-        {
-          text: 'Search',
-          href: '/',
-        },
-        {
-          text: 'Terms',
-          href: '/',
-        },
-        {
-          text: 'Order and Returns',
-          href: '/',
-        },
-        {
-          text: 'Contact Us',
-          href: '/',
-        },
-      ],
-    },
-    {
-      title: 'PC Parts',
-      links: [
-        {
-          text: 'CPUs',
-          href: '/',
-        },
-        {
-          text: 'Add On Cards',
-          href: '/',
-        },
-        {
-          text: 'Hard Drives (Internal)',
-          href: '/',
-        },
-        {
-          text: 'Graphic Cards',
-          href: '/',
-        },
-        {
-          text: 'Keyboard /  Mice',
-          href: '/',
-        },
-        {
-          text: 'Order and Returns',
-          href: '/',
-        },
-        {
-          text: 'Contact Us',
-          href: '/',
-        },
-      ],
-    },
-  ]
   return (
     <Flex
       marginBlockStart="50px"
@@ -127,7 +128,7 @@ export default function Footer() {
       </Flex>
       <Show above="lg">
         <Flex marginBlockEnd="45px" width="full">
-          {LINKS.map((list, index) => {
+          {links.map((list, index) => {
             return (
               <Flex direction="column" marginInlineEnd="60px" key={index}>
                 <Heading as="h4" fontSize="18px" marginBlockEnd="14px">
@@ -151,7 +152,7 @@ export default function Footer() {
       <Show below="md">
         <Flex marginBlockStart="20px" width="full">
           <Accordion width="full">
-            {LINKS.map((list, index) => {
+            {links.map((list, index) => {
               return (
                 <AccordionItem key={index}>
                   <AccordionButton>
@@ -161,7 +162,7 @@ export default function Footer() {
                     <AccordionIcon />
                   </AccordionButton>
                   {list.links.map((link, i) => (
-                    <AccordionPanel paddingBlockEnd={1}>
+                    <AccordionPanel paddingBlockEnd={1} key={i}>
                       <Link as={ReactRouterLink} to={link.href} key={i}>
                         {link.text}
                       </Link>

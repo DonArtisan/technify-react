@@ -1,8 +1,7 @@
-import {Text} from '@chakra-ui/react'
 import {Box, Button, Link} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
 
-export default function Navigation({links}) {
+export default function DesktopNavigation({links}) {
   return (
     <Box justifyContent={{lg: 'space-around'}}>
       {links.map((link, index) => {
