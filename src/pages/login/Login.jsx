@@ -1,3 +1,6 @@
+import {UnorderedList} from '@chakra-ui/react'
+import {Text} from '@chakra-ui/react'
+import {ListItem} from '@chakra-ui/react'
 import {
   Box,
   Button,
@@ -9,14 +12,12 @@ import {
   Icon,
   Input,
   Link as LinkC,
-  ListItem,
-  Text,
-  UnorderedList,
 } from '@chakra-ui/react'
 import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
 import {useMutation} from 'react-relay'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import {useAuth} from '../../context/AuthContext'
 import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
