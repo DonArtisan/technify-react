@@ -1,6 +1,6 @@
 import {Stack, Flex, Image, Text, Button} from '@chakra-ui/react'
 
-export default function ProductCard() {
+export default function ProductCard(product) {
   return (
     <Stack width="234px" alignItems="center" padding="24px" gap="4px">
       <Image height="140px" width="140px" />

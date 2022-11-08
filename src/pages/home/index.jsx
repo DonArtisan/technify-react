@@ -18,8 +18,25 @@ import {IoIosPricetag, IoMdContact} from 'react-icons/io'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import ProductCard from '../../components/ProductCard'
 import CategoriesList from '../../components/CategoriesList'
+import {useLazyLoadQuery} from 'react-relay'
+import {graphql} from 'babel-plugin-relay/macro'
 
 export default function Home() {
+  const {products} = useLazyLoadQuery(
+    graphql`
+      query homeProductsQuery {
+        products(first: 5) {
+          edges {
+            node {
+              name
+              description
+            }
+          }
+        }
+      }
+    `
+  )
+
   return (
     <>
       <Box
@@ -43,62 +60,12 @@ export default function Home() {
           </Link>
         </Flex>
         <Flex width="100%" maxWidth="full" overflowX="scroll">
-          {[...new Array(6)].map((product, index) => (
-            <ProductCard key={index} />
+          {products?.edges.map((node, index) => (
+            <ProductCard key={index} product={node} />
           ))}
         </Flex>
         <Divider marginBlock="20px" />
-        <Flex
-          marginBlockEnd="38px"
-          width="100%"
-          maxWidth="full"
-          overflowX="scroll"
-        >
-          <CategoriesList title="Custom Builds" />
-        </Flex>
-        <Box>
-          <Tabs>
-            <TabList>
-              <Tab>MSI GS Series</Tab>
-              <Tab>MSI GT Series</Tab>
-              <Tab>MSI GL Series</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
-                <CategoriesList title="MSI Laptops" />
-              </TabPanel>
-              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
-                <CategoriesList title="MSI Laptops" />
-              </TabPanel>
-              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
-                <CategoriesList title="MSI Laptops" />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Box>
-        <Box marginBlockEnd="30px">
-          <Tabs>
-            <TabList>
-              <Tab>MSI Infinute Series</Tab>
-              <Tab>MSI Triden</Tab>
-              <Tab>MSI GL Series</Tab>
-            </TabList>
-            <TabPanels width="100%" maxWidth="full" overflowX="scroll">
-              <TabPanel paddingBlock="20px 0" paddingX="0">
-                <CategoriesList title="Desktops" />
-              </TabPanel>
-              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
-                <CategoriesList title="Desktops" />
-              </TabPanel>
-              <TabPanel width="100%" maxWidth="full" overflowX="scroll">
-                <CategoriesList title="Desktops" />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Box>
-        <Flex width="100%" maxWidth="full" overflowX="scroll">
-          <CategoriesList title="Gaming Monitors" />
-        </Flex>
+        <CategoriesList title="Custom Builds" />
         <Divider marginBlockStart="30px" />
         <HStack spacing="100px" justify="center" marginBlock="40px">
           <Flex
