@@ -4,6 +4,7 @@ import {RelayEnvironmentProvider} from 'react-relay'
 import {BrowserRouter} from 'react-router-dom'
 import App from './App'
 import {AuthProvider} from './context/AuthContext'
+import {ShoppingCartProvider} from './context/ShoppingCartContext'
 import './index.css'
 import RelayEnvironment from './RelayEnvironment.js'
 import reportWebVitals from './reportWebVitals'
@@ -18,9 +19,11 @@ root.render(
       <RelayEnvironmentProvider environment={RelayEnvironment}>
         <ChakraProvider theme={theme}>
           <AuthProvider>
-            <Layout>
-              <App />
-            </Layout>
+            <ShoppingCartProvider>
+              <Layout>
+                <App />
+              </Layout>
+            </ShoppingCartProvider>
           </AuthProvider>
         </ChakraProvider>
       </RelayEnvironmentProvider>
