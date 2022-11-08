@@ -206,18 +206,24 @@ type Color {
 type Category {
   id: ID!
   name: String!
-  products: Product
   created_at: DateTime!
   updated_at: DateTime!
+  products(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): ProductConnection
 }
 
-"""A paginated list of User edges."""
-type UserConnection {
+"""A paginated list of Product edges."""
+type ProductConnection {
   """Pagination information about the list of edges."""
   pageInfo: PageInfo!
 
-  """A list of User edges."""
-  edges: [UserEdge!]!
+  """A list of Product edges."""
+  edges: [ProductEdge!]!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -247,6 +253,24 @@ type PageInfo {
   lastPage: Int!
 }
 
+"""An edge that contains a node of type Product and a cursor."""
+type ProductEdge {
+  """The Product node."""
+  node: Product!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
+"""A paginated list of User edges."""
+type UserConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of User edges."""
+  edges: [UserEdge!]!
+}
+
 """An edge that contains a node of type User and a cursor."""
 type UserEdge {
   """The User node."""
@@ -269,24 +293,6 @@ type SellerConnection {
 type SellerEdge {
   """The Seller node."""
   node: Seller!
-
-  """A unique cursor that can be used for pagination."""
-  cursor: String!
-}
-
-"""A paginated list of Product edges."""
-type ProductConnection {
-  """Pagination information about the list of edges."""
-  pageInfo: PageInfo!
-
-  """A list of Product edges."""
-  edges: [ProductEdge!]!
-}
-
-"""An edge that contains a node of type Product and a cursor."""
-type ProductEdge {
-  """The Product node."""
-  node: Product!
 
   """A unique cursor that can be used for pagination."""
   cursor: String!
