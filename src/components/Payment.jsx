@@ -52,7 +52,13 @@ export default function Payment() {
           <Text>${element.value}</Text>
         </Flex>
       ))}
-      <Button width="full" backgroundColor="blue.900">
+      <Button
+        width="full"
+        backgroundColor="blue.900"
+        _hover={{backgroundColor: 'blue.600'}}
+        _active={{backgroundColor: 'blue.600'}}
+        _focus={{backgroundColor: 'blue.600'}}
+      >
         Proceder a pagar
       </Button>
     </Stack>
