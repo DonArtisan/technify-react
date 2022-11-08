@@ -1,4 +1,4 @@
-import { CloseIcon } from '@chakra-ui/icons'
+import {CloseIcon} from '@chakra-ui/icons'
 import {
   Flex,
   Image,
@@ -9,12 +9,25 @@ import {
   NumberInputStepper,
   Td,
   Text,
-  Tr
+  Tr,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import {useState} from 'react'
+import {useContext} from 'react'
+import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.price)
+  const shopingCartCtx = useContext(ShoppingCartContext)
+  const {items, add} = shopingCartCtx
+
+  function onChange(amout) {
+    setSubTotal((amout * 100).toFixed(2))
+
+    /**
+     * pending to fix
+     * update quantity from number input
+     */
+  }
 
   return (
     <Tr paddingBlock="20px">
@@ -45,8 +58,8 @@ export default function CartItem({data}) {
           maxWidth={20}
           max={10}
           min={1}
-          defaultValue={1}
-          onChange={(amout) => setSubTotal((amout * data.price).toFixed(2))}
+          defaultValue={data.qty}
+          onChange={onChange}
         >
           <NumberInputField />
           <NumberInputStepper>
@@ -65,7 +78,7 @@ export default function CartItem({data}) {
           borderColor="gray.400"
           padding="8px"
           cursor="pointer"
-          onClick={() => console.log(data)}
+          onClick={() => add([...items.filter((item) => item.id !== data.id)])}
           borderRadius="full"
         >
           <CloseIcon width="12px" height="12px" />

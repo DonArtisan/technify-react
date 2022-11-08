@@ -10,14 +10,25 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import CartItem from './CartItem'
+import {Link} from 'react-router-dom'
+import {useContext} from 'react'
+import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 const tabs = ['producto', 'precio', 'cantidad', 'subtotal', '']
 
-export default function CartItemList({items = []}) {
+export default function CartItemList() {
+  const shopingCartCtx = useContext(ShoppingCartContext)
+  const {items, add} = shopingCartCtx
+  let hash = {}
+
+  const data = items
+    .sort((a, b) => (a.id === b.id ? b.qty - a.qty : a - b))
+    .filter((item) => (hash[item.id] ? false : (hash[item.id] = true)))
+
   return (
     <Stack width="full" gap="30px">
-      {items.length > 0 ? (
-        <Table height="530px" display="block" overflowY="scroll">
+      {data.length > 0 ? (
+        <Table height="406px" display="block" overflowY="scroll">
           <Thead position="sticky" top={0} backgroundColor="white" zIndex="4">
             <Tr>
               {tabs.map((tab, key) => (
@@ -40,7 +51,7 @@ export default function CartItemList({items = []}) {
             borderBlock="1px solid"
             borderColor="gray.400"
           >
-            {items.map((item, key) => (
+            {data.map((item, key) => (
               <CartItem key={key} data={item} />
             ))}
           </Tbody>
@@ -52,10 +63,14 @@ export default function CartItemList({items = []}) {
       )}
       <ButtonGroup
         variant="outline"
-        paddingInlineStart={items.length === 0 && 6}
+        paddingInlineStart={data.length === 0 && 6}
       >
-        <Button width="auto">continuar comprando</Button>
-        <Button width="auto">limpiar</Button>
+        <Link to="/products">
+          <Button width="auto">continuar comprando</Button>
+        </Link>
+        <Button width="auto" onClick={() => add([])}>
+          limpiar
+        </Button>
       </ButtonGroup>
     </Stack>
   )

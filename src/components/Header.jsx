@@ -16,38 +16,43 @@ import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import MobileNavigation from './MobileNavigation'
 import Navigation from './DesktopNavigation'
+import {useContext} from 'react'
+import {ShoppingCartContext} from '../context/ShoppingCartContext'
+
+const links = [
+  {
+    text: 'Laptops',
+    href: '/',
+  },
+  {
+    text: 'Desktop PCs',
+    href: '/',
+  },
+  {
+    text: 'Networking Devices',
+    href: '/',
+  },
+  {
+    text: 'Printers & Scanners',
+    href: '/',
+  },
+  {
+    text: 'PC Parts',
+    href: '/',
+  },
+  {
+    text: 'All Other Products',
+    href: '/',
+  },
+  {
+    text: 'Repairs',
+    href: '/',
+  },
+]
 
 export default function Header() {
-  const LINKS = [
-    {
-      text: 'Laptops',
-      href: '/',
-    },
-    {
-      text: 'Desktop PCs',
-      href: '/',
-    },
-    {
-      text: 'Networking Devices',
-      href: '/',
-    },
-    {
-      text: 'Printers & Scanners',
-      href: '/',
-    },
-    {
-      text: 'PC Parts',
-      href: '/',
-    },
-    {
-      text: 'All Other Products',
-      href: '/',
-    },
-    {
-      text: 'Repairs',
-      href: '/',
-    },
-  ]
+  const shopingCartCtx = useContext(ShoppingCartContext)
+  const {items} = shopingCartCtx
 
   return (
     <Flex direction="column" borderBlockEnd="1px" borderColor="gray.400">
@@ -81,10 +86,10 @@ export default function Header() {
         backgroundColor={{base: 'blue.900', lg: '#fff'}}
       >
         <Hide below="lg">
-          <Navigation links={LINKS} />
+          <Navigation links={links} />
         </Hide>
         <Show below="lg">
-          <MobileNavigation links={LINKS} />
+          <MobileNavigation links={links} />
           <InputGroup flexGrow={1} marginInlineStart={{base: 0, sm: 0, md: 10}}>
             <InputLeftElement
               paddingInlineStart="2"
@@ -121,23 +126,35 @@ export default function Header() {
             spacing={{base: 0, sm: 4, md: 4}}
             marginInlineEnd={{base: 2, sm: 2, md: 0}}
           >
-            <IconButton
-              fontSize={{base: '20px', sm: '22px'}}
-              // marginInlineStart={{base: 10, md: 0, xl: 2}}
-              color={{base: '#fff', lg: 'black'}}
-              marginInlineEnd={{sm: 2, md: 0, xl: 2}}
-              borderRadius="full"
-              variant="ghost"
-              colorScheme="blue"
-              aria-label="why margin"
-              icon={
-                <FiShoppingCart
-                //   style={{
-                //     lg: {height: '32px', width: '32px'},
-                //   }}
-                />
-              }
-            />
+            <Link as={ReactRouterLink} to="/shopping-cart" position="relative">
+              <Flex
+                backgroundColor="blue.900"
+                width="20px"
+                height="20px"
+                fontSize="14px"
+                fontWeight="bold"
+                alignItems="center"
+                justifyContent="center"
+                left="30px"
+                position="absolute"
+                color="white"
+                borderRadius="full"
+                zIndex="2"
+              >
+                {items.length}
+              </Flex>
+              <IconButton
+                fontSize={{base: '20px', sm: '22px'}}
+                // marginInlineStart={{base: 10, md: 0, xl: 2}}
+                color={{base: '#fff', lg: 'black'}}
+                marginInlineEnd={{sm: 2, md: 0, xl: 2}}
+                borderRadius="full"
+                variant="ghost"
+                colorScheme="blue"
+                aria-label="why margin"
+                icon={<FiShoppingCart />}
+              />
+            </Link>
             <Icon
               marginInlineEnd={{base: 1, md: 0}}
               color={{base: '#fff', lg: 'black'}}
