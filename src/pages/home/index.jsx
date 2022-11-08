@@ -20,7 +20,7 @@ export default function Home() {
   const {products} = useLazyLoadQuery(
     graphql`
       query homeProductsQuery {
-        products(first: 5) {
+        products(first: 10) {
           edges {
             node {
               name

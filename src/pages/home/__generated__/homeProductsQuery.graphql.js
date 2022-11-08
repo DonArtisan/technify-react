@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2c50fb950352ad4ab9331fa8280317b>>
+ * @generated SignedSource<<6b7033e41e1cc2a455300096010b87c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 5
+    "value": 10
   }
 ],
 v1 = {
@@ -70,7 +70,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "products(first:5)"
+        "storageKey": "products(first:10)"
       }
     ],
     "type": "Query",
@@ -122,21 +122,21 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "products(first:5)"
+        "storageKey": "products(first:10)"
       }
     ]
   },
   "params": {
-    "cacheID": "00ebef940d5da6b9219099eb428e155d",
+    "cacheID": "7976340dc0341a6dc89d5870c2cd49b1",
     "id": null,
     "metadata": {},
     "name": "homeProductsQuery",
     "operationKind": "query",
-    "text": "query homeProductsQuery {\n  products(first: 5) {\n    edges {\n      node {\n        name\n        description\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query homeProductsQuery {\n  products(first: 10) {\n    edges {\n      node {\n        name\n        description\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "4b15f52e32c69a730e3c7a17ed84a396";
+node.hash = "5950a91ae1dc4d4d234f979d8fdbe1c4";
 
 module.exports = node;
