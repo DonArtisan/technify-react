@@ -1,74 +1,41 @@
-// export default function AuthContext() {
-
-import {createContext, useContext, useReducer} from 'react'
+import {createContext, useContext, useState} from 'react'
 import {AUTH_TOKEN} from '../constants'
 
-const InitialState = {
-  user: null,
-}
+const AuthContext = createContext()
 
-const AuthContext = createContext({
-  user: null,
-  login: (userData) => {},
-  logout: () => {},
-})
-
-function authReducer(state, action) {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.payload,
-      }
-    case 'LOGOUT':
-      return {
-        ...state,
-        user: null,
-      }
-    case 'SIGNIN':
-      return {
-        ...state,
-        user: null,
-      }
-    default:
-      return state
-  }
-}
-
-function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, InitialState)
-
-  const login = (userData) => {
-    localStorage.setItem(AUTH_TOKEN, userData.userToken)
-    dispatch({
-      type: 'LOGIN',
-      payload: userData,
-    })
-  }
-
-  const signin = (userData) => {
-    localStorage.setItem(AUTH_TOKEN, userData.userToken)
-    dispatch({
-      type: 'SIGNIN',
-      payload: userData,
-    })
-  }
-
-  function logout() {
-    localStorage.removeItem(AUTH_TOKEN)
-    dispatch({type: 'LOGOUT'})
-  }
-
-  return (
-    <AuthContext.Provider
-      value={{user: state.user, login, logout, signin}}
-      {...props}
-    />
-  )
+function AuthProvider({children}) {
+  const auth = useProvideAuth()
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
 }
 
 function useAuth() {
   return useContext(AuthContext)
+}
+
+function useProvideAuth() {
+  const [user, setUser] = useState(null)
+
+  function login(userData) {
+    localStorage.setItem(AUTH_TOKEN, userData.userToken)
+    setUser(userData.user)
+  }
+
+  function signin(userData) {
+    localStorage.setItem(AUTH_TOKEN, userData.userToken)
+    setUser(userData.user)
+  }
+
+  function logout() {
+    localStorage.removeItem(AUTH_TOKEN)
+    setUser(null)
+  }
+
+  return {
+    user,
+    signin,
+    logout,
+    login,
+  }
 }
 
 export {useAuth, AuthProvider}
