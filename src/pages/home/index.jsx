@@ -6,20 +6,15 @@ import {
   HStack,
   Icon,
   Link,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Text,
 } from '@chakra-ui/react'
+import {graphql} from 'babel-plugin-relay/macro'
 import {FiHeadphones} from 'react-icons/fi'
 import {IoIosPricetag, IoMdContact} from 'react-icons/io'
-import {Link as ReactRouterLink} from 'react-router-dom'
-import ProductCard from '../../components/ProductCard'
-import CategoriesList from '../../components/CategoriesList'
 import {useLazyLoadQuery} from 'react-relay'
-import {graphql} from 'babel-plugin-relay/macro'
+import {Link as ReactRouterLink} from 'react-router-dom'
+import CategoriesList from '../../components/CategoriesList'
+import ProductCard from '../../components/ProductCard'
 
 export default function Home() {
   const {products} = useLazyLoadQuery(
@@ -60,8 +55,8 @@ export default function Home() {
           </Link>
         </Flex>
         <Flex width="100%" maxWidth="full" overflowX="scroll">
-          {products?.edges.map((node, index) => (
-            <ProductCard key={index} product={node} />
+          {products?.edges.map(({node: product}, index) => (
+            <ProductCard key={index} product={product} />
           ))}
         </Flex>
         <Divider marginBlock="20px" />
