@@ -1,50 +1,67 @@
 type Query {
-  """Find a single user by an identifying attribute."""
+  """
+  Find a single user by an identifying attribute.
+  """
   user(
-    """Search by primary key."""
+    """
+    Search by primary key.
+    """
     id: ID
 
-    """Search by email address."""
+    """
+    Search by email address.
+    """
+    email: String
+  ): User
+
+  """
+  Find a single user by an identifying attribute.
+  """
+  user(
+    """
+    Search by primary key.
+    """
+    id: ID
+
+    """
+    Search by email address.
+    """
     email: String
   ): User
   viewer: User!
 
-  """Find a single user by an identifying attribute."""
+  """
+  Find a single user by an identifying attribute.
+  """
   seller(
-    """Search by primary key."""
+    """
+    Search by primary key.
+    """
     id: ID
 
-    """Search by email address."""
+    """
+    Search by email address.
+    """
     email: String
   ): Seller
-  product(id: ID!): Product
-  category(id: ID!): Category
-  brand(id: ID!): Brand
 
-  """List multiple users."""
-  users(
-    """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
-    name: String
-
-    """Filters users by query in name"""
-    query: String
-
-    """Limits number of fetched items."""
-    first: Int!
-
-    """A cursor after which elements are returned."""
-    after: String
-  ): UserConnection
-
-  """List multiple users."""
+  """
+  List multiple users.
+  """
   sellers(
-    """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
+    """
+    Filters by name. Accepts SQL LIKE wildcards `%` and `_`.
+    """
     name: String
 
-    """Limits number of fetched items."""
+    """
+    Limits number of fetched items.
+    """
     first: Int!
 
-    """A cursor after which elements are returned."""
+    """
+    A cursor after which elements are returned.
+    """
     after: String
   ): SellerConnection
   products(
@@ -52,316 +69,324 @@ type Query {
     status: ProductStatus
     categoryId: ID
 
-    """Limits number of fetched items."""
+    """
+    Limits number of fetched items.
+    """
     first: Int!
 
-    """A cursor after which elements are returned."""
+    """
+    A cursor after which elements are returned.
+    """
+    after: String
+  ): ProductConnection
+  categories(
+    """
+    Limits number of fetched items.
+    """
+    first: Int!
+
+    """
+    A cursor after which elements are returned.
+    """
+    after: String
+  ): CategoryConnection
+  brands(
+    """
+    Limits number of fetched items.
+    """
+    first: Int!
+
+    """
+    A cursor after which elements are returned.
+    """
+    after: String
+  ): BrandConnection
+  products(
+    query: String
+    status: ProductStatus
+    categoryId: ID
+
+    """
+    Limits number of fetched items.
+    """
+    first: Int!
+
+    """
+    A cursor after which elements are returned.
+    """
     after: String
   ): ProductConnection
   categories(
     productsId: ID
 
-    """Limits number of fetched items."""
+    """
+    Limits number of fetched items.
+    """
     first: Int!
 
-    """A cursor after which elements are returned."""
+    """
+    A cursor after which elements are returned.
+    """
     after: String
   ): CategoryConnection
   brands(
-    """Limits number of fetched items."""
+    """
+    Limits number of fetched items.
+    """
     first: Int!
 
-    """A cursor after which elements are returned."""
+    """
+    A cursor after which elements are returned.
+    """
     after: String
   ): BrandConnection
 }
 
-"""Account of a person who utilizes this application."""
-type User {
-  """Unique primary key."""
+"""
+Account of a person who utilizes this application.
+"""
+type Seller {
+  """
+  Unique primary key.
+  """
   id: ID!
 
-  """User first name."""
+  """
+  Seller first name.
+  """
   firstName: String!
 
-  """User last name."""
+  """
+  Seller last name.
+  """
   lastName: String!
 
-  """Unique email address."""
+  """
+  Unique email address.
+  """
   email: String!
-  isBlocked: Boolean
-  picture: Image
   password: String!
+  carnet: String!
+  hiredAt: Date!
 
-  """When the email was verified."""
+  """
+  When the email was verified.
+  """
   email_verified_at: DateTime
 
-  """When the account was created."""
+  """
+  When the account was created.
+  """
   created_at: DateTime!
 
-  """When the account was last updated."""
+  """
+  When the account was last updated.
+  """
   updated_at: DateTime!
 }
 
-"""Represents an image."""
-type Image {
-  """The original height of the image in pixels."""
-  height: Int
-
-  """A unique identifier for the image."""
-  id: ID!
-
-  """The location of the original image as a URL."""
-  originalSrc: URL!
-  width: Int
-}
-
-"""An RFC 3986 and RFC 3987 compliant URI string."""
-scalar URL
+"""
+A date string with format `Y-m-d`, e.g. `2011-05-23`.
+"""
+scalar Date
 
 """
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
 
-"""Account of a person who utilizes this application."""
-type Seller {
-  """Unique primary key."""
-  id: ID!
-
-  """Seller first name."""
-  firstName: String!
-
-  """Seller last name."""
-  lastName: String!
-
-  """Unique email address."""
-  email: String!
-  password: String!
-  carnet: String!
-  hiredAt: Date!
-
-  """When the email was verified."""
-  email_verified_at: DateTime
-
-  """When the account was created."""
-  created_at: DateTime!
-
-  """When the account was last updated."""
-  updated_at: DateTime!
-}
-
-"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
-scalar Date
-
-type Product {
-  id: ID!
-  name: String!
-  description: String!
-  currentPrice: Float
-  discount: Discount
-  model: Model!
-  status: ProductStatus
-  image: Image
-  attributes: Attributes!
-  prices: [Price!]!
-  color: Color!
-  category: Category!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Discount {
-  id: ID!
-  code: String!
-  name: String!
-  startAt: DateTime!
-  endAt: DateTime!
-  product: Product!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Model {
-  id: ID!
-  modelName: String!
-  brand: Brand!
-  product: Product!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type Brand {
-  id: ID!
-  name: String!
-  model: Model!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-"""Product status"""
-enum ProductStatus {
-  """Active"""
-  ACTIVE
-
-  """Inactive"""
-  INACTIVE
-}
-
-type Attributes {
-  id: ID!
-  product: Product
-  storage: Float
-  weight: Float
-  size: Float
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Price {
-  id: ID!
-  price: Float!
-  product: Product!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type Color {
-  id: ID!
-  name: String
-  product: Product
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Category {
-  id: ID!
-  name: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  products(
-    """Limits number of fetched items."""
-    first: Int!
-
-    """A cursor after which elements are returned."""
-    after: String
-  ): ProductConnection
-}
-
-"""A paginated list of Product edges."""
-type ProductConnection {
-  """Pagination information about the list of edges."""
-  pageInfo: PageInfo!
-
-  """A list of Product edges."""
-  edges: [ProductEdge!]!
-}
-
-"""Information about pagination using a Relay style cursor connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """The cursor to continue paginating backwards."""
-  startCursor: String
-
-  """The cursor to continue paginating forwards."""
-  endCursor: String
-
-  """Total number of nodes in the paginated connection."""
-  total: Int!
-
-  """Number of nodes in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the last available page."""
-  lastPage: Int!
-}
-
-"""An edge that contains a node of type Product and a cursor."""
-type ProductEdge {
-  """The Product node."""
-  node: Product!
-
-  """A unique cursor that can be used for pagination."""
-  cursor: String!
-}
-
-"""A paginated list of User edges."""
-type UserConnection {
-  """Pagination information about the list of edges."""
-  pageInfo: PageInfo!
-
-  """A list of User edges."""
-  edges: [UserEdge!]!
-}
-
-"""An edge that contains a node of type User and a cursor."""
-type UserEdge {
-  """The User node."""
-  node: User!
-
-  """A unique cursor that can be used for pagination."""
-  cursor: String!
-}
-
-"""A paginated list of Seller edges."""
+"""
+A paginated list of Seller edges.
+"""
 type SellerConnection {
-  """Pagination information about the list of edges."""
+  """
+  Pagination information about the list of edges.
+  """
   pageInfo: PageInfo!
 
-  """A list of Seller edges."""
+  """
+  A list of Seller edges.
+  """
   edges: [SellerEdge!]!
 }
 
-"""An edge that contains a node of type Seller and a cursor."""
-type SellerEdge {
-  """The Seller node."""
-  node: Seller!
+"""
+Information about pagination using a Relay style cursor connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
 
-  """A unique cursor that can be used for pagination."""
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to continue paginating backwards.
+  """
+  startCursor: String
+
+  """
+  The cursor to continue paginating forwards.
+  """
+  endCursor: String
+
+  """
+  Total number of nodes in the paginated connection.
+  """
+  total: Int!
+
+  """
+  Number of nodes in the current page.
+  """
+  count: Int!
+
+  """
+  Index of the current page.
+  """
+  currentPage: Int!
+
+  """
+  Index of the last available page.
+  """
+  lastPage: Int!
+}
+
+"""
+An edge that contains a node of type Product and a cursor.
+"""
+type ProductEdge {
+  """
+  The Product node.
+  """
+  node: Product!
+
+  """
+  A unique cursor that can be used for pagination.
+  """
   cursor: String!
 }
 
-"""A paginated list of Category edges."""
-type CategoryConnection {
-  """Pagination information about the list of edges."""
+"""
+A paginated list of User edges.
+"""
+type UserConnection {
+  """
+  Pagination information about the list of edges.
+  """
   pageInfo: PageInfo!
 
-  """A list of Category edges."""
+  """
+  A list of User edges.
+  """
+  edges: [UserEdge!]!
+}
+
+"""
+An edge that contains a node of type User and a cursor.
+"""
+type UserEdge {
+  """
+  The User node.
+  """
+  node: User!
+
+  """
+  A unique cursor that can be used for pagination.
+  """
+  cursor: String!
+}
+
+"""
+A paginated list of Seller edges.
+"""
+type SellerConnection {
+  """
+  Pagination information about the list of edges.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of Seller edges.
+  """
+  edges: [SellerEdge!]!
+}
+
+"""
+An edge that contains a node of type Seller and a cursor.
+"""
+type SellerEdge {
+  """
+  The Seller node.
+  """
+  node: Seller!
+
+  """
+  A unique cursor that can be used for pagination.
+  """
+  cursor: String!
+}
+
+"""
+A paginated list of Category edges.
+"""
+type CategoryConnection {
+  """
+  Pagination information about the list of edges.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of Category edges.
+  """
   edges: [CategoryEdge!]!
 }
 
-"""An edge that contains a node of type Category and a cursor."""
+"""
+An edge that contains a node of type Category and a cursor.
+"""
 type CategoryEdge {
-  """The Category node."""
+  """
+  The Category node.
+  """
   node: Category!
 
-  """A unique cursor that can be used for pagination."""
+  """
+  A unique cursor that can be used for pagination.
+  """
   cursor: String!
 }
 
-"""A paginated list of Brand edges."""
+"""
+A paginated list of Brand edges.
+"""
 type BrandConnection {
-  """Pagination information about the list of edges."""
+  """
+  Pagination information about the list of edges.
+  """
   pageInfo: PageInfo!
 
-  """A list of Brand edges."""
+  """
+  A list of Brand edges.
+  """
   edges: [BrandEdge!]!
 }
 
-"""An edge that contains a node of type Brand and a cursor."""
+"""
+An edge that contains a node of type Brand and a cursor.
+"""
 type BrandEdge {
-  """The Brand node."""
+  """
+  The Brand node.
+  """
   node: Brand!
 
-  """A unique cursor that can be used for pagination."""
+  """
+  A unique cursor that can be used for pagination.
+  """
   cursor: String!
 }
 
@@ -371,7 +396,6 @@ type Mutation {
   userUpdate(input: UserInput!): UserUpdatePayload
   sellerCreate(input: SellerInput!): SellerCreatePayload
   sellerLogin(input: SellerLoginInput!): SellerLoginPayload
-  sellerUpdate(input: SellerInput): SellerUpdatePayload
 }
 
 input UserInput {
@@ -389,21 +413,33 @@ type UserRegisterPayload {
   userToken: String
 }
 
-"""Represents an error in the input of a mutation."""
+"""
+Represents an error in the input of a mutation.
+"""
 type UserError implements DisplayableError {
-  """The path to the input field that caused the error."""
+  """
+  The path to the input field that caused the error.
+  """
   field: [String!]
 
-  """The error message."""
+  """
+  The error message.
+  """
   message: String!
 }
 
-"""Represents an error in the input of a mutation."""
+"""
+Represents an error in the input of a mutation.
+"""
 interface DisplayableError {
-  """Path to the input field which caused the error."""
+  """
+  Path to the input field which caused the error.
+  """
   field: [String!]
 
-  """The error message."""
+  """
+  The error message.
+  """
   message: String!
 }
 
@@ -475,24 +511,62 @@ type ProductUpdatePayload {
   userErrors: [UserError]
 }
 
-"""Represents a generic file."""
+type SellerUpdatePayload {
+  seller: Seller
+  userErrors: [UserError]
+}
+
+input ProductInput {
+  id: ID
+  discountId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  modelId: ID
+}
+
+type ProductCreatePayload {
+  productEdge: ProductEdge
+  userErrors: [UserError]
+}
+
+type ProductUpdatePayload {
+  product: Product
+  userErrors: [UserError]
+}
+
+"""
+Represents a generic file.
+"""
 type GenericFile {
-  """Globally unique identifier."""
+  """
+  Globally unique identifier.
+  """
   id: ID!
 
-  """The name of the file."""
+  """
+  The name of the file.
+  """
   name: String!
 
-  """The URL of the file."""
+  """
+  The URL of the file.
+  """
   url: URL!
 }
 
-"""Directions for ordering a list of records."""
+"""
+Directions for ordering a list of records.
+"""
 enum SortOrder {
-  """Sort records in ascending order."""
+  """
+  Sort records in ascending order.
+  """
   ASC
 
-  """Sort records in descending order."""
+  """
+  Sort records in descending order.
+  """
   DESC
 }
 
@@ -500,7 +574,9 @@ enum SortOrder {
 Aggregate functions when ordering by a relation without specifying a column.
 """
 enum OrderByRelationAggregateFunction {
-  """Amount of items."""
+  """
+  Amount of items.
+  """
   COUNT
 }
 
@@ -508,76 +584,124 @@ enum OrderByRelationAggregateFunction {
 Aggregate functions when ordering by a relation that may specify a column.
 """
 enum OrderByRelationWithColumnAggregateFunction {
-  """Average."""
+  """
+  Average.
+  """
   AVG
 
-  """Minimum."""
+  """
+  Minimum.
+  """
   MIN
 
-  """Maximum."""
+  """
+  Maximum.
+  """
   MAX
 
-  """Sum."""
+  """
+  Sum.
+  """
   SUM
 
-  """Amount of items."""
+  """
+  Amount of items.
+  """
   COUNT
 }
 
-"""Allows ordering a list of records."""
+"""
+Allows ordering a list of records.
+"""
 input OrderByClause {
-  """The column that is used for ordering."""
+  """
+  The column that is used for ordering.
+  """
   column: String!
 
-  """The direction that is used for ordering."""
+  """
+  The direction that is used for ordering.
+  """
   order: SortOrder!
 }
 
-"""Information about pagination using a fully featured paginator."""
+"""
+Information about pagination using a fully featured paginator.
+"""
 type PaginatorInfo {
-  """Number of items in the current page."""
+  """
+  Number of items in the current page.
+  """
   count: Int!
 
-  """Index of the current page."""
+  """
+  Index of the current page.
+  """
   currentPage: Int!
 
-  """Index of the first item in the current page."""
+  """
+  Index of the first item in the current page.
+  """
   firstItem: Int
 
-  """Are there more pages after this one?"""
+  """
+  Are there more pages after this one?
+  """
   hasMorePages: Boolean!
 
-  """Index of the last item in the current page."""
+  """
+  Index of the last item in the current page.
+  """
   lastItem: Int
 
-  """Index of the last available page."""
+  """
+  Index of the last available page.
+  """
   lastPage: Int!
 
-  """Number of items per page."""
+  """
+  Number of items per page.
+  """
   perPage: Int!
 
-  """Number of total available items."""
+  """
+  Number of total available items.
+  """
   total: Int!
 }
 
-"""Information about pagination using a simple paginator."""
+"""
+Information about pagination using a simple paginator.
+"""
 type SimplePaginatorInfo {
-  """Number of items in the current page."""
+  """
+  Number of items in the current page.
+  """
   count: Int!
 
-  """Index of the current page."""
+  """
+  Index of the current page.
+  """
   currentPage: Int!
 
-  """Index of the first item in the current page."""
+  """
+  Index of the first item in the current page.
+  """
   firstItem: Int
 
-  """Index of the last item in the current page."""
+  """
+  Index of the last item in the current page.
+  """
   lastItem: Int
 
-  """Number of items per page."""
+  """
+  Number of items per page.
+  """
   perPage: Int!
 
-  """Are there more pages after this one?"""
+  """
+  Are there more pages after this one?
+  """
   hasMorePages: Boolean!
 }
 
@@ -585,12 +709,18 @@ type SimplePaginatorInfo {
 Specify if you want to include or exclude trashed results from a query.
 """
 enum Trashed {
-  """Only return trashed results."""
+  """
+  Only return trashed results.
+  """
   ONLY
 
-  """Return both trashed and non-trashed results."""
+  """
+  Return both trashed and non-trashed results.
+  """
   WITH
 
-  """Only return non-trashed results."""
+  """
+  Only return non-trashed results.
+  """
   WITHOUT
 }
