@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef6cd604718d4bea4bc991a73573a270>>
+ * @generated SignedSource<<197f85c61e71eeecdaa729c4332dccdf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -87,7 +87,21 @@ v2 = [
                         "plural": false,
                         "selections": [
                           (v0/*: any*/),
-                          (v1/*: any*/)
+                          (v1/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "description",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "currentPrice",
+                            "storageKey": null
+                          }
                         ],
                         "storageKey": null
                       }
@@ -125,16 +139,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "87e309254cafd82473f4d1561659fa46",
+    "cacheID": "8aa31bf04966beca75b11ee8fadbccdb",
     "id": null,
     "metadata": {},
     "name": "CategoriesListQuery",
     "operationKind": "query",
-    "text": "query CategoriesListQuery {\n  categories(first: 4) {\n    edges {\n      node {\n        id\n        name\n        products(first: 6) {\n          edges {\n            node {\n              id\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query CategoriesListQuery {\n  categories(first: 4) {\n    edges {\n      node {\n        id\n        name\n        products(first: 6) {\n          edges {\n            node {\n              id\n              name\n              description\n              currentPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "73d1539cfa6ddeb444cefa29b9950636";
+node.hash = "d737682117d892bad3da6f22eb3600ad";
 
 export default node;

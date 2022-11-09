@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4fa11c08c0a3e3c14f8a2b908b7c9032>>
+ * @generated SignedSource<<8d03d127a87faedab2791aed7c8468c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,13 @@ v2 = {
   "args": null,
   "kind": "ScalarField",
   "name": "description",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "currentPrice",
   "storageKey": null
 };
 return {
@@ -62,7 +69,8 @@ return {
                 "plural": false,
                 "selections": [
                   (v1/*: any*/),
-                  (v2/*: any*/)
+                  (v2/*: any*/),
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -108,6 +116,7 @@ return {
                 "selections": [
                   (v1/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -127,16 +136,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7976340dc0341a6dc89d5870c2cd49b1",
+    "cacheID": "9306f0e140aafc38181e9a3219de5baf",
     "id": null,
     "metadata": {},
     "name": "homeProductsQuery",
     "operationKind": "query",
-    "text": "query homeProductsQuery {\n  products(first: 10) {\n    edges {\n      node {\n        name\n        description\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query homeProductsQuery {\n  products(first: 10) {\n    edges {\n      node {\n        name\n        description\n        currentPrice\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "5950a91ae1dc4d4d234f979d8fdbe1c4";
+node.hash = "1ac8b6cbb1e944f38136ddaca1f64253";
 
 export default node;

@@ -18,16 +18,15 @@ import {
   Show,
   Text,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
-import {useEffect} from 'react'
+import {useContext} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
-import {useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
+import {AUTH_TOKEN} from '../constants'
 import {useAuth} from '../context/AuthContext'
+import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import Viewer from '../utils/viewer/Viewer'
 import Navigation from './DesktopNavigation'
 import MobileNavigation from './MobileNavigation'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 const links = [
   {
@@ -65,24 +64,11 @@ export default function Header() {
   const {items} = shopingCartCtx
 
   const auth = useAuth()
-  const {viewer} = useLazyLoadQuery(
-    graphql`
-      query HeaderQuery {
-        viewer {
-          firstName
-          lastName
-          email
-        }
-      }
-    `,
-    {}
-  )
+  const accessToken = localStorage.getItem(AUTH_TOKEN)
 
-  useEffect(() => {
-    if (viewer) {
-      auth.currentUser(viewer)
-    }
-  }, [viewer])
+  if (accessToken) {
+    Viewer()
+  }
 
   return (
     <Flex direction="column" borderBlockEnd="1px" borderColor="gray.400">

@@ -26,11 +26,11 @@ export default function ProductCard({product}) {
         {product.description}
       </Text>
       <Flex alignItems="center" gap="8px">
-        <Text color="gray.500" textDecoration="line-through">
+        {/* <Text color="gray.500" textDecoration="line-through">
           $499.00
-        </Text>
+        </Text> */}
         <Text fontSize="20px" fontWeight="semibold">
-          $499.00
+          C$ {product.currentPrice}
         </Text>
       </Flex>
       <Button variant="outline" onClick={handleClick}>
