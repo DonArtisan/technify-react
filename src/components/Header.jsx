@@ -157,7 +157,7 @@ export default function Header() {
                 borderRadius="full"
                 zIndex="2"
               >
-                {/* {items.length} */}
+                {items.length}
               </Flex>
               <IconButton
                 fontSize={{base: '20px', sm: '22px'}}

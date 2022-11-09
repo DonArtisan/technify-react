@@ -24,6 +24,7 @@ export default function Home() {
         products(first: 10) {
           edges {
             node {
+              id
               name
               description
               currentPrice
