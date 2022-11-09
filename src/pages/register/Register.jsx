@@ -35,9 +35,8 @@ export function Register() {
 
   useEffect(() => {
     if (auth.user) {
-      return <Navigate to="/" replace />
+      navigate('/')
     }
-    console.log(auth.user)
   }, [auth])
 
   const [commit] = useMutation(
@@ -46,6 +45,7 @@ export function Register() {
         userRegister(input: $input) {
           userToken
           user {
+            id
             firstName
             lastName
           }

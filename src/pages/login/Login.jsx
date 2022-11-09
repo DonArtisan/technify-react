@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
+import {useEffect} from 'react'
 import {useMutation} from 'react-relay'
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
@@ -31,12 +32,19 @@ export function Login() {
   let navigate = useNavigate()
   const auth = useAuth()
 
+  useEffect(() => {
+    if (auth.user) {
+      navigate('/')
+    }
+  }, [auth])
+
   const [commit] = useMutation(
     graphql`
       mutation LoginUserMutation($input: UserLoginInput!) {
         userLogin(input: $input) {
           userToken
           userAuth {
+            id
             firstName
             lastName
           }
@@ -65,7 +73,6 @@ export function Login() {
         }
         if (userErrors.length === 0) {
           auth.login(userLogin)
-          console.log('pasa?')
           navigate('/')
         }
       },

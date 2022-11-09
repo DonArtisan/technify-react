@@ -18,8 +18,10 @@ import {IoIosPricetag, IoMdContact} from 'react-icons/io'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import ProductCard from '../../components/ProductCard'
 import CategoriesList from '../../components/CategoriesList'
+import {useAuth} from '../../context/AuthContext'
 
 export default function Home() {
+  const auth = useAuth()
   return (
     <>
       <Box

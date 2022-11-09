@@ -30,11 +30,16 @@ function useProvideAuth() {
     setUser(null)
   }
 
+  function currentUser(userData) {
+    setUser(userData)
+  }
+
   return {
     user,
     signin,
     logout,
     login,
+    currentUser,
   }
 }
 

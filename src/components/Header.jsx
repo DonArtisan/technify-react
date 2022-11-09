@@ -1,5 +1,7 @@
-import {Icon, SearchIcon} from '@chakra-ui/icons'
+import {SearchIcon} from '@chakra-ui/icons'
 import {
+  Avatar,
+  Circle,
   Flex,
   Hide,
   HStack,
@@ -8,16 +10,44 @@ import {
   InputGroup,
   InputLeftElement,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Portal,
   Show,
   Text,
 } from '@chakra-ui/react'
-import {BsPersonCircle} from 'react-icons/bs'
+import {graphql} from 'babel-plugin-relay/macro'
+import {useEffect} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
+import {useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import MobileNavigation from './MobileNavigation'
+import {useAuth} from '../context/AuthContext'
 import Navigation from './DesktopNavigation'
+import MobileNavigation from './MobileNavigation'
 
 export default function Header() {
+  const auth = useAuth()
+  const {viewer} = useLazyLoadQuery(
+    graphql`
+      query HeaderQuery {
+        viewer {
+          firstName
+          lastName
+          email
+        }
+      }
+    `,
+    {}
+  )
+
+  useEffect(() => {
+    if (viewer) {
+      auth.currentUser(viewer)
+    }
+  }, [viewer])
+
   const LINKS = [
     {
       text: 'Laptops',
@@ -138,15 +168,40 @@ export default function Header() {
                 />
               }
             />
-            <Icon
-              marginInlineEnd={{base: 1, md: 0}}
-              color={{base: '#fff', lg: 'black'}}
-              fontSize={{base: '20px', sm: '26px'}}
-              as={BsPersonCircle}
-            />
+            <Menu>
+              <Circle as={MenuButton} variant="ghost">
+                <Avatar size="sm" />
+              </Circle>
+              <Portal>
+                <MenuList>
+                  {auth.user ? (
+                    <>
+                      <MenuItem as={ReactRouterLink} to="/account">
+                        My Account
+                      </MenuItem>
+                      <MenuItem
+                        as={ReactRouterLink}
+                        to="/"
+                        onClick={() => auth.logout()}
+                      >
+                        Logout
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem as={ReactRouterLink} to="/register">
+                        Create Account
+                      </MenuItem>
+                      <MenuItem as={ReactRouterLink} to="/login">
+                        Signin
+                      </MenuItem>
+                    </>
+                  )}
+                </MenuList>
+              </Portal>
+            </Menu>
           </HStack>
         </Flex>
-        {/* <Input height="60px" placeholder="Search entire store here..." /> */}
       </Flex>
     </Flex>
   )
