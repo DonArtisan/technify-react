@@ -167,6 +167,7 @@ type Product {
   prices: [Price!]!
   color: Color!
   category: Category!
+  productDetails: [ProductDetail]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -293,6 +294,23 @@ type ProductEdge {
   cursor: String!
 }
 
+type ProductDetail {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  price: Float!
+  productSale: ProductSale!
+}
+
+type ProductSale {
+  buyerableType: String!
+  buyerableId: ID!
+  amount: Float!
+  tax: Float!
+  total: Float!
+  productDetails: [ProductDetail!]!
+}
+
 """A paginated list of User edges."""
 type UserConnection {
   """Pagination information about the list of edges."""
@@ -372,6 +390,7 @@ type Mutation {
   sellerCreate(input: SellerInput!): SellerCreatePayload
   sellerLogin(input: SellerLoginInput!): SellerLoginPayload
   sellerUpdate(input: SellerInput): SellerUpdatePayload
+  productSaleCreate(input: PaymentInput!): ProductSaleCreatePayload
 }
 
 input UserInput {
@@ -453,6 +472,19 @@ type SellerLoginPayload {
 
 type SellerUpdatePayload {
   seller: Seller
+  userErrors: [UserError]
+}
+
+input PaymentInput {
+  id: ID
+  productId: ID
+  quantity: Int
+  price: Float
+  saleId: ID
+}
+
+type ProductSaleCreatePayload {
+  productSale: ProductSale
   userErrors: [UserError]
 }
 
