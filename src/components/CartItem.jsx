@@ -16,12 +16,12 @@ import {useContext} from 'react'
 import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 export default function CartItem({data}) {
-  const [subTotal, setSubTotal] = useState(data.price)
+  const [subTotal, setSubTotal] = useState(data.currentPrice)
   const shopingCartCtx = useContext(ShoppingCartContext)
   const {items, add} = shopingCartCtx
 
   function onChange(amout) {
-    setSubTotal((amout * 100).toFixed(2))
+    setSubTotal((amout * data.currentPrice).toFixed(2))
 
     /**
      * pending to fix
@@ -50,7 +50,7 @@ export default function CartItem({data}) {
         </Flex>
       </Td>
       <Td fontWeight="bold" fontSize="22px" maxWidth="145px" flexWrap="wrap">
-        ${data.price}
+        C${data.currentPrice}
       </Td>
       <Td>
         <NumberInput

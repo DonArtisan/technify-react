@@ -1,4 +1,5 @@
 import {Stack, Flex, Image, Text, Button} from '@chakra-ui/react'
+import {isCompositeType} from 'graphql'
 import {useContext} from 'react'
 import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
