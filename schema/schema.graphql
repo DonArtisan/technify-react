@@ -7,6 +7,7 @@ type Query {
     """Search by email address."""
     email: String
   ): User
+  viewer: User!
 
   """Find a single user by an identifying attribute."""
   seller(
@@ -16,6 +17,9 @@ type Query {
     """Search by email address."""
     email: String
   ): Seller
+  product(id: ID!): Product
+  category(id: ID!): Category
+  brand(id: ID!): Brand
 
   """List multiple users."""
   users(
@@ -43,6 +47,33 @@ type Query {
     """A cursor after which elements are returned."""
     after: String
   ): SellerConnection
+  products(
+    query: String
+    status: ProductStatus
+    categoryId: ID
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): ProductConnection
+  categories(
+    productsId: ID
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): CategoryConnection
+  brands(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): BrandConnection
 }
 
 """Account of a person who utilizes this application."""
@@ -59,6 +90,7 @@ type User {
   """Unique email address."""
   email: String!
   isBlocked: Boolean
+  picture: Image
   password: String!
 
   """When the email was verified."""
@@ -70,6 +102,22 @@ type User {
   """When the account was last updated."""
   updated_at: DateTime!
 }
+
+"""Represents an image."""
+type Image {
+  """The original height of the image in pixels."""
+  height: Int
+
+  """A unique identifier for the image."""
+  id: ID!
+
+  """The location of the original image as a URL."""
+  originalSrc: URL!
+  width: Int
+}
+
+"""An RFC 3986 and RFC 3987 compliant URI string."""
+scalar URL
 
 """
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
@@ -106,13 +154,107 @@ type Seller {
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
 scalar Date
 
-"""A paginated list of User edges."""
-type UserConnection {
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  currentPrice: Float
+  discount: Discount
+  model: Model!
+  status: ProductStatus
+  image: Image
+  attributes: Attributes!
+  prices: [Price!]!
+  color: Color!
+  category: Category!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Discount {
+  id: ID!
+  code: String!
+  name: String!
+  startAt: DateTime!
+  endAt: DateTime!
+  product: Product!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Model {
+  id: ID!
+  modelName: String!
+  brand: Brand!
+  product: Product!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Brand {
+  id: ID!
+  name: String!
+  model: Model!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""Product status"""
+enum ProductStatus {
+  """Active"""
+  ACTIVE
+
+  """Inactive"""
+  INACTIVE
+}
+
+type Attributes {
+  id: ID!
+  product: Product
+  storage: Float
+  weight: Float
+  size: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Price {
+  id: ID!
+  price: Float!
+  product: Product!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Color {
+  id: ID!
+  name: String
+  product: Product
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  products(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): ProductConnection
+}
+
+"""A paginated list of Product edges."""
+type ProductConnection {
   """Pagination information about the list of edges."""
   pageInfo: PageInfo!
 
-  """A list of User edges."""
-  edges: [UserEdge!]!
+  """A list of Product edges."""
+  edges: [ProductEdge!]!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -142,6 +284,24 @@ type PageInfo {
   lastPage: Int!
 }
 
+"""An edge that contains a node of type Product and a cursor."""
+type ProductEdge {
+  """The Product node."""
+  node: Product!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
+"""A paginated list of User edges."""
+type UserConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of User edges."""
+  edges: [UserEdge!]!
+}
+
 """An edge that contains a node of type User and a cursor."""
 type UserEdge {
   """The User node."""
@@ -164,6 +324,42 @@ type SellerConnection {
 type SellerEdge {
   """The Seller node."""
   node: Seller!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
+"""A paginated list of Category edges."""
+type CategoryConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of Category edges."""
+  edges: [CategoryEdge!]!
+}
+
+"""An edge that contains a node of type Category and a cursor."""
+type CategoryEdge {
+  """The Category node."""
+  node: Category!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
+"""A paginated list of Brand edges."""
+type BrandConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of Brand edges."""
+  edges: [BrandEdge!]!
+}
+
+"""An edge that contains a node of type Brand and a cursor."""
+type BrandEdge {
+  """The Brand node."""
+  node: Brand!
 
   """A unique cursor that can be used for pagination."""
   cursor: String!
@@ -260,13 +456,35 @@ type SellerUpdatePayload {
   userErrors: [UserError]
 }
 
-"""Product status"""
-enum ProductStatus {
-  """Active"""
-  ACTIVE
+input ProductInput {
+  id: ID
+  discountId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  modelId: ID
+}
 
-  """Inactive"""
-  INACTIVE
+type ProductCreatePayload {
+  productEdge: ProductEdge
+  userErrors: [UserError]
+}
+
+type ProductUpdatePayload {
+  product: Product
+  userErrors: [UserError]
+}
+
+"""Represents a generic file."""
+type GenericFile {
+  """Globally unique identifier."""
+  id: ID!
+
+  """The name of the file."""
+  name: String!
+
+  """The URL of the file."""
+  url: URL!
 }
 
 """Directions for ordering a list of records."""

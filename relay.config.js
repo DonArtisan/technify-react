@@ -9,4 +9,5 @@ module.exports = {
   language: 'javascript',
   schema: `./schema/schema.graphql`,
   src: `./src`,
-};
+  eagerEsModules: true,
+}
