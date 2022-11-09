@@ -65,24 +65,24 @@ export default function Header() {
   const {items} = shopingCartCtx
 
   const auth = useAuth()
-  // const {viewer} = useLazyLoadQuery(
-  //   graphql`
-  //     query HeaderQuery {
-  //       viewer {
-  //         firstName
-  //         lastName
-  //         email
-  //       }
-  //     }
-  //   `,
-  //   {}
-  // )
+  const {viewer} = useLazyLoadQuery(
+    graphql`
+      query HeaderQuery {
+        viewer {
+          firstName
+          lastName
+          email
+        }
+      }
+    `,
+    {}
+  )
 
-  // useEffect(() => {
-  //   if (viewer) {
-  //     auth.currentUser(viewer)
-  //   }
-  // }, [viewer])
+  useEffect(() => {
+    if (viewer) {
+      auth.currentUser(viewer)
+    }
+  }, [viewer])
 
   return (
     <Flex direction="column" borderBlockEnd="1px" borderColor="gray.400">
@@ -171,7 +171,7 @@ export default function Header() {
                 borderRadius="full"
                 zIndex="2"
               >
-                {items.length}
+                {/* {items.length} */}
               </Flex>
               <IconButton
                 fontSize={{base: '20px', sm: '22px'}}
