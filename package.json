@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "relay": "relay-compiler",
-    "download-schema": "gql-tools schema $GRAPHQL_URL ./schema",
+    "download-schema": "gql-tools schema $REACT_APP_GRAPHQL_URL ./schema",
     "relay:all": "pnpm download-schema && relay-compiler"
   },
   "eslintConfig": {
