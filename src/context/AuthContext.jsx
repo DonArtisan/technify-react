@@ -1,5 +1,6 @@
-import {createContext, useContext, useState} from 'react'
+import {createContext, useContext, useEffect, useState} from 'react'
 import {AUTH_TOKEN} from '../constants'
+import fetchGraphQL from '../fetchGraphql'
 
 const AuthContext = createContext()
 
@@ -14,6 +15,34 @@ function useAuth() {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    let isMounted = true
+    fetchGraphQL(`
+        query ViewerQuery {
+          viewer {
+            firstName
+            lastName
+            email
+          }
+        }`)
+      .then((response) => {
+        if (!isMounted) {
+          return
+        }
+        const {viewer} = response.data
+        if (viewer) {
+          setUser(viewer)
+        }
+      })
+      .catch((err) => {
+        console.log('esto es error', err)
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   function login(userData) {
     localStorage.setItem(AUTH_TOKEN, userData.userToken)
