@@ -38,7 +38,7 @@ export default function CategoriesList() {
           maxWidth="full"
           overflowX="scroll"
         >
-          <Flex>
+          <Flex paddingBlock="20px" gap="32px">
             <Flex
               direction="column"
               align="center"

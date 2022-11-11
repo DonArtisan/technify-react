@@ -4,7 +4,7 @@ import Payment from '../../components/Payment'
 
 export default function shoppingCart() {
   return (
-    <Stack paddingBlock="40px" gap="30px">
+    <Stack paddingBlock="40px" gap="30px" paddingX={{md: 20, lg: 52}}>
       <Heading textTransform="capitalize" paddingInlineStart="24px">
         carrito de compra
       </Heading>

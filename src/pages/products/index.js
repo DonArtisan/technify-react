@@ -21,7 +21,13 @@ export default function Products() {
   )
 
   return (
-    <Flex flexWrap="wrap" paddingBlock="30px">
+    <Flex
+      flexWrap="wrap"
+      paddingBlock="30px"
+      gap="32px"
+      justifyContent="center"
+      paddingX={{md: 20, lg: 52}}
+    >
       {products?.edges.map(({node: product}, index) => (
         <ProductCard key={index} product={product} />
       ))}
