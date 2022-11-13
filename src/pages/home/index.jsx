@@ -1,11 +1,12 @@
 import {
-  Box,
+  Button,
   Divider,
   Flex,
   Heading,
   HStack,
   Icon,
   Link,
+  Stack,
   Text,
 } from '@chakra-ui/react'
 import {graphql} from 'babel-plugin-relay/macro'
@@ -15,7 +16,7 @@ import {useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import CategoriesList from '../../components/CategoriesList'
 import ProductCard from '../../components/ProductCard'
-import {useAuth} from '../../context/AuthContext'
+import imageBackground from '../../utils/assets/image/bg-1.jpg'
 
 export default function Home() {
   const {products} = useLazyLoadQuery(
@@ -37,13 +38,38 @@ export default function Home() {
 
   return (
     <>
-      <Box
-        marginBlockEnd="30px"
-        backgroundColor="gray.300"
+      <Stack
+        position="relative"
         width="full"
-        height="400px"
-      />
-      <Flex width="full" direction="column">
+        paddingBlock="84px"
+        height="490px"
+        backgroundRepeat="no-repeat"
+        bgColor="#191A1E"
+        backgroundSize="contain"
+        backgroundImage={`url(${imageBackground})`}
+        paddingX={{md: 20, lg: 52}}
+        textAlign="left"
+        gap="20px"
+        justifyContent="center"
+      >
+        <Heading color="white" fontWeight="light" fontSize="58px">
+          Lorem ipsum dolor
+        </Heading>
+        <Heading fontWeight="light" fontSize="22px" color="#8D8C8E">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          <br />
+          repudiandae esse sunt distinctio rerum similique
+        </Heading>
+        <Button textTransform="uppercase" fontSize="12px">
+          leer mas
+        </Button>
+      </Stack>
+      <Flex
+        width="full"
+        direction="column"
+        paddingBlock="60px"
+        paddingX={{md: 20, lg: 52}}
+      >
         <Flex justify="space-between" align="center" marginBlockEnd="20px">
           <Heading>New Products</Heading>
           <Link
@@ -57,7 +83,7 @@ export default function Home() {
             See all New Products
           </Link>
         </Flex>
-        <Flex width="100%" maxWidth="full" overflowX="scroll">
+        <Flex width="full" paddingBlock="20px" gap="32px" overflowX="scroll">
           {products?.edges.map(({node: product}, index) => (
             <ProductCard key={index} product={product} />
           ))}

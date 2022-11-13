@@ -1,10 +1,11 @@
-import {Box, Button, Link} from '@chakra-ui/react'
+import {Flex, Link} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
+import Logo from './Logo'
 
 export default function DesktopNavigation({links}) {
   return (
-    <Box justifyContent={{lg: 'space-around'}}>
-      {links.map((link, index) => {
+    <Flex>
+      {/* {links.map((link, index) => {
         return (
           <Link
             fontSize={{md: '14px', xl: '16px'}}
@@ -17,10 +18,7 @@ export default function DesktopNavigation({links}) {
             {link.text}
           </Link>
         )
-      })}
-      <Button variant="outline" as={ReactRouterLink} to="/">
-        deals
-      </Button>
-    </Box>
+      })} */}
+    </Flex>
   )
 }
