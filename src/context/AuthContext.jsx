@@ -46,7 +46,7 @@ function useProvideAuth() {
 
   function login(userData) {
     localStorage.setItem(AUTH_TOKEN, userData.userToken)
-    setUser(userData.user)
+    setUser(userData.userAuth)
   }
 
   function signin(userData) {

@@ -18,10 +18,7 @@ import {
   Show,
   Text,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
-import {useEffect} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
-import {useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
 import Navigation from './DesktopNavigation'
@@ -29,24 +26,6 @@ import MobileNavigation from './MobileNavigation'
 
 export default function Header() {
   const auth = useAuth()
-  const {viewer} = useLazyLoadQuery(
-    graphql`
-      query HeaderQuery {
-        viewer {
-          firstName
-          lastName
-          email
-        }
-      }
-    `,
-    {}
-  )
-
-  useEffect(() => {
-    if (viewer) {
-      auth.currentUser(viewer)
-    }
-  }, [viewer])
 
   const LINKS = [
     {

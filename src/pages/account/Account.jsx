@@ -1,41 +1,83 @@
-import {Tabs} from '@chakra-ui/react'
-import {TabPanel} from '@chakra-ui/react'
-import {Divider} from '@chakra-ui/react'
-import {useDisclosure} from '@chakra-ui/react'
-import {ModalOverlay} from '@chakra-ui/react'
-import {ModalHeader} from '@chakra-ui/react'
-import {ModalBody} from '@chakra-ui/react'
-import {Button} from '@chakra-ui/react'
-import {ModalCloseButton} from '@chakra-ui/react'
-import {FormControl} from '@chakra-ui/react'
-import {Input} from '@chakra-ui/react'
-import {ModalFooter} from '@chakra-ui/react'
-import {HStack} from '@chakra-ui/react'
-import {FormErrorMessage} from '@chakra-ui/react'
-import {FormLabel} from '@chakra-ui/react'
-import {ModalContent} from '@chakra-ui/react'
-import {Modal} from '@chakra-ui/react'
-import {Text} from '@chakra-ui/react'
-import {TabPanels} from '@chakra-ui/react'
-import {TabList} from '@chakra-ui/react'
-import {Tab} from '@chakra-ui/react'
 import {
-  Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
+  ButtonGroup,
+  Divider,
   Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
   Heading,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react'
-import {FastField} from 'formik'
-import {Formik} from 'formik'
-import {Form} from 'formik'
+import {FastField, Form, Formik} from 'formik'
+import {useMutation} from 'react-relay'
 import {useAuth} from '../../context/AuthContext'
+import {graphql} from 'babel-plugin-relay/macro'
+import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
 
 export function Account() {
-  const auth = useAuth()
-
+  const {user} = useAuth()
   const {isOpen, onOpen, onClose} = useDisclosure()
+
+  const [commit, isInFlight] = useMutation(
+    graphql`
+      mutation AccountMutation($input: UserInput!) {
+        userUpdate(input: $input) {
+          user {
+            firstName
+            lastName
+            email
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `
+  )
+
+  function handleSubmit(values, formikBag) {
+    commit({
+      variables: {
+        input: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        },
+      },
+      onCompleted({userUpdate}) {
+        console.log(userUpdate)
+        // const {userErrors} = userUpdate
+
+        // if (userErrors && userErrors.length > 0) {
+        //   const {errors} = formatGraphQLErrors(userErrors)
+        //   formikBag.setErrors(errors)
+        // }
+        // if (userErrors.length === 0) {
+        //   onClose()
+        // }
+      },
+    })
+  }
 
   return (
     <Flex direction="column">
@@ -62,8 +104,9 @@ export function Account() {
                 Account Information
               </Heading>
               <Divider />
-              <Text>Name: {auth.user?.firstName}</Text>
-              <Text>Email: {auth.user?.lastName}</Text>
+              <Text>Name: {user?.firstName}</Text>
+              <Text>Last Name: {user?.lastName}</Text>
+              <Text>Email: {user?.email}</Text>
               <Text width="fit-content" as="button" onClick={onOpen}>
                 Edit
               </Text>
@@ -72,9 +115,17 @@ export function Account() {
                 <ModalContent>
                   <ModalHeader>Edit Information</ModalHeader>
                   <ModalCloseButton />
-                  <Formik>
-                    <ModalBody>
-                      <Form>
+                  <Formik
+                    initialValues={{
+                      firstName: user?.firstName,
+                      lastName: user?.lastName,
+                      email: user?.email,
+                    }}
+                    // validationSchema={SignupSchema}
+                    onSubmit={handleSubmit}
+                  >
+                    <Form>
+                      <ModalBody>
                         <FastField name="firstName">
                           {({field, meta: {error, touched}}) => (
                             <FormControl isInvalid={!!error && touched}>
@@ -102,14 +153,18 @@ export function Account() {
                             </FormControl>
                           )}
                         </FastField>
-                      </Form>
-                    </ModalBody>
-                    <ModalFooter>
-                      <HStack>
-                        <Button variant="">Cancel</Button>
-                        <Button variant="unstyled">Update User</Button>
-                      </HStack>
-                    </ModalFooter>
+                      </ModalBody>
+                      <ModalFooter>
+                        <HStack>
+                          <ButtonGroup variant="outline">
+                            <Button isDisabled={isInFlight}>Cancel</Button>
+                            <Button type="submit" isLoading={isInFlight}>
+                              Update User
+                            </Button>
+                          </ButtonGroup>
+                        </HStack>
+                      </ModalFooter>
+                    </Form>
                   </Formik>
                 </ModalContent>
               </Modal>
