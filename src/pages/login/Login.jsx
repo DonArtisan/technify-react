@@ -30,13 +30,13 @@ const LoginSchema = Yup.object().shape({
 })
 export function Login() {
   let navigate = useNavigate()
-  const auth = useAuth()
+  const {user, login} = useAuth()
 
   useEffect(() => {
-    if (auth.user) {
+    if (user) {
       navigate('/')
     }
-  }, [auth])
+  }, [user])
 
   const [commit] = useMutation(
     graphql`
@@ -72,7 +72,7 @@ export function Login() {
           formikBag.setErrors(errors)
         }
         if (userErrors.length === 0) {
-          auth.login(userLogin)
+          login(userLogin)
           navigate('/')
         }
       },
