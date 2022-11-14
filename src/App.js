@@ -6,6 +6,7 @@ import Products from './pages/products'
 import {Register} from './pages/register'
 import {Dashboard} from './pages/dashboard'
 import ShoppingCart from './pages/shopping-cart'
+import {Account} from './pages/account'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       />
       {/* <Route path="expenses" element={<Expenses />} /> */}
       {/* <Route path="invoices" element={<Invoices />} /> */}
+      <Route path="account" element={<Account />} />
     </Routes>
   )
 }

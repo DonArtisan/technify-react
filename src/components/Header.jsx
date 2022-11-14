@@ -20,10 +20,8 @@ import {
 import {useContext} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import {AUTH_TOKEN} from '../constants'
 import {useAuth} from '../context/AuthContext'
 import {ShoppingCartContext} from '../context/ShoppingCartContext'
-import Viewer from '../utils/viewer/Viewer'
 import DesktopNavigation from './DesktopNavigation'
 import Logo from './Logo'
 import MobileNavigation from './MobileNavigation'
@@ -40,11 +38,37 @@ export default function Header() {
   const {items} = shopingCartCtx
 
   const auth = useAuth()
-  const accessToken = localStorage.getItem(AUTH_TOKEN)
 
-  if (accessToken) {
-    Viewer()
-  }
+  const LINKS = [
+    {
+      text: 'Laptops',
+      href: '/',
+    },
+    {
+      text: 'Desktop PCs',
+      href: '/',
+    },
+    {
+      text: 'Networking Devices',
+      href: '/',
+    },
+    {
+      text: 'Printers & Scanners',
+      href: '/',
+    },
+    {
+      text: 'PC Parts',
+      href: '/',
+    },
+    {
+      text: 'All Other Products',
+      href: '/',
+    },
+    {
+      text: 'Repairs',
+      href: '/',
+    },
+  ]
 
   return (
     <Flex

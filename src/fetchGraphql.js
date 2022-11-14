@@ -3,7 +3,7 @@ import {AUTH_TOKEN} from './constants'
 async function fetchGraphQL(text, variables) {
   const accessToken = localStorage.getItem(AUTH_TOKEN)
 
-  const response = await fetch('http://technify-api.test/graphql', {
+  const response = await fetch(process.env.REACT_APP_GRAPHQL_URL, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -15,7 +15,6 @@ async function fetchGraphQL(text, variables) {
     }),
   })
 
-  // Get the response as JSON
   return await response.json()
 }
 
