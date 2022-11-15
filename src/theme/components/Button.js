@@ -3,12 +3,20 @@ const Button = {
     solid: (props) => ({
       paddingBlock: '18px',
       borderRadius: '3xl',
-      width: '170px',
-      height: '50px',
+      width: '140px',
+      height: '40px',
       color: 'white',
-      borderWidth: '2px',
       transition: 'all 0.5s ease',
-      fontFamily: 'body',
+      backgroundColor: 'blue.900',
+      _hover: {
+        backgroundColor: 'blue.600',
+      },
+      _active: {
+        backgroundColor: 'blue.600',
+      },
+      _focus: {
+        backgroundColor: 'blue.600',
+      },
     }),
     outline: (props) => ({
       width: '160px',

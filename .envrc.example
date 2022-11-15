@@ -1,2 +1,2 @@
-export API_URL=
-export GRAPHQL_URL=
+export REACT_APP_API_URL=
+export REACT_APP_GRAPHQL_URL=

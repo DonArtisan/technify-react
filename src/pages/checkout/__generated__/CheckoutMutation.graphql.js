@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ea49381c930e679197e84a6c7d4a6de>>
+ * @generated SignedSource<<8d8b2243e3665b76f1b8b704185bf033>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,48 +26,16 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "UserRegisterPayload",
+    "concreteType": "ClientSecretPayload",
     "kind": "LinkedField",
-    "name": "userRegister",
+    "name": "clientSecret",
     "plural": false,
     "selections": [
       {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "userToken",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "user",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "firstName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "lastName",
-            "storageKey": null
-          }
-        ],
+        "name": "clientSecret",
         "storageKey": null
       },
       {
@@ -104,7 +72,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "RegisterUserMutation",
+    "name": "CheckoutMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -113,20 +81,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "RegisterUserMutation",
+    "name": "CheckoutMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "9c90b8f640f70067df207970af77d4a1",
+    "cacheID": "fb70c1eb9d67f81deddc8874dd02e64d",
     "id": null,
     "metadata": {},
-    "name": "RegisterUserMutation",
+    "name": "CheckoutMutation",
     "operationKind": "mutation",
-    "text": "mutation RegisterUserMutation(\n  $input: UserInput!\n) {\n  userRegister(input: $input) {\n    userToken\n    user {\n      id\n      firstName\n      lastName\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
+    "text": "mutation CheckoutMutation(\n  $input: ClientSecretInput!\n) {\n  clientSecret(input: $input) {\n    clientSecret\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "c359d7d0001c3c77fa04508ab5932e9e";
+node.hash = "1c02f3375067f28a6adf93ce29f47c94";
 
 export default node;
