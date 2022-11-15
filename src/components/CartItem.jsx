@@ -18,15 +18,27 @@ import {ShoppingCartContext} from '../context/ShoppingCartContext'
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
   const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add} = shopingCartCtx
+  const {items, add, remove} = shopingCartCtx
+  const [amount, setAmount] = useState(data.qty)
 
   function onChange(amout) {
-    setSubTotal((amout * data.currentPrice).toFixed(2))
+    setSubTotal(data.currentPrice * amout)
+
+    if (amout < amount) {
+      remove(data)
+    }
+    if (amout > amount) {
+      add({...data, qty: 1})
+    }
 
     /**
      * pending to fix
      * update quantity from number input
      */
+
+    // items.map((item) => item.id === data.id && qty++)
+
+    // add([...items, {...data, qty}])
   }
 
   return (

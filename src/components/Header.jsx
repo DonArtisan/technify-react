@@ -17,7 +17,7 @@ import {
   Portal,
   Show,
 } from '@chakra-ui/react'
-import {useContext} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
@@ -36,6 +36,10 @@ const links = [
 export default function Header() {
   const shopingCartCtx = useContext(ShoppingCartContext)
   const {items} = shopingCartCtx
+  let itemNumbers = 0
+  items.forEach((itm) => {
+    itemNumbers += itm.qty
+  })
 
   const auth = useAuth()
 
@@ -139,7 +143,7 @@ export default function Header() {
               borderRadius="full"
               zIndex="2"
             >
-              {items.length}
+              {itemNumbers}
             </Flex>
             <IconButton
               fontSize={{base: '20px', sm: '22px'}}

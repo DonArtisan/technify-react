@@ -8,10 +8,14 @@ export default function ProductCard({product}) {
   const {items, add} = shopingCartCtx
 
   function handleClick() {
-    let qty = 1
-    items.map((item) => item.id === product.id && qty++)
+    // let qty = amout
 
-    add([...items, {...product, qty}])
+    // items.map((item) => item.id === data.id && qty)
+
+    // add([...items, {...data, qty}])
+    // console.log(items)
+
+    add({...product, qty: 1})
   }
 
   return (
@@ -40,10 +44,10 @@ export default function ProductCard({product}) {
       </Text>
       <Flex alignItems="center" gap="8px">
         <Text fontSize="20px" fontWeight="medium" color="blue.900">
-          $499.00
+          {product.currentPrice}
         </Text>
         <Text color="gray.500" textDecoration="line-through">
-          $499.00
+          {product.currentPrice}
         </Text>
       </Flex>
       <Button
