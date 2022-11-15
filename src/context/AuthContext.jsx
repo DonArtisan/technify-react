@@ -30,6 +30,9 @@ function useProvideAuth() {
         if (!isMounted) {
           return
         }
+        if (response.errors) {
+          return
+        }
         const {viewer} = response.data
         if (viewer) {
           setUser(viewer)

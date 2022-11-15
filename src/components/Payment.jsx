@@ -1,11 +1,17 @@
 import {Flex} from '@chakra-ui/react'
 import {Button, Heading, Stack, Text} from '@chakra-ui/react'
+import {useContext} from 'react'
+import {Link} from 'react-router-dom'
+import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 export default function Payment() {
+  const shopingCartCtx = useContext(ShoppingCartContext)
+  const {subtotal} = shopingCartCtx
+  console.log(subtotal)
   const data = [
     {
       tab: 'subtotal',
-      value: '1300.00',
+      value: subtotal,
     },
     {
       tab: 'impuesto',
@@ -53,6 +59,8 @@ export default function Payment() {
         </Flex>
       ))}
       <Button
+        as={Link}
+        to="/checkout"
         width="full"
         backgroundColor="blue.900"
         _hover={{backgroundColor: 'blue.600'}}

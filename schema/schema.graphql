@@ -20,6 +20,7 @@ type Query {
   product(id: ID!): Product
   category(id: ID!): Category
   brand(id: ID!): Brand
+  payment(id: ID!): ProductDetail
 
   """List multiple users."""
   users(
@@ -74,6 +75,13 @@ type Query {
     """A cursor after which elements are returned."""
     after: String
   ): BrandConnection
+  payments(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """A cursor after which elements are returned."""
+    after: String
+  ): ProductDetailConnection
 }
 
 """Account of a person who utilizes this application."""
@@ -383,6 +391,24 @@ type BrandEdge {
   cursor: String!
 }
 
+"""A paginated list of ProductDetail edges."""
+type ProductDetailConnection {
+  """Pagination information about the list of edges."""
+  pageInfo: PageInfo!
+
+  """A list of ProductDetail edges."""
+  edges: [ProductDetailEdge!]!
+}
+
+"""An edge that contains a node of type ProductDetail and a cursor."""
+type ProductDetailEdge {
+  """The ProductDetail node."""
+  node: ProductDetail!
+
+  """A unique cursor that can be used for pagination."""
+  cursor: String!
+}
+
 type Mutation {
   userRegister(input: UserInput!): UserRegisterPayload
   userLogin(input: UserLoginInput!): UserLoginPayload
@@ -391,6 +417,7 @@ type Mutation {
   sellerLogin(input: SellerLoginInput!): SellerLoginPayload
   sellerUpdate(input: SellerInput): SellerUpdatePayload
   productSaleCreate(input: PaymentInput!): ProductSaleCreatePayload
+  clientSecret(input: ClientSecretInput!): ClientSecretPayload
 }
 
 input UserInput {
@@ -427,7 +454,6 @@ interface DisplayableError {
 }
 
 input UserLoginInput {
-  id: ID
   email: String!
   password: String!
 }
@@ -478,6 +504,9 @@ type SellerUpdatePayload {
 
 input PaymentInput {
   id: ID
+  amount: Float
+  tax: Float
+  total: Float
   productId: ID
   quantity: Int
   price: Float
@@ -486,6 +515,15 @@ input PaymentInput {
 
 type ProductSaleCreatePayload {
   productSale: ProductSale
+  userErrors: [UserError]
+}
+
+input ClientSecretInput {
+  amount: Float
+}
+
+type ClientSecretPayload {
+  clientSecret: String
   userErrors: [UserError]
 }
 
