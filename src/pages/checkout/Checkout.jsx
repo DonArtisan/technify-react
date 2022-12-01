@@ -40,11 +40,7 @@ export default function Checkout() {
       onCompleted({clientSecret}) {
         const clientSecreto = clientSecret.clientSecret
         console.log(clientSecreto)
-        setStripePromise(
-          loadStripe(
-            'pk_test_51M3tgHJOzpgWe0dCPebnbcPSZ8U7NX06Z8u4r8IzL3Mjmbt1UpJMdFhT5bXuZsybMyD2dy1Xhf6Jxvl3LhGVTmjx00M16c8w9u'
-          )
-        )
+        setStripePromise(loadStripe(process.env.REACT_APP_STRIPE))
         setClientSecreto(clientSecreto)
 
         // if (userErrors && userErrors.length > 0) {
