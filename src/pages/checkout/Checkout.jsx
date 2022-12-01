@@ -13,6 +13,7 @@ export default function Checkout() {
   const shopingCartCtx = useContext(ShoppingCartContext)
 
   const {items, add, remove, subtotal} = shopingCartCtx
+  console.log(items)
 
   const [commit] = useMutation(
     graphql`
@@ -35,6 +36,7 @@ export default function Checkout() {
       variables: {
         input: {
           amount: subtotal,
+          products: items,
         },
       },
       onCompleted({clientSecret}) {
@@ -54,7 +56,7 @@ export default function Checkout() {
         // }
       },
       onError({clientSecret}) {
-        console.log(clientSecret.useErrors)
+        console.log(clientSecret)
       },
     })
 

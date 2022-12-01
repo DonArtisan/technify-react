@@ -507,9 +507,10 @@ input PaymentInput {
   amount: Float
   tax: Float
   total: Float
-  productId: ID
-  quantity: Int
-  price: Float
+  qty: Int
+  currentPrice: Float
+  name: String
+  description: String
   saleId: ID
 }
 
@@ -520,6 +521,7 @@ type ProductSaleCreatePayload {
 
 input ClientSecretInput {
   amount: Float
+  products: [PaymentInput!]!
 }
 
 type ClientSecretPayload {
