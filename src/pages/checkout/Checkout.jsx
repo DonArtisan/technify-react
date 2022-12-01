@@ -39,8 +39,9 @@ export default function Checkout() {
       },
       onCompleted({clientSecret}) {
         const clientSecreto = clientSecret.clientSecret
-        console.log(clientSecreto)
-        setStripePromise(loadStripe(process.env.REACT_APP_STRIPE))
+        const stripeApiKey = process.env.REACT_APP_STRIPE
+
+        setStripePromise(loadStripe(stripeApiKey))
         setClientSecreto(clientSecreto)
 
         // if (userErrors && userErrors.length > 0) {
