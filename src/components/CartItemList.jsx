@@ -18,7 +18,7 @@ const tabs = ['producto', 'precio', 'cantidad', 'subtotal', '']
 
 export default function CartItemList() {
   const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add} = shopingCartCtx
+  const {items, add, removeAllItems} = shopingCartCtx
   let hash = {}
 
   const data = items
@@ -68,7 +68,7 @@ export default function CartItemList() {
         <Link to="/products">
           <Button width="auto">continuar comprando</Button>
         </Link>
-        <Button width="auto" onClick={() => add([])}>
+        <Button width="auto" onClick={() => removeAllItems()}>
           limpiar
         </Button>
       </ButtonGroup>
