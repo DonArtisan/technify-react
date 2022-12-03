@@ -61,6 +61,7 @@ export function Register() {
   )
 
   function handleSubmit(values, formikBag) {
+    console.log(values)
     commit({
       variables: {
         input: {
@@ -137,19 +138,6 @@ export function Register() {
             {({errors, touched}) => (
               <Form>
                 <Flex rowGap="16px" flexDirection="column">
-                  <FormControl isInvalid={!!errors.dni && touched.dni}>
-                    <FormLabel fontWeight="700" color="text">
-                      Cedula:
-                    </FormLabel>
-                    <Field
-                      as={Input}
-                      id="dni"
-                      name="dni"
-                      type="text"
-                      bg="graylight"
-                    />
-                    <FormErrorMessage>{errors.dni}</FormErrorMessage>
-                  </FormControl>
                   <FormControl
                     isInvalid={!!errors.firstName && touched.firstName}
                   >
@@ -224,7 +212,6 @@ export function Register() {
                     />
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
-
                   <Flex
                     alignItems="center"
                     justifyContent="center"
