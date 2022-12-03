@@ -2,10 +2,13 @@ import {Flex} from '@chakra-ui/react'
 import {Button, Heading, Stack, Text} from '@chakra-ui/react'
 import {useContext} from 'react'
 import {Link} from 'react-router-dom'
+import {useAuth} from '../context/AuthContext'
 import {ShoppingCartContext} from '../context/ShoppingCartContext'
 
 export default function Payment() {
   const shopingCartCtx = useContext(ShoppingCartContext)
+  const auth = useAuth()
+
   const {subtotal} = shopingCartCtx
   console.log(subtotal)
   const data = [
@@ -60,7 +63,7 @@ export default function Payment() {
       ))}
       <Button
         as={Link}
-        to="/checkout"
+        to={auth.user ? '/checkout' : '/login'}
         width="full"
         backgroundColor="blue.900"
         _hover={{backgroundColor: 'blue.600'}}
