@@ -45,8 +45,11 @@ export function Login() {
           userToken
           userAuth {
             id
-            firstName
-            lastName
+            person {
+              firstName
+              lastName
+              email
+            }
           }
           userErrors {
             field

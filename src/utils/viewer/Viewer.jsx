@@ -10,9 +10,11 @@ export default function Viewer() {
     graphql`
       query ViewerQuery {
         viewer {
-          firstName
-          lastName
-          email
+          id
+          person {
+            firstName
+            lastName
+          }
         }
       }
     `,
@@ -20,8 +22,9 @@ export default function Viewer() {
   )
 
   useEffect(() => {
+    console.log(viewer)
     if (viewer) {
-      auth.currentUser(viewer)
+      auth.currentUser(viewer.person)
     }
   }, [viewer])
 }

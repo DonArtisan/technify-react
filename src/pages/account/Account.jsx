@@ -42,9 +42,11 @@ export function Account() {
       mutation AccountMutation($input: UserInput!) {
         userUpdate(input: $input) {
           user {
-            firstName
-            lastName
-            email
+            person {
+              firstName
+              lastName
+              email
+            }
           }
           userErrors {
             field

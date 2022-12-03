@@ -46,8 +46,10 @@ export function Register() {
           userToken
           user {
             id
-            firstName
-            lastName
+            person {
+              firstName
+              lastName
+            }
           }
           userErrors {
             field
@@ -62,8 +64,10 @@ export function Register() {
     commit({
       variables: {
         input: {
+          dni: values.dni,
           firstName: values.firstName,
           lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
           email: values.email,
           password: values.password,
         },
@@ -120,8 +124,10 @@ export function Register() {
 
           <Formik
             initialValues={{
+              dni: '',
               firstName: '',
               lastName: '',
+              phoneNumber: '',
               email: '',
               password: '',
             }}
@@ -131,6 +137,19 @@ export function Register() {
             {({errors, touched}) => (
               <Form>
                 <Flex rowGap="16px" flexDirection="column">
+                  <FormControl isInvalid={!!errors.dni && touched.dni}>
+                    <FormLabel fontWeight="700" color="text">
+                      Cedula:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="dni"
+                      name="dni"
+                      type="text"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.dni}</FormErrorMessage>
+                  </FormControl>
                   <FormControl
                     isInvalid={!!errors.firstName && touched.firstName}
                   >
@@ -160,6 +179,21 @@ export function Register() {
                       bg="graylight"
                     />
                     <FormErrorMessage>{errors.lastName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.phoneNumber && touched.phoneNumber}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Numbero de Telefono:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
                   </FormControl>
                   <FormControl isInvalid={!!errors.email && touched.email}>
                     <FormLabel fontWeight="700" color="text">
