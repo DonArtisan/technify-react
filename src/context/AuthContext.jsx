@@ -21,11 +21,9 @@ function useProvideAuth() {
     fetchGraphQL(`
         query ViewerQuery {
           viewer {
-            person{
-              firstName
-              lastName
-              email
-            }
+            firstName
+            lastName
+            email
           }
         }`)
       .then((response) => {
@@ -37,7 +35,7 @@ function useProvideAuth() {
         }
         const {viewer} = response.data
         if (viewer) {
-          setUser(viewer.person)
+          setUser(viewer)
         }
       })
       .catch((err) => {
@@ -51,12 +49,12 @@ function useProvideAuth() {
 
   function login(userData) {
     localStorage.setItem(AUTH_TOKEN, userData.userToken)
-    setUser(userData.userAuth.person)
+    setUser(userData.userAuth)
   }
 
   function signin(userData) {
     localStorage.setItem(AUTH_TOKEN, userData.userToken)
-    setUser(userData.user.person)
+    setUser(userData.user)
   }
 
   function logout() {
