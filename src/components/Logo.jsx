@@ -1,9 +1,12 @@
 import {Flex, Heading} from '@chakra-ui/react'
+import {Link} from 'react-router-dom'
 
 export default function Logo() {
   return (
     <Flex>
-      <Heading textTransform="uppercase">tecnify</Heading>
+      <Heading as={Link} textTransform="uppercase" to="/">
+        technify
+      </Heading>
     </Flex>
   )
 }
