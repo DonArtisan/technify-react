@@ -4,14 +4,24 @@ export const ShoppingCartContext = createContext({
   items: [],
   subtotal: [],
   add: (item) => {},
+  direction: '',
 })
 
 export const ShoppingCartProvider = ({children}) => {
   const [items, setItem] = useState([])
   const [subtotal, setSubtotal] = useState(0)
+  const [direction, setDirection] = useState('')
+
+  const addDirection = (d) => {
+    setDirection(d)
+  }
 
   const getProductsbyId = (id) => {
     return items.find((itm) => itm.id === id)
+  }
+
+  const removeAllItems = () => {
+    setItem([])
   }
 
   const add = (item) => {
@@ -70,6 +80,9 @@ export const ShoppingCartProvider = ({children}) => {
     add,
     subtotal,
     remove,
+    direction,
+    addDirection,
+    removeAllItems,
   }
 
   return (
