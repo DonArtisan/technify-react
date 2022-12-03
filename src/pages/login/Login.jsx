@@ -44,7 +44,6 @@ export function Login() {
         userLogin(input: $input) {
           userToken
           userAuth {
-            id
             person {
               firstName
               lastName
