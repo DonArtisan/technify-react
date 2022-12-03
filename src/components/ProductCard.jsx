@@ -39,15 +39,15 @@ export default function ProductCard({product}) {
       gap="4px"
     >
       <Image src={defalutImg} objectFit="cover" height="228px" width="full" />
+      <Text height="fit-content" fontWeight="semibold">
+        {product.name}
+      </Text>
       <Text noOfLines={2} height="fit-content" overflow="hidden">
         {product.description}
       </Text>
       <Flex alignItems="center" gap="8px">
         <Text fontSize="20px" fontWeight="medium" color="blue.900">
-          {product.currentPrice}
-        </Text>
-        <Text color="gray.500" textDecoration="line-through">
-          {product.currentPrice}
+          $ {product.currentPrice}
         </Text>
       </Flex>
       <Button
