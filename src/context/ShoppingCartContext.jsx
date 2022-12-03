@@ -9,7 +9,7 @@ export const ShoppingCartContext = createContext({
 
 export const ShoppingCartProvider = ({children}) => {
   const [items, setItem] = useState([])
-  const [subtotal, setSubtotal] = useState(0)
+  const [subtotal, setSubtotal] = useState(null)
   const [direction, setDirection] = useState('')
 
   const addDirection = (d) => {
@@ -44,17 +44,18 @@ export const ShoppingCartProvider = ({children}) => {
     if (!existingItem) {
       setItem([...items, item])
     }
-    let q = 0
     const quantity = items.map(function (itm, q) {
-      const s = itm.qty * itm.currentPrice
-      q += s
-      return q
+      let s = itm.qty * itm.currentPrice
+      console.log('esto es s', s)
+      console.log()
+      return s
     })
     const sum = quantity.reduce((accumulator, value) => {
+      console.log(value)
       return accumulator + value
     }, 0)
     setSubtotal(sum)
-    console.log(subtotal)
+    console.log('esto es sum', sum)
   }
 
   const remove = (product) => {

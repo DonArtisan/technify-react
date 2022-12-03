@@ -38,7 +38,7 @@ function useProvideAuth() {
         }
         const {viewer} = response.data
         if (viewer) {
-          setUser(viewer)
+          setUser(viewer.person)
         }
       })
       .catch((err) => {

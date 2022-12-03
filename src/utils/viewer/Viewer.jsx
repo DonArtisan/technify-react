@@ -10,7 +10,6 @@ export default function Viewer() {
     graphql`
       query ViewerQuery {
         viewer {
-          id
           person {
             firstName
             lastName

@@ -12,7 +12,7 @@ export default function Checkout() {
   const [clientSecret, setClientSecreto] = useState('')
   const shopingCartCtx = useContext(ShoppingCartContext)
 
-  const {items, add, remove, subtotal} = shopingCartCtx
+  const {items, add, remove, subtotal, direction} = shopingCartCtx
   console.log(items)
 
   const [commit] = useMutation(
@@ -31,12 +31,18 @@ export default function Checkout() {
 
   useEffect(() => {
     let isMounted = true
+    console.log('i fire once')
+
+    if (!isMounted) {
+      return
+    }
 
     commit({
       variables: {
         input: {
           amount: subtotal,
           products: items,
+          deliveryPlace: direction,
         },
       },
       onCompleted({clientSecret}) {

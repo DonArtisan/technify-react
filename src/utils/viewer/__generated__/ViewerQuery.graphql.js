@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9e10b267320ee4f2f993b46e7b3ad810>>
+ * @generated SignedSource<<66db5432c5fc8f02d6c4074a33a8064f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,21 +13,21 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "firstName",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "firstName",
+  "name": "lastName",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "lastName",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -45,7 +45,6 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -54,8 +53,8 @@ return {
             "name": "person",
             "plural": false,
             "selections": [
-              (v1/*: any*/),
-              (v2/*: any*/)
+              (v0/*: any*/),
+              (v1/*: any*/)
             ],
             "storageKey": null
           }
@@ -80,7 +79,6 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -89,28 +87,29 @@ return {
             "name": "person",
             "plural": false,
             "selections": [
+              (v0/*: any*/),
               (v1/*: any*/),
-              (v2/*: any*/),
-              (v0/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "95633be281b17de31d6604ca9cbcb5c9",
+    "cacheID": "5d034bcf6fe78c33b35a7bf8537f643b",
     "id": null,
     "metadata": {},
     "name": "ViewerQuery",
     "operationKind": "query",
-    "text": "query ViewerQuery {\n  viewer {\n    id\n    person {\n      firstName\n      lastName\n      id\n    }\n  }\n}\n"
+    "text": "query ViewerQuery {\n  viewer {\n    person {\n      firstName\n      lastName\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "d2c0bb394085a72f77354e2cfc195a53";
+node.hash = "57447cd96820cf29e2b88e388f1d1d4a";
 
 export default node;
