@@ -14,21 +14,25 @@ import {
 import {useState} from 'react'
 import {useContext} from 'react'
 import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import {useCartActions} from '../stores/useCartStore'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
   const shopingCartCtx = useContext(ShoppingCartContext)
   const {items, add, remove} = shopingCartCtx
-  const [amount, setAmount] = useState(data.qty)
+  const [amount, setAmount] = useState(data.quantity)
+  const {addToCart, removeOneFromCart} = useCartActions()
 
   function onChange(amout) {
     setSubTotal(data.currentPrice * amout)
 
     if (amout < amount) {
+      removeOneFromCart(data)
       remove(data)
     }
     if (amout > amount) {
-      add({...data, qty: 1})
+      addToCart({...data, quantity: 1})
+      add({data, qty: 1})
     }
 
     /**
@@ -70,7 +74,7 @@ export default function CartItem({data}) {
           maxWidth={20}
           max={10}
           min={1}
-          defaultValue={data.qty}
+          defaultValue={data.quantity}
           onChange={onChange}
         >
           <NumberInputField />
