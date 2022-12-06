@@ -2,6 +2,7 @@ import create from 'zustand'
 
 const useCartStore = create((set) => ({
   items: [],
+  direction: '',
   actions: {
     addToCart: (newItem) =>
       set((state) => {
@@ -48,9 +49,14 @@ const useCartStore = create((set) => ({
         return {...state, items: updatedCart}
       }),
     cleanCart: () => set({items: []}),
+    addDirection: (newDirection) =>
+      set((state) => {
+        return {...state, direction: newDirection}
+      }),
   },
 }))
 
 export const useCart = () => useCartStore((state) => state.items)
+export const useDirection = () => useCartStore((state) => state.direction)
 
 export const useCartActions = () => useCartStore((state) => state.actions)

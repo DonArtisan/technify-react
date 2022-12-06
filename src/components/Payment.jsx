@@ -1,45 +1,52 @@
-import {Select} from '@chakra-ui/react'
-import {useDisclosure} from '@chakra-ui/react'
-import {Flex} from '@chakra-ui/react'
-import {Modal} from '@chakra-ui/react'
-import {ModalContent} from '@chakra-ui/react'
-import {ModalBody} from '@chakra-ui/react'
-import {Input} from '@chakra-ui/react'
-import {FormLabel} from '@chakra-ui/react'
-import {ModalFooter} from '@chakra-ui/react'
-import {FormControl} from '@chakra-ui/react'
-import {ModalHeader} from '@chakra-ui/react'
-import {ModalOverlay} from '@chakra-ui/react'
-import {Button, Heading, Stack, Text} from '@chakra-ui/react'
-import {Form} from 'formik'
-import {FastField} from 'formik'
-import {Formik} from 'formik'
-import {useContext, useState} from 'react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Stack,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
+import {FastField, Form, Formik} from 'formik'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import {useCart, useCartActions} from '../stores/useCartStore'
 
 export default function Payment() {
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {addDirection} = shopingCartCtx
+  const {addDirection} = useCartActions()
   const auth = useAuth()
+  const cart = useCart()
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [selectValue, setSelectValue] = useState('')
 
-  const {subtotal} = shopingCartCtx
-  console.log(subtotal)
+  let subTotal = 0
+
+  cart.forEach((itm) => {
+    subTotal += itm.quantity * itm.currentPrice
+  })
+
   const data = [
     {
       tab: 'subtotal',
-      value: subtotal,
+      value: subTotal,
     },
     {
       tab: 'impuesto',
-      value: '13.00',
+      value: subTotal * 0.15,
     },
     {
       tab: 'total',
-      value: '1300.00',
+      value: subTotal + subTotal * 0.15,
     },
   ]
   function handleSelect(e) {

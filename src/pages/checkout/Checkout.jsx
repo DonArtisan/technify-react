@@ -2,18 +2,23 @@ import {Flex, Heading} from '@chakra-ui/react'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import {graphql} from 'babel-plugin-relay/macro'
-import {useContext, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useMutation} from 'react-relay'
 import CheckoutForm from '../../components/CheckoutForm'
-import {ShoppingCartContext} from '../../context/ShoppingCartContext'
+import {useCart, useDirection} from '../../stores/useCartStore'
 
 export default function Checkout() {
   const [stripePromise, setStripePromise] = useState(null)
   const [clientSecret, setClientSecreto] = useState('')
-  const shopingCartCtx = useContext(ShoppingCartContext)
 
-  const {items, add, remove, subtotal, direction} = shopingCartCtx
-  console.log(items)
+  const cart = useCart()
+  const direction = useDirection()
+
+  let subTotal = 0
+
+  cart.forEach((itm) => {
+    subTotal += itm.quantity * itm.currentPrice
+  })
 
   const [commit] = useMutation(
     graphql`
@@ -40,8 +45,8 @@ export default function Checkout() {
     commit({
       variables: {
         input: {
-          amount: subtotal,
-          products: items,
+          amount: subTotal,
+          products: cart,
           deliveryPlace: direction,
         },
       },

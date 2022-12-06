@@ -34,7 +34,7 @@ const links = [
 
 export default function Header() {
   const cart = useCart()
-  let itemNumbers = 1
+  let itemNumbers = 0
   cart.forEach((itm) => {
     itemNumbers += itm.quantity
   })
