@@ -19,8 +19,6 @@ export default function CartItemList() {
   const cart = useCart()
   const {cleanCart} = useCartActions()
 
-  console.log(cart)
-
   return (
     <Stack width="full" gap="30px">
       {cart.length > 0 ? (

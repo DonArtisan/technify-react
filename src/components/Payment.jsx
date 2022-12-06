@@ -35,6 +35,8 @@ export default function Payment() {
     subTotal += itm.quantity * itm.currentPrice
   })
 
+  let impuesto = subTotal * 0.15
+
   const data = [
     {
       tab: 'subtotal',
@@ -42,7 +44,7 @@ export default function Payment() {
     },
     {
       tab: 'impuesto',
-      value: subTotal * 0.15,
+      value: impuesto.toFixed(2),
     },
     {
       tab: 'total',

@@ -47,7 +47,7 @@ export default function CartItem({data}) {
             height="fit-content"
             overflow="hidden"
           >
-            {data.description}
+            {data.name}
           </Text>
         </Flex>
       </Td>
