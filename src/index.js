@@ -4,7 +4,6 @@ import {RelayEnvironmentProvider} from 'react-relay'
 import {BrowserRouter} from 'react-router-dom'
 import App from './App'
 import {AuthProvider} from './context/AuthContext'
-import {ShoppingCartProvider} from './context/ShoppingCartContext'
 import './index.css'
 import RelayEnvironment from './RelayEnvironment.js'
 import reportWebVitals from './reportWebVitals'
@@ -14,21 +13,17 @@ import {StrictMode} from 'react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <RelayEnvironmentProvider environment={RelayEnvironment}>
-        <ChakraProvider theme={theme}>
-          <AuthProvider>
-            <ShoppingCartProvider>
-              <Layout>
-                <App />
-              </Layout>
-            </ShoppingCartProvider>
-          </AuthProvider>
-        </ChakraProvider>
-      </RelayEnvironmentProvider>
-    </BrowserRouter>
-  </StrictMode>
+  <BrowserRouter>
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <ChakraProvider theme={theme}>
+        <AuthProvider>
+          <Layout>
+            <App />
+          </Layout>
+        </AuthProvider>
+      </ChakraProvider>
+    </RelayEnvironmentProvider>
+  </BrowserRouter>
 )
 
 // If you want to start measuring performance in your app, pass a function
