@@ -36,6 +36,18 @@ const useCartStore = create((set) => ({
 
         return {...state, items: updatedCart}
       }),
+    removeFromCart: (oldItem) =>
+      set((state) => {
+        const exists = state.items.findIndex((item) => item.id === oldItem.id)
+
+        if (exists === -1) {
+          return {...state}
+        }
+
+        const updatedCart = state.items.filter((item) => item.id !== oldItem.id)
+
+        return {...state, items: updatedCart}
+      }),
     cleanCart: () => set({items: []}),
   },
 }))

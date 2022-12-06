@@ -11,18 +11,14 @@ import {
 } from '@chakra-ui/react'
 import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
 import {useCart, useCartActions} from '../stores/useCartStore'
 import {useEffect} from 'react'
 
 const tabs = ['producto', 'precio', 'cantidad', 'subtotal', '']
 
 export default function CartItemList() {
-  const shopingCartCtx = useContext(ShoppingCartContext)
   const cart = useCart()
   const {cleanCart} = useCartActions()
-  const {items, add, removeAllItems} = shopingCartCtx
 
   console.log(cart)
 

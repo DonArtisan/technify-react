@@ -1,4 +1,5 @@
 import {CloseIcon} from '@chakra-ui/icons'
+import {Button} from '@chakra-ui/react'
 import {
   Flex,
   Image,
@@ -21,7 +22,7 @@ export default function CartItem({data}) {
   const shopingCartCtx = useContext(ShoppingCartContext)
   const {items, add, remove} = shopingCartCtx
   const [amount, setAmount] = useState(data.quantity)
-  const {addToCart, removeOneFromCart} = useCartActions()
+  const {addToCart, removeOneFromCart, removeFromCart} = useCartActions()
 
   function onChange(amout) {
     setSubTotal(data.currentPrice * amout)
@@ -43,6 +44,9 @@ export default function CartItem({data}) {
     // items.map((item) => item.id === data.id && qty++)
 
     // add([...items, {...data, qty}])
+  }
+  function deleteItem() {
+    removeFromCart(data)
   }
 
   return (
@@ -97,7 +101,12 @@ export default function CartItem({data}) {
           onClick={() => add([...items.filter((item) => item.id !== data.id)])}
           borderRadius="full"
         >
-          <CloseIcon width="12px" height="12px" />
+          <CloseIcon
+            as={Button}
+            onClick={deleteItem}
+            width="12px"
+            height="12px"
+          />
         </Flex>
       </Td>
     </Tr>
