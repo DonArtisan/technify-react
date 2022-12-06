@@ -22,19 +22,24 @@ export default function CartItem({data}) {
   const shopingCartCtx = useContext(ShoppingCartContext)
   const {items, add, remove} = shopingCartCtx
   const [amount, setAmount] = useState(data.quantity)
-  const {addToCart, removeOneFromCart, removeFromCart} = useCartActions()
+  const {addToCart, removeOneFromCart, removeFromCart, updateCart} =
+    useCartActions()
 
   function onChange(amout) {
     setSubTotal(data.currentPrice * amout)
 
-    if (amout < amount) {
-      removeOneFromCart(data)
-      remove(data)
-    }
-    if (amout > amount) {
-      addToCart({...data, quantity: 1})
-      add({data, qty: 1})
-    }
+    // if (amout < amount) {
+    //   removeOneFromCart(data)
+    //   remove(data)
+    // }
+    // if (amout > amount) {
+    //   addToCart({...data, quantity: 1})
+    //   add({data, qty: 1})
+    // }
+
+    // console.log('hey')
+    // console.log(amout)
+    updateCart({...data, quantity: amout})
 
     /**
      * pending to fix

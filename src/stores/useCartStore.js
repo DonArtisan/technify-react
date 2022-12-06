@@ -16,26 +16,6 @@ const useCartStore = create((set) => ({
         )
         return {...state, items: updatedCart}
       }),
-    removeOneFromCart: (oldItem) =>
-      set((state) => {
-        const exists = state.items.findIndex((item) => item.id === oldItem.id)
-
-        if (exists === -1) {
-          return {
-            ...state,
-          }
-        }
-
-        const updatedCart = state.items
-          .map((item) =>
-            item.id === oldItem.id
-              ? {...item, quantity: Math.max(item.quantity - 1, 0)}
-              : item
-          )
-          .filter((item) => item.quantity)
-
-        return {...state, items: updatedCart}
-      }),
     removeFromCart: (oldItem) =>
       set((state) => {
         const exists = state.items.findIndex((item) => item.id === oldItem.id)
@@ -46,6 +26,25 @@ const useCartStore = create((set) => ({
 
         const updatedCart = state.items.filter((item) => item.id !== oldItem.id)
 
+        return {...state, items: updatedCart}
+      }),
+    updateCart: (updatedItem) =>
+      set((state) => {
+        const exists = state.items.findIndex(
+          (item) => item.id === updatedItem.id
+        )
+
+        if (exists === -1) {
+          return {
+            ...state,
+          }
+        }
+
+        const updatedCart = state.items.map((item) =>
+          item.id === updatedItem.id
+            ? {...item, quantity: updatedItem.quantity}
+            : item
+        )
         return {...state, items: updatedCart}
       }),
     cleanCart: () => set({items: []}),
