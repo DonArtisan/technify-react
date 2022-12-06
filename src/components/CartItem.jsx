@@ -11,20 +11,25 @@ import {
   Text,
   Tr,
 } from '@chakra-ui/react'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useCartActions} from '../stores/useCartStore'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
+  const [quantity, setQuantity] = useState(data.quantity)
   const {removeFromCart, updateCart} = useCartActions()
 
   function onChange(amount) {
-    setSubTotal(data.currentPrice * Number(amount))
     updateCart({...data, quantity: Number(amount)})
   }
   function deleteItem() {
     removeFromCart(data)
   }
+
+  useEffect(() => {
+    setSubTotal(data.currentPrice * data.quantity)
+    setQuantity(data.quantity)
+  }, [data])
 
   return (
     <Tr paddingBlock="20px">
@@ -55,8 +60,9 @@ export default function CartItem({data}) {
           maxWidth={20}
           max={10}
           min={1}
-          defaultValue={data.quantity}
+          defaultValue={quantity}
           onChange={onChange}
+          value={quantity}
         >
           <NumberInputField />
           <NumberInputStepper>
