@@ -9,10 +9,9 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import CartItem from './CartItem'
 import {Link} from 'react-router-dom'
 import {useCart, useCartActions} from '../stores/useCartStore'
-import {useEffect} from 'react'
+import CartItem from './CartItem'
 
 const tabs = ['producto', 'precio', 'cantidad', 'subtotal', '']
 

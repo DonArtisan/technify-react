@@ -41,13 +41,13 @@ export const ShoppingCartProvider = ({children}) => {
       console.log(newList)
       setItem(newList)
     }
+    console.log(items)
     if (!existingItem) {
       setItem([...items, item])
     }
     const quantity = items.map(function (itm, q) {
       let s = itm.qty * itm.currentPrice
       console.log('esto es s', s)
-      console.log()
       return s
     })
     const sum = quantity.reduce((accumulator, value) => {
@@ -56,6 +56,11 @@ export const ShoppingCartProvider = ({children}) => {
     }, 0)
     setSubtotal(sum)
     console.log('esto es sum', sum)
+    sumItems()
+  }
+
+  const sumItems = () => {
+    console.log('items', items)
   }
 
   const remove = (product) => {

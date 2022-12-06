@@ -17,11 +17,9 @@ import {
   Portal,
   Show,
 } from '@chakra-ui/react'
-import {useContext, useEffect, useState} from 'react'
 import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
 import {useCart} from '../stores/useCartStore'
 import DesktopNavigation from './DesktopNavigation'
 import Logo from './Logo'
@@ -35,10 +33,8 @@ const links = [
 ]
 
 export default function Header() {
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items} = shopingCartCtx
   const cart = useCart()
-  let itemNumbers = 0
+  let itemNumbers = 1
   cart.forEach((itm) => {
     itemNumbers += itm.quantity
   })

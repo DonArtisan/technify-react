@@ -1,5 +1,4 @@
 import {CloseIcon} from '@chakra-ui/icons'
-import {Button} from '@chakra-ui/react'
 import {
   Flex,
   Image,
@@ -13,42 +12,15 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import {useState} from 'react'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
 import {useCartActions} from '../stores/useCartStore'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add, remove} = shopingCartCtx
-  const [amount, setAmount] = useState(data.quantity)
-  const {addToCart, removeOneFromCart, removeFromCart, updateCart} =
-    useCartActions()
+  const {removeFromCart, updateCart} = useCartActions()
 
-  function onChange(amout) {
-    setSubTotal(data.currentPrice * amout)
-
-    // if (amout < amount) {
-    //   removeOneFromCart(data)
-    //   remove(data)
-    // }
-    // if (amout > amount) {
-    //   addToCart({...data, quantity: 1})
-    //   add({data, qty: 1})
-    // }
-
-    // console.log('hey')
-    // console.log(amout)
-    updateCart({...data, quantity: amout})
-
-    /**
-     * pending to fix
-     * update quantity from number input
-     */
-
-    // items.map((item) => item.id === data.id && qty++)
-
-    // add([...items, {...data, qty}])
+  function onChange(amount) {
+    setSubTotal(data.currentPrice * Number(amount))
+    updateCart({...data, quantity: Number(amount)})
   }
   function deleteItem() {
     removeFromCart(data)
@@ -103,15 +75,10 @@ export default function CartItem({data}) {
           borderColor="gray.400"
           padding="8px"
           cursor="pointer"
-          onClick={() => add([...items.filter((item) => item.id !== data.id)])}
+          onClick={deleteItem}
           borderRadius="full"
         >
-          <CloseIcon
-            as={Button}
-            onClick={deleteItem}
-            width="12px"
-            height="12px"
-          />
+          <CloseIcon width="12px" height="12px" />
         </Flex>
       </Td>
     </Tr>

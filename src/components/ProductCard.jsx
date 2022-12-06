@@ -1,18 +1,12 @@
 import {Button, Flex, Image, Stack, Text} from '@chakra-ui/react'
-import {useEffect} from 'react'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
-import {useCart, useCartActions} from '../stores/useCartStore'
+import {useCartActions} from '../stores/useCartStore'
 import defalutImg from '../utils/assets/image/default-vs.jpg'
 
 export default function ProductCard({product}) {
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add} = shopingCartCtx
   const {addToCart} = useCartActions()
 
   function handleClick() {
     addToCart({...product, quantity: 1})
-    add({...product, qty: 1})
   }
 
   return (
