@@ -20,6 +20,9 @@ export default function CategoriesList() {
                     name
                     description
                     currentPrice
+                    image {
+                      originalSrc
+                    }
                   }
                 }
               }

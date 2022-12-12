@@ -29,7 +29,12 @@ export default function ProductCard({product}) {
       }}
       gap="4px"
     >
-      <Image src={defalutImg} objectFit="cover" height="228px" width="full" />
+      <Image
+        src={product.image?.originalSrc}
+        objectFit="cover"
+        height="228px"
+        width="full"
+      />
       <Text height="fit-content" fontWeight="semibold">
         {product.name}
       </Text>

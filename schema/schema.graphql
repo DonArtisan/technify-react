@@ -551,6 +551,7 @@ type ProductSaleCreatePayload {
 input ClientSecretInput {
   amount: Float
   products: [PaymentInput!]!
+  deliveryPlace: String
 }
 
 type ClientSecretPayload {

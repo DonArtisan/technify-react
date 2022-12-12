@@ -39,7 +39,7 @@ export default function CartItem({data}) {
             height="140px"
             width="140px"
             objectFit="cover"
-            src={data.image}
+            src={data.image?.originalSrc}
           />
           <Text
             maxWidth="400px"

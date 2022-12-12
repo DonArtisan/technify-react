@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c93fbccb52cb2cf061483704041b62d8>>
+ * @generated SignedSource<<e779c07141e3082c0afbf2a4ddb7fa4c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -60,6 +60,13 @@ var v0 = [
                 "kind": "ScalarField",
                 "name": "description",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "currentPrice",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -89,16 +96,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "10de47c1c98a3ae20e078fe47964ede4",
+    "cacheID": "f735e6a86a24e1bc20b5d26aeeea175c",
     "id": null,
     "metadata": {},
     "name": "productsQuery",
     "operationKind": "query",
-    "text": "query productsQuery {\n  products(first: 50) {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n"
+    "text": "query productsQuery {\n  products(first: 50) {\n    edges {\n      node {\n        id\n        name\n        description\n        currentPrice\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "56c586b7e8ac5f446633577e4c50618b";
+node.hash = "de0844c7f7e2f54f22eb8577d77e96e6";
 
 export default node;

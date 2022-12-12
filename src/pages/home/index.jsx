@@ -29,6 +29,9 @@ export default function Home() {
               name
               description
               currentPrice
+              image {
+                originalSrc
+              }
             }
           }
         }

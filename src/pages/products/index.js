@@ -13,12 +13,14 @@ export default function Products() {
               id
               name
               description
+              currentPrice
             }
           }
         }
       }
     `
   )
+  console.log(products)
 
   return (
     <Flex
