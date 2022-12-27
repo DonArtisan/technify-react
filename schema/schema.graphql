@@ -536,11 +536,16 @@ input PaymentInput {
   amount: Float
   tax: Float
   total: Float
-  qty: Int
+  quantity: Int
   currentPrice: Float
   name: String
+  image: imageType
   description: String
   saleId: ID
+}
+
+input imageType {
+  originalSrc: String
 }
 
 type ProductSaleCreatePayload {
