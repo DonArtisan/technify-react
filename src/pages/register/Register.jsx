@@ -8,16 +8,12 @@ import {
   Heading,
   Icon,
   Input,
-  Link as LinkC,
-  ListItem,
   Text,
-  UnorderedList,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
-import {useState} from 'react'
-import {useMutation} from 'react-relay'
-import {Link, useNavigate} from 'react-router-dom'
+import {useEffect, useState} from 'react'
+import {graphql, useMutation} from 'react-relay'
+import {Navigate, useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import {useAuth} from '../../context/AuthContext'
 import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
@@ -36,14 +32,23 @@ export function Register() {
   let navigate = useNavigate()
   const auth = useAuth()
 
+  useEffect(() => {
+    if (auth.user) {
+      navigate('/')
+    }
+  }, [auth])
+
   const [commit] = useMutation(
     graphql`
       mutation RegisterUserMutation($input: UserInput!) {
         userRegister(input: $input) {
           userToken
           user {
-            firstName
-            lastName
+            id
+            person {
+              firstName
+              lastName
+            }
           }
           userErrors {
             field
@@ -55,11 +60,14 @@ export function Register() {
   )
 
   function handleSubmit(values, formikBag) {
+    console.log(values)
     commit({
       variables: {
         input: {
+          dni: values.dni,
           firstName: values.firstName,
           lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
           email: values.email,
           password: values.password,
         },
@@ -73,7 +81,8 @@ export function Register() {
         }
         if (userErrors.length === 0) {
           auth.signin(userRegister)
-          navigate('/')
+          navigate('/', {replace: true})
+          console.log(userRegister)
         }
       },
       onError({userRegister}) {
@@ -115,8 +124,10 @@ export function Register() {
 
           <Formik
             initialValues={{
+              dni: '',
               firstName: '',
               lastName: '',
+              phoneNumber: '',
               email: '',
               password: '',
             }}
@@ -156,6 +167,21 @@ export function Register() {
                     />
                     <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                   </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.phoneNumber && touched.phoneNumber}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Numbero de Telefono:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
+                  </FormControl>
                   <FormControl isInvalid={!!errors.email && touched.email}>
                     <FormLabel fontWeight="700" color="text">
                       Email:
@@ -185,7 +211,6 @@ export function Register() {
                     />
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
-
                   <Flex
                     alignItems="center"
                     justifyContent="center"
@@ -200,45 +225,11 @@ export function Register() {
                     >
                       Submit
                     </Button>
-                    <Link to="/">
-                      <LinkC color="bgPrimary">Forgot Your Password?</LinkC>
-                    </Link>
                   </Flex>
                 </Flex>
               </Form>
             )}
           </Formik>
-        </Flex>
-        <Flex
-          flexDirection="column"
-          margin="0px 16px"
-          borderRadius="10px"
-          rowGap="22px"
-          padding="70px 18px 33px 18px"
-          bg="bgBeige"
-        >
-          <Text fontSize="14px" fontWeight="600" color="text">
-            New Customer?
-          </Text>
-          <Flex flexDirection="column" rowGap="48px">
-            <Text>Creating an account has many benefits:</Text>
-            <UnorderedList>
-              <ListItem>Check out faster</ListItem>
-              <ListItem>Keep more that on address</ListItem>
-              <ListItem>Track orders and more</ListItem>
-            </UnorderedList>
-          </Flex>
-          <Link to="/register">
-            <Button
-              as="a"
-              height="38px"
-              borderRadius="50px"
-              color="white"
-              bg="bgPrimary"
-            >
-              Create An Account
-            </Button>
-          </Link>
         </Flex>
       </Flex>
       <Flex
@@ -259,7 +250,7 @@ export function Register() {
               p="12px"
               bg="bgPrimary"
               as={service.icon}
-            ></Icon>
+            />
             <Text fontSize="14px" fontWeight="700">
               {service.name}
             </Text>

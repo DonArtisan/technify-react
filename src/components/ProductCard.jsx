@@ -1,26 +1,60 @@
-import {Stack, Flex, Image, Text, Button} from '@chakra-ui/react'
+import {Button, Flex, Image, Stack, Text} from '@chakra-ui/react'
+import {useCartActions} from '../stores/useCartStore'
+import defalutImg from '../utils/assets/image/default-vs.jpg'
 
-export default function ProductCard() {
+export default function ProductCard({product}) {
+  const {addToCart} = useCartActions()
+
+  function handleClick() {
+    addToCart({...product, quantity: 1})
+  }
+
   return (
-    <Stack width="234px" alignItems="center" padding="24px" gap="4px">
-      <Image height="140px" width="140px" />
-      <Flex direction="row" alignItems="center" paddingBlock="10px">
-        <Text marginInlineStart="6px" alignItems="center" color="gray.500">
-          Reviews (4)
-        </Text>
-      </Flex>
-      <Text>
-        EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...
+    <Stack
+      minWidth="280px"
+      maxWidth="280px"
+      alignItems="center"
+      textAlign="center"
+      boxShadow="inset 0px 0px 0px 1px rgb(221 221 221)"
+      transition="border-color 0.3s ease"
+      height="464px"
+      paddingInline="56px"
+      borderRadius="12px"
+      padding="24px"
+      border="2px solid"
+      borderColor="transparent"
+      _hover={{
+        borderColor: '#3452ff',
+        boxShadow: '0px 0px 20px 1px rgb(0 0 0 / 10%)',
+      }}
+      gap="4px"
+    >
+      <Image
+        src={product.image?.originalSrc}
+        objectFit="cover"
+        height="228px"
+        width="full"
+      />
+      <Text height="fit-content" fontWeight="semibold">
+        {product.name}
+      </Text>
+      <Text noOfLines={2} height="fit-content" overflow="hidden">
+        {product.description}
       </Text>
       <Flex alignItems="center" gap="8px">
-        <Text color="gray.500" textDecoration="line-through">
-          $499.00
-        </Text>
-        <Text fontSize="20px" fontWeight="semibold">
-          $499.00
+        <Text fontSize="20px" fontWeight="medium" color="blue.900">
+          $ {product.currentPrice}
         </Text>
       </Flex>
-      <Button variant="outline">add to cart</Button>
+      <Button
+        padding="8px 16px"
+        width="auto"
+        height="auto"
+        variant="outline"
+        onClick={handleClick}
+      >
+        añadir
+      </Button>
     </Stack>
   )
 }
