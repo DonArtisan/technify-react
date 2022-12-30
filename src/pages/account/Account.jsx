@@ -28,9 +28,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import {FastField, Form, Formik} from 'formik'
-import {useMutation} from 'react-relay'
+import {graphql, useMutation} from 'react-relay'
 import {useAuth} from '../../context/AuthContext'
-import {graphql} from 'babel-plugin-relay/macro'
 import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
 
 export function Account() {

@@ -1,6 +1,5 @@
-import {graphql} from 'babel-plugin-relay/macro'
 import {useEffect} from 'react'
-import {useLazyLoadQuery} from 'react-relay'
+import {graphql, useLazyLoadQuery} from 'react-relay'
 import {useAuth} from '../../context/AuthContext'
 
 export default function Viewer() {

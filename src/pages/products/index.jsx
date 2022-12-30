@@ -1,6 +1,5 @@
 import {Flex} from '@chakra-ui/react'
-import {useLazyLoadQuery} from 'react-relay'
-import {graphql} from 'babel-plugin-relay/macro'
+import {graphql, useLazyLoadQuery} from 'react-relay'
 import ProductCard from '../../components/ProductCard'
 
 export default function Products() {

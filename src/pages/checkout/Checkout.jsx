@@ -1,9 +1,8 @@
 import {Flex, Heading} from '@chakra-ui/react'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
-import {graphql} from 'babel-plugin-relay/macro'
 import {useEffect, useState} from 'react'
-import {useMutation} from 'react-relay'
+import {graphql, useMutation} from 'react-relay'
 import CheckoutForm from '../../components/CheckoutForm'
 import {useCart, useDirection} from '../../stores/useCartStore'
 
@@ -52,7 +51,7 @@ export default function Checkout() {
       },
       onCompleted({clientSecret}) {
         const clientSecreto = clientSecret.clientSecret
-        const stripeApiKey = process.env.REACT_APP_STRIPE
+        const stripeApiKey = import.meta.env.VITE_APP_STRIPE
 
         setStripePromise(loadStripe(stripeApiKey))
         setClientSecreto(clientSecreto)

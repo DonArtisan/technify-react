@@ -10,10 +10,9 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
 import {useEffect, useState} from 'react'
-import {useMutation} from 'react-relay'
+import {graphql, useMutation} from 'react-relay'
 import {Navigate, useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import {useAuth} from '../../context/AuthContext'
