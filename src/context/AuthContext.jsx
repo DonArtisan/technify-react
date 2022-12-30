@@ -21,9 +21,12 @@ function useProvideAuth() {
     fetchGraphQL(`
         query ViewerQuery {
           viewer {
-            firstName
-            lastName
-            email
+            id
+            person{
+              firstName
+              lastName
+
+            }
           }
         }`)
       .then((response) => {
@@ -35,7 +38,7 @@ function useProvideAuth() {
         }
         const {viewer} = response.data
         if (viewer) {
-          setUser(viewer)
+          setUser(viewer.person)
         }
       })
       .catch((err) => {

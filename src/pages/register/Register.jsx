@@ -10,10 +10,9 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
 import {useEffect, useState} from 'react'
-import {useMutation} from 'react-relay'
+import {graphql, useMutation} from 'react-relay'
 import {Navigate, useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import {useAuth} from '../../context/AuthContext'
@@ -46,8 +45,10 @@ export function Register() {
           userToken
           user {
             id
-            firstName
-            lastName
+            person {
+              firstName
+              lastName
+            }
           }
           userErrors {
             field
@@ -59,11 +60,14 @@ export function Register() {
   )
 
   function handleSubmit(values, formikBag) {
+    console.log(values)
     commit({
       variables: {
         input: {
+          dni: values.dni,
           firstName: values.firstName,
           lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
           email: values.email,
           password: values.password,
         },
@@ -120,8 +124,10 @@ export function Register() {
 
           <Formik
             initialValues={{
+              dni: '',
               firstName: '',
               lastName: '',
+              phoneNumber: '',
               email: '',
               password: '',
             }}
@@ -161,6 +167,21 @@ export function Register() {
                     />
                     <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                   </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.phoneNumber && touched.phoneNumber}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Numbero de Telefono:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
+                  </FormControl>
                   <FormControl isInvalid={!!errors.email && touched.email}>
                     <FormLabel fontWeight="700" color="text">
                       Email:
@@ -190,7 +211,6 @@ export function Register() {
                     />
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
-
                   <Flex
                     alignItems="center"
                     justifyContent="center"

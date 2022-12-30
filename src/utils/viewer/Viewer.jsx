@@ -1,6 +1,5 @@
-import {graphql} from 'babel-plugin-relay/macro'
 import {useEffect} from 'react'
-import {useLazyLoadQuery} from 'react-relay'
+import {graphql, useLazyLoadQuery} from 'react-relay'
 import {useAuth} from '../../context/AuthContext'
 
 export default function Viewer() {
@@ -10,9 +9,10 @@ export default function Viewer() {
     graphql`
       query ViewerQuery {
         viewer {
-          firstName
-          lastName
-          email
+          person {
+            firstName
+            lastName
+          }
         }
       }
     `,
@@ -20,8 +20,9 @@ export default function Viewer() {
   )
 
   useEffect(() => {
+    console.log(viewer)
     if (viewer) {
-      auth.currentUser(viewer)
+      auth.currentUser(viewer.person)
     }
   }, [viewer])
 }

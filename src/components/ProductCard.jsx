@@ -1,21 +1,12 @@
 import {Button, Flex, Image, Stack, Text} from '@chakra-ui/react'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import {useCartActions} from '../stores/useCartStore'
 import defalutImg from '../utils/assets/image/default-vs.jpg'
 
 export default function ProductCard({product}) {
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add} = shopingCartCtx
+  const {addToCart} = useCartActions()
 
   function handleClick() {
-    // let qty = amout
-
-    // items.map((item) => item.id === data.id && qty)
-
-    // add([...items, {...data, qty}])
-    // console.log(items)
-
-    add({...product, qty: 1})
+    addToCart({...product, quantity: 1})
   }
 
   return (
@@ -38,16 +29,21 @@ export default function ProductCard({product}) {
       }}
       gap="4px"
     >
-      <Image src={defalutImg} objectFit="cover" height="228px" width="full" />
+      <Image
+        src={product.image?.originalSrc}
+        objectFit="cover"
+        height="228px"
+        width="full"
+      />
+      <Text height="fit-content" fontWeight="semibold">
+        {product.name}
+      </Text>
       <Text noOfLines={2} height="fit-content" overflow="hidden">
         {product.description}
       </Text>
       <Flex alignItems="center" gap="8px">
         <Text fontSize="20px" fontWeight="medium" color="blue.900">
-          {product.currentPrice}
-        </Text>
-        <Text color="gray.500" textDecoration="line-through">
-          {product.currentPrice}
+          $ {product.currentPrice}
         </Text>
       </Flex>
       <Button

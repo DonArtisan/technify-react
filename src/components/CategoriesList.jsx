@@ -1,6 +1,5 @@
 import {Flex, Heading, Link} from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
-import {useLazyLoadQuery} from 'react-relay'
+import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import ProductCard from './ProductCard'
 
@@ -20,6 +19,9 @@ export default function CategoriesList() {
                     name
                     description
                     currentPrice
+                    image {
+                      originalSrc
+                    }
                   }
                 }
               }

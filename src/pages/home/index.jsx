@@ -9,10 +9,9 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
 import {FiHeadphones} from 'react-icons/fi'
 import {IoIosPricetag, IoMdContact} from 'react-icons/io'
-import {useLazyLoadQuery} from 'react-relay'
+import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import CategoriesList from '../../components/CategoriesList'
 import ProductCard from '../../components/ProductCard'
@@ -29,6 +28,9 @@ export default function Home() {
               name
               description
               currentPrice
+              image {
+                originalSrc
+              }
             }
           }
         }

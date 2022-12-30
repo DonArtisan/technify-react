@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5965849bd6429a6308541cffbe323778>>
+ * @generated SignedSource<<66db5432c5fc8f02d6c4074a33a8064f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,7 +27,7 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "email",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -45,9 +45,19 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
-          (v2/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Person",
+            "kind": "LinkedField",
+            "name": "person",
+            "plural": false,
+            "selections": [
+              (v0/*: any*/),
+              (v1/*: any*/)
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -69,32 +79,37 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
-          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "id",
+            "concreteType": "Person",
+            "kind": "LinkedField",
+            "name": "person",
+            "plural": false,
+            "selections": [
+              (v0/*: any*/),
+              (v1/*: any*/),
+              (v2/*: any*/)
+            ],
             "storageKey": null
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4e79b169f887e50e70632cfb8768b2b6",
+    "cacheID": "5d034bcf6fe78c33b35a7bf8537f643b",
     "id": null,
     "metadata": {},
     "name": "ViewerQuery",
     "operationKind": "query",
-    "text": "query ViewerQuery {\n  viewer {\n    firstName\n    lastName\n    email\n    id\n  }\n}\n"
+    "text": "query ViewerQuery {\n  viewer {\n    person {\n      firstName\n      lastName\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-node.hash = "dea7cc54fa1f2ddc436a72f5f4609cab";
+node.hash = "57447cd96820cf29e2b88e388f1d1d4a";
 
 export default node;

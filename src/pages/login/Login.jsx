@@ -13,10 +13,9 @@ import {
   Input,
   Link as LinkC,
 } from '@chakra-ui/react'
-import {graphql} from 'babel-plugin-relay/macro'
 import {Field, Form, Formik} from 'formik'
 import {useEffect} from 'react'
-import {useMutation} from 'react-relay'
+import {graphql, useMutation} from 'react-relay'
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
@@ -44,9 +43,11 @@ export function Login() {
         userLogin(input: $input) {
           userToken
           userAuth {
-            id
-            firstName
-            lastName
+            person {
+              firstName
+              lastName
+              email
+            }
           }
           userErrors {
             field

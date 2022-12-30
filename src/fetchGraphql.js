@@ -3,7 +3,7 @@ import {AUTH_TOKEN} from './constants'
 async function fetchGraphQL(text, variables) {
   const accessToken = localStorage.getItem(AUTH_TOKEN)
 
-  const response = await fetch(process.env.REACT_APP_GRAPHQL_URL, {
+  const response = await fetch(import.meta.env.VITE_GRAPHQL_URL, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,

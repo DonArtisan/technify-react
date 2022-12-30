@@ -11,35 +11,25 @@ import {
   Text,
   Tr,
 } from '@chakra-ui/react'
-import {useState} from 'react'
-import {useContext} from 'react'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import {useEffect, useState} from 'react'
+import {useCartActions} from '../stores/useCartStore'
 
 export default function CartItem({data}) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {items, add, remove} = shopingCartCtx
-  const [amount, setAmount] = useState(data.qty)
+  const [quantity, setQuantity] = useState(data.quantity)
+  const {removeFromCart, updateCart} = useCartActions()
 
-  function onChange(amout) {
-    setSubTotal(data.currentPrice * amout)
-
-    if (amout < amount) {
-      remove(data)
-    }
-    if (amout > amount) {
-      add({...data, qty: 1})
-    }
-
-    /**
-     * pending to fix
-     * update quantity from number input
-     */
-
-    // items.map((item) => item.id === data.id && qty++)
-
-    // add([...items, {...data, qty}])
+  function onChange(amount) {
+    updateCart({...data, quantity: Number(amount)})
   }
+  function deleteItem() {
+    removeFromCart(data)
+  }
+
+  useEffect(() => {
+    setSubTotal(data.currentPrice * data.quantity)
+    setQuantity(data.quantity)
+  }, [data])
 
   return (
     <Tr paddingBlock="20px">
@@ -49,7 +39,7 @@ export default function CartItem({data}) {
             height="140px"
             width="140px"
             objectFit="cover"
-            src={data.image}
+            src={data.image?.originalSrc}
           />
           <Text
             maxWidth="400px"
@@ -57,7 +47,7 @@ export default function CartItem({data}) {
             height="fit-content"
             overflow="hidden"
           >
-            {data.description}
+            {data.name}
           </Text>
         </Flex>
       </Td>
@@ -70,8 +60,9 @@ export default function CartItem({data}) {
           maxWidth={20}
           max={10}
           min={1}
-          defaultValue={data.qty}
+          defaultValue={quantity}
           onChange={onChange}
+          value={quantity}
         >
           <NumberInputField />
           <NumberInputStepper>
@@ -90,7 +81,7 @@ export default function CartItem({data}) {
           borderColor="gray.400"
           padding="8px"
           cursor="pointer"
-          onClick={() => add([...items.filter((item) => item.id !== data.id)])}
+          onClick={deleteItem}
           borderRadius="full"
         >
           <CloseIcon width="12px" height="12px" />

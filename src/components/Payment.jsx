@@ -1,27 +1,69 @@
-import {Flex} from '@chakra-ui/react'
-import {Button, Heading, Stack, Text} from '@chakra-ui/react'
-import {useContext} from 'react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Stack,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
+import {FastField, Form, Formik} from 'formik'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {ShoppingCartContext} from '../context/ShoppingCartContext'
+import {useAuth} from '../context/AuthContext'
+import {useCart, useCartActions} from '../stores/useCartStore'
 
 export default function Payment() {
-  const shopingCartCtx = useContext(ShoppingCartContext)
-  const {subtotal} = shopingCartCtx
-  console.log(subtotal)
+  const {addDirection} = useCartActions()
+  const auth = useAuth()
+  const cart = useCart()
+  const {isOpen, onOpen, onClose} = useDisclosure()
+  const [selectValue, setSelectValue] = useState('')
+
+  let subTotal = 0
+
+  cart.forEach((itm) => {
+    subTotal += itm.quantity * itm.currentPrice
+  })
+
+  let impuesto = subTotal * 0.15
+
   const data = [
     {
       tab: 'subtotal',
-      value: subtotal,
+      value: subTotal,
     },
     {
       tab: 'impuesto',
-      value: '13.00',
+      value: impuesto.toFixed(2),
     },
     {
       tab: 'total',
-      value: '1300.00',
+      value: subTotal + subTotal * 0.15,
     },
   ]
+  function handleSelect(e) {
+    console.log(e.target.value)
+    setSelectValue(e.target.value)
+    if (e.target.value === 'delivery') {
+      onOpen()
+    }
+  }
+
+  function handleSubmit(values) {
+    console.log(values)
+    addDirection(values.mainDirection)
+    onClose()
+  }
 
   return (
     <Stack
@@ -35,19 +77,6 @@ export default function Payment() {
       <Heading as="h2" fontSize="24px">
         Resumen
       </Heading>
-      <Text
-        as="h4"
-        fontSize="18px"
-        maxWidth="360px"
-        noOfLines={2}
-        height="fit-content"
-        overflow="hidden"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque,
-        aspernatur corrupti debitis corporis sed dolores? Quasi porro
-        necessitatibus vel, architecto nihil dolorem, mollitia eius ipsa
-        laboriosam deleniti natus ratione velit!
-      </Text>
       {data.map((element, key) => (
         <Flex
           justifyContent="space-between"
@@ -58,9 +87,72 @@ export default function Payment() {
           <Text>${element.value}</Text>
         </Flex>
       ))}
+      <Text>Seleccione delivery o pickup</Text>
+      <Select
+        value={selectValue}
+        placeholder="Seleccione una opcion"
+        onChange={handleSelect}
+      >
+        <option value="pickup">Pickup</option>
+        <option value="delivery">Delivery</option>
+      </Select>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Direccion de Envio</ModalHeader>
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={{mainDirection: '', departamento: '', municipio: ''}}
+          >
+            <Form>
+              <ModalBody>
+                <Stack>
+                  <FastField name="mainDirection">
+                    {({field, meta: {error, touched}}) => (
+                      <FormControl>
+                        <FormLabel>Direccion Principal</FormLabel>
+                        <Input {...field} type="text" />
+                      </FormControl>
+                    )}
+                  </FastField>
+                  <FastField name="departamento">
+                    {({field, meta: {error, touched}}) => (
+                      <FormControl>
+                        <FormLabel>Departamento</FormLabel>
+                        <Input {...field} type="text" />
+                      </FormControl>
+                    )}
+                  </FastField>
+                  <FastField name="municipio">
+                    {({field, meta: {error, touched}}) => (
+                      <FormControl>
+                        <FormLabel>Municipio</FormLabel>
+                        <Input {...field} type="text" />
+                      </FormControl>
+                    )}
+                  </FastField>
+                </Stack>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  type="submit"
+                  size="md"
+                  variant="outline"
+                  marginRight="2"
+                >
+                  Save
+                </Button>
+                <Button onClick={onClose} bgColor="red.500">
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Form>
+          </Formik>
+        </ModalContent>
+      </Modal>
       <Button
         as={Link}
-        to="/checkout"
+        to={auth.user ? '/checkout' : '/login'}
         width="full"
         backgroundColor="blue.900"
         _hover={{backgroundColor: 'blue.600'}}
