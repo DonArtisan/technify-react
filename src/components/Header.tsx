@@ -19,11 +19,16 @@ import {
 } from '@chakra-ui/react'
 import {FiShoppingCart} from 'react-icons/fi'
 import {Link as ReactRouterLink} from 'react-router-dom'
+import {Product} from '../../generated/graphql'
 import {useAuth} from '../context/AuthContext'
 import {useCart} from '../stores/useCartStore'
 import DesktopNavigation from './DesktopNavigation'
 import Logo from './Logo'
 import MobileNavigation from './MobileNavigation'
+
+interface itemProps extends Product {
+  quantity: number
+}
 
 const links = [
   {
@@ -35,42 +40,42 @@ const links = [
 export default function Header() {
   const cart = useCart()
   let itemNumbers = 0
-  cart.forEach((itm) => {
+  cart.forEach((itm: itemProps) => {
     itemNumbers += itm.quantity
   })
 
   const auth = useAuth()
 
-  const LINKS = [
-    {
-      text: 'Laptops',
-      href: '/',
-    },
-    {
-      text: 'Desktop PCs',
-      href: '/',
-    },
-    {
-      text: 'Networking Devices',
-      href: '/',
-    },
-    {
-      text: 'Printers & Scanners',
-      href: '/',
-    },
-    {
-      text: 'PC Parts',
-      href: '/',
-    },
-    {
-      text: 'All Other Products',
-      href: '/',
-    },
-    {
-      text: 'Repairs',
-      href: '/',
-    },
-  ]
+  // const LINKS = [
+  //   {
+  //     text: 'Laptops',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'Desktop PCs',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'Networking Devices',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'Printers & Scanners',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'PC Parts',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'All Other Products',
+  //     href: '/',
+  //   },
+  //   {
+  //     text: 'Repairs',
+  //     href: '/',
+  //   },
+  // ]
 
   return (
     <Flex
@@ -89,12 +94,16 @@ export default function Header() {
         <DesktopNavigation links={links} />
       </Hide>
       <Show below="lg">
-        <MobileNavigation links={links} />
+        <MobileNavigation />
         <InputGroup flexGrow={1} marginInlineStart={{base: 0, sm: 0, md: 10}}>
           <InputLeftElement
             paddingInlineStart="2"
             pointerEvents="none"
-            children={<SearchIcon size="lg" color="gray.400" />}
+            children={
+              <SearchIcon
+              // size="lg" color="gray.400"
+              />
+            }
           />
           <Input
             borderRadius="full"
