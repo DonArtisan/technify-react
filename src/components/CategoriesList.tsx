@@ -1,10 +1,12 @@
 import {Flex, Heading, Link} from '@chakra-ui/react'
 import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
+import {Product} from '../../generated/graphql'
 import ProductCard from './ProductCard'
+import {CategoriesListQuery} from './__generated__/CategoriesListQuery.graphql'
 
 export default function CategoriesList() {
-  const {categories} = useLazyLoadQuery(
+  const {categories} = useLazyLoadQuery<CategoriesListQuery>(
     graphql`
       query CategoriesListQuery {
         categories(first: 4) {
@@ -29,7 +31,8 @@ export default function CategoriesList() {
           }
         }
       }
-    `
+    `,
+    {}
   )
 
   return (
@@ -64,7 +67,7 @@ export default function CategoriesList() {
               </Link>
             </Flex>
             {category.products?.edges.map(({node: product}, index) => (
-              <ProductCard key={index} product={product} />
+              <ProductCard key={index} product={product as Product} />
             ))}
           </Flex>
         </Flex>
