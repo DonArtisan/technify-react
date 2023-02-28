@@ -27,16 +27,31 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import {FastField, Form, Formik} from 'formik'
+import {
+  FastField,
+  Form,
+  Formik,
+  FormikHelpers,
+  FormikProps,
+  FormikValues,
+} from 'formik'
+import {useRef} from 'react'
 import {graphql, useMutation} from 'react-relay'
 import {useAuth} from '../../context/AuthContext'
 import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
+import {AccountMutation} from './__generated__/AccountMutation.graphql'
+
+interface FormValues {
+  firstName: string
+  lastName: string
+  email: string
+}
 
 export function Account() {
   const {user} = useAuth()
   const {isOpen, onOpen, onClose} = useDisclosure()
 
-  const [commit, isInFlight] = useMutation(
+  const [commit, isInFlight] = useMutation<AccountMutation>(
     graphql`
       mutation AccountMutation($input: UserInput!) {
         userUpdate(input: $input) {
@@ -56,7 +71,10 @@ export function Account() {
     `
   )
 
-  function handleSubmit(values, formikBag) {
+  function handleSubmit(
+    values: FormValues,
+    formikBag: FormikHelpers<FormValues>
+  ) {
     commit({
       variables: {
         input: {
@@ -128,6 +146,7 @@ export function Account() {
                     <Form>
                       <ModalBody>
                         <FastField name="firstName">
+                          {/* @ts-expect-error */}
                           {({field, meta: {error, touched}}) => (
                             <FormControl isInvalid={!!error && touched}>
                               <FormLabel>First Name</FormLabel>
@@ -137,6 +156,7 @@ export function Account() {
                           )}
                         </FastField>
                         <FastField name="lastName">
+                          {/* @ts-expect-error */}
                           {({field, meta: {error, touched}}) => (
                             <FormControl isInvalid={!!error && touched}>
                               <FormLabel>Last Name</FormLabel>
@@ -146,6 +166,7 @@ export function Account() {
                           )}
                         </FastField>
                         <FastField name="email">
+                          {/* @ts-expect-error */}
                           {({field, meta: {error, touched}}) => (
                             <FormControl isInvalid={!!error && touched}>
                               <FormLabel>Email</FormLabel>
