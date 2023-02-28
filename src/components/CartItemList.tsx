@@ -18,6 +18,7 @@ const tabs = ['producto', 'precio', 'cantidad', 'subtotal', '']
 export default function CartItemList() {
   const cart = useCart()
   const {cleanCart} = useCartActions()
+  const padd = cart.length === 0 && 6 ? '6' : '0'
 
   return (
     <Stack width="full" gap="30px">
@@ -55,10 +56,7 @@ export default function CartItemList() {
           Aun no has agregado productos
         </Heading>
       )}
-      <ButtonGroup
-        variant="outline"
-        paddingInlineStart={cart.length === 0 && 6}
-      >
+      <ButtonGroup variant="outline" paddingInlineStart={padd}>
         <Link to="/products">
           <Button width="auto">continuar comprando</Button>
         </Link>

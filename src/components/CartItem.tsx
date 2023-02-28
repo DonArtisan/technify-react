@@ -12,22 +12,30 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import {useEffect, useState} from 'react'
+import {Product} from '../../generated/graphql'
 import {useCartActions} from '../stores/useCartStore'
 
-export default function CartItem({data}) {
+interface itemType extends Product {
+  quantity: number
+}
+
+interface CartItemProps {
+  data: itemType
+}
+export default function CartItem({data}: CartItemProps) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)
   const [quantity, setQuantity] = useState(data.quantity)
   const {removeFromCart, updateCart} = useCartActions()
 
-  function onChange(amount) {
-    updateCart({...data, quantity: Number(amount)})
+  function onChange(amount: number) {
+    updateCart({...data, quantity: amount})
   }
   function deleteItem() {
     removeFromCart(data)
   }
 
   useEffect(() => {
-    setSubTotal(data.currentPrice * data.quantity)
+    setSubTotal(data.currentPrice ? data.currentPrice * data.quantity : 0)
     setQuantity(data.quantity)
   }, [data])
 
@@ -61,7 +69,7 @@ export default function CartItem({data}) {
           max={10}
           min={1}
           defaultValue={quantity}
-          onChange={onChange}
+          onChange={() => onChange}
           value={quantity}
         >
           <NumberInputField />
