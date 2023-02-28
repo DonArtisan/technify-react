@@ -1,0 +1,3 @@
+documents: src/**/*.{ts,tsx}
+include: src/**/*.jsx
+schema: ./schema/schema.graphql

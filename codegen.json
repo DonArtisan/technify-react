@@ -1,0 +1,27 @@
+{
+  "overwrite": true,
+  "schema": "./schema/schema.graphql",
+  "generates": {
+    "generated/graphql.ts": {
+      "config": {
+        "namingConvention": "keep",
+        "onlyOperationTypes": false,
+        "scalars": {
+          "Date": "Date",
+          "DateTime": "Date",
+          "JSON": "Record<string, any>",
+          "URL": "string"
+        }
+      },
+      "plugins": [
+        "typescript",
+        "typescript-operations",
+        {
+          "add": {
+            "content": "/* eslint-disable */"
+          }
+        }
+      ]
+    }
+  }
+}
