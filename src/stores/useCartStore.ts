@@ -12,7 +12,7 @@ interface CartProps {
     removeFromCart: (oldItem: itemType) => void
     updateCart: (updatedItem: itemType) => void
     cleanCart: () => void
-    addDirection: (newDirection: any) => void
+    addDirection: (newDirection: string) => void
   }
 }
 
@@ -22,7 +22,7 @@ const useCartStore = create<CartProps>()((set) => ({
   actions: {
     addToCart: (newItem) =>
       set((state) => {
-        const existingItem = state.items.find((itm) => itm.id === newItem.id)
+        const existingItem = state.items.find((item) => item.id === newItem.id)
         if (!existingItem) {
           return {...state, items: [...state.items, newItem]}
         }

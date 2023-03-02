@@ -2,7 +2,7 @@ import {Flex, Link} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
 import Logo from './Logo'
 
-export default function DesktopNavigation({links}) {
+export default function DesktopNavigation() {
   return (
     <Flex>
       {/* {links.map((link, index) => {
