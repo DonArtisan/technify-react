@@ -1,7 +1,14 @@
 import {create} from 'zustand'
 import {Product} from '../../generated/graphql'
 
-interface itemType extends Product {
+type ProductType = Pick<
+  Product,
+  'id' | 'name' | 'currentPrice' | 'description'
+> & {
+  image: {readonly originalSrc: string} | null
+}
+
+interface itemType extends ProductType {
   quantity: number
 }
 interface CartProps {
