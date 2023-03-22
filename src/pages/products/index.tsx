@@ -15,6 +15,9 @@ export default function Products() {
               name
               description
               currentPrice
+              image {
+                originalSrc
+              }
             }
           }
         }
@@ -31,8 +34,8 @@ export default function Products() {
       justifyContent="center"
       paddingX={{md: 20, lg: 52}}
     >
-      {products?.edges.map(({node: product}, index) => (
-        <ProductCard key={index} product={product as Product} />
+      {products?.edges.map(({node: product}) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </Flex>
   )
