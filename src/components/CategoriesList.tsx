@@ -1,7 +1,6 @@
 import {Flex, Heading, Link} from '@chakra-ui/react'
 import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import {Product} from '../../generated/graphql'
 import ProductCard from './ProductCard'
 import {CategoriesListQuery} from './__generated__/CategoriesListQuery.graphql'
 
