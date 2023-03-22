@@ -9,14 +9,13 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import CategoriesList from 'components/CategoriesList'
+import ProductCard from 'components/ProductCard'
 import {FiHeadphones} from 'react-icons/fi'
 import {IoIosPricetag, IoMdContact} from 'react-icons/io'
 import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import {Product} from '../../../generated/graphql'
-import CategoriesList from '../../components/CategoriesList'
-import ProductCard from '../../components/ProductCard'
-import imageBackground from '../../utils/assets/image/bg-1.jpg'
+import imageBackground from 'utils/assets/image/bg-1.jpg'
 import {homeProductsQuery} from './__generated__/homeProductsQuery.graphql'
 
 export default function Home() {
@@ -89,8 +88,8 @@ export default function Home() {
           </Link>
         </Flex>
         <Flex width="full" paddingBlock="20px" gap="32px" overflowX="scroll">
-          {products?.edges.map(({node: product}, index) => (
-            <ProductCard key={index} product={product as Product} />
+          {products?.edges.map(({node: product}) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </Flex>
         <Divider marginBlock="20px" />

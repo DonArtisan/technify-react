@@ -1,9 +1,11 @@
 import {Button, Flex, Image, Stack, Text} from '@chakra-ui/react'
-import {useCartActions} from '../stores/useCartStore'
-import {Product} from '../../generated/graphql'
+import {useCartActions} from 'stores/useCartStore'
+import type {Product} from '../../generated/graphql'
 
 interface ProductCardProps {
-  product: Product
+  product: Pick<Product, 'id' | 'name' | 'currentPrice' | 'description'> & {
+    image: {readonly originalSrc: string} | null
+  }
 }
 export default function ProductCard({product}: ProductCardProps) {
   const {addToCart} = useCartActions()
