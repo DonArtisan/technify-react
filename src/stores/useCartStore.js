@@ -1,6 +1,6 @@
-import create from 'zustand'
+import {createStore} from 'zustand'
 
-const useCartStore = create((set) => ({
+const useCartStore = createStore((set) => ({
   items: [],
   direction: '',
   actions: {
