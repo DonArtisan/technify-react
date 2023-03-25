@@ -1,6 +1,3 @@
-import {UnorderedList} from '@chakra-ui/react'
-import {Text} from '@chakra-ui/react'
-import {ListItem} from '@chakra-ui/react'
 import {
   Box,
   Button,
@@ -11,42 +8,56 @@ import {
   Heading,
   Icon,
   Input,
-  Link as LinkC,
+  Text,
 } from '@chakra-ui/react'
-import {Field, Form, Formik} from 'formik'
-import {useEffect} from 'react'
+import {Field, Form, Formik, FormikHelpers} from 'formik'
+import {useEffect, useState} from 'react'
 import {graphql, useMutation} from 'react-relay'
-import {Link} from 'react-router-dom'
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import {useAuth} from '../../context/AuthContext'
 import {formatGraphQLErrors} from '../../utils/formik/formatGraphQlErrors'
 import {servicesMenu} from '../../utils/servicesmenu/servicesMenu'
+import {RegisterUserMutation} from './__generated__/RegisterUserMutation.graphql'
 
-const LoginSchema = Yup.object().shape({
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string().required('Required'),
+  lastName: Yup.string().required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required'),
 })
-export function Login() {
+
+interface FormValues {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  dni: string
+  phoneNumber: string
+}
+
+export function Register() {
+  const [show, setShow] = useState(false)
+  const handleClick = () => setShow(!show)
   let navigate = useNavigate()
-  const {user, login} = useAuth()
+  const auth = useAuth()
 
   useEffect(() => {
-    if (user) {
+    if (auth.user) {
       navigate('/')
     }
-  }, [user])
+  }, [auth])
 
-  const [commit] = useMutation(
+  const [commit] = useMutation<RegisterUserMutation>(
     graphql`
-      mutation LoginUserMutation($input: UserLoginInput!) {
-        userLogin(input: $input) {
+      mutation RegisterUserMutation($input: UserInput!) {
+        userRegister(input: $input) {
           userToken
-          userAuth {
+          user {
+            id
             person {
               firstName
               lastName
-              email
             }
           }
           userErrors {
@@ -57,33 +68,43 @@ export function Login() {
       }
     `
   )
-  function handleSubmit(values, formikBag) {
+
+  function handleSubmit(
+    values: FormValues,
+    formikBag: FormikHelpers<FormValues>
+  ) {
     commit({
       variables: {
         input: {
+          dni: values.dni,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
           email: values.email,
           password: values.password,
         },
       },
-      onCompleted({userLogin}) {
-        const {userErrors} = userLogin
+      onCompleted({userRegister}) {
+        const userErrors = userRegister?.userErrors
 
         if (userErrors && userErrors.length > 0) {
           const {errors} = formatGraphQLErrors(userErrors)
           formikBag.setErrors(errors)
         }
-        if (userErrors.length === 0) {
-          login(userLogin)
-          navigate('/')
+        if (userErrors?.length === 0) {
+          auth.signin(userRegister)
+          navigate('/', {replace: true})
+          console.log(userRegister)
         }
       },
-      onError({userLogin}) {
-        console.log(userLogin)
+      onError(error) {
+        console.log(error)
       },
     })
   }
+
   return (
-    <Flex flexDir="column" rowGap="16px">
+    <Flex flexDir={{base: 'column'}} rowGap="16px">
       <Heading
         padding={{
           base: '16px 16px 0px',
@@ -93,7 +114,7 @@ export function Login() {
         fontSize="18px"
         fontWeight="600"
       >
-        Customer Login
+        Customer Register
       </Heading>
       <Flex
         gap={{base: '16px', md: '22px'}}
@@ -101,9 +122,9 @@ export function Login() {
         justifyContent={{lg: 'center'}}
       >
         <Flex
-          borderRadius="10px"
           margin="0px 16px"
           padding="20px 18px"
+          borderRadius="10px"
           bg="bgBeige"
           flexDir="column"
           rowGap={{base: '16px', md: '26px'}}
@@ -113,18 +134,66 @@ export function Login() {
           </Text>
           <Text>If you have an account, sign in with your email address.</Text>
 
-          {/* <Form> */}
           <Formik
             initialValues={{
+              dni: '',
+              firstName: '',
+              lastName: '',
+              phoneNumber: '',
               email: '',
               password: '',
             }}
-            validationSchema={LoginSchema}
+            validationSchema={SignupSchema}
             onSubmit={handleSubmit}
           >
             {({errors, touched}) => (
               <Form>
-                <Flex flexDirection="column" rowGap="16px">
+                <Flex rowGap="16px" flexDirection="column">
+                  <FormControl
+                    isInvalid={!!errors.firstName && touched.firstName}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      First Name:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="firstName"
+                      name="firstName"
+                      type="name"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.firstName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.lastName && touched.lastName}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Last Name:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="lastName"
+                      name="lastName"
+                      type="name"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.lastName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.phoneNumber && touched.phoneNumber}
+                  >
+                    <FormLabel fontWeight="700" color="text">
+                      Numbero de Telefono:
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      bg="graylight"
+                    />
+                    <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
+                  </FormControl>
                   <FormControl isInvalid={!!errors.email && touched.email}>
                     <FormLabel fontWeight="700" color="text">
                       Email:
@@ -139,7 +208,9 @@ export function Login() {
                     />
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                   </FormControl>
-                  <FormControl pos="relative">
+                  <FormControl
+                    isInvalid={!!errors.password && touched.password}
+                  >
                     <FormLabel fontWeight="700" color="text">
                       Password:
                     </FormLabel>
@@ -152,8 +223,11 @@ export function Login() {
                     />
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
-
-                  <Flex>
+                  <Flex
+                    alignItems="center"
+                    justifyContent="center"
+                    columnGap="16px"
+                  >
                     <Button
                       w="133px"
                       borderRadius="50px"
@@ -163,45 +237,11 @@ export function Login() {
                     >
                       Submit
                     </Button>
-                    <LinkC as={Link} to="/" color="bgPrimary">
-                      Forgot Your Password
-                    </LinkC>
                   </Flex>
                 </Flex>
               </Form>
             )}
           </Formik>
-        </Flex>
-        <Flex
-          flexDirection="column"
-          margin="0px 16px"
-          rowGap="22px"
-          padding="70px 18px 33px 18px"
-          bg="bgBeige"
-          borderRadius="10px"
-        >
-          <Text fontSize="14px" fontWeight="600" color="text">
-            New Customer?
-          </Text>
-          <Flex flexDirection="column" rowGap="48px">
-            <Text>Creating an account has many benefits:</Text>
-            <UnorderedList>
-              <ListItem>Check out faster</ListItem>
-              <ListItem>Keep more that on address</ListItem>
-              <ListItem>Track orders and more</ListItem>
-            </UnorderedList>
-          </Flex>
-
-          <Button
-            as={Link}
-            height="38px"
-            borderRadius="50px"
-            color="white"
-            bg="bgPrimary"
-            to="/register"
-          >
-            Create An Account
-          </Button>
         </Flex>
       </Flex>
       <Flex
@@ -222,7 +262,7 @@ export function Login() {
               p="12px"
               bg="bgPrimary"
               as={service.icon}
-            ></Icon>
+            />
             <Text fontSize="14px" fontWeight="700">
               {service.name}
             </Text>

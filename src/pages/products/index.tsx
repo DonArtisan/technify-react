@@ -1,9 +1,11 @@
 import {Flex} from '@chakra-ui/react'
 import {graphql, useLazyLoadQuery} from 'react-relay'
+import {Product} from '../../../generated/graphql'
 import ProductCard from '../../components/ProductCard'
+import {productsQuery} from './__generated__/productsQuery.graphql'
 
 export default function Products() {
-  const {products} = useLazyLoadQuery(
+  const {products} = useLazyLoadQuery<productsQuery>(
     graphql`
       query productsQuery {
         products(first: 50) {
@@ -13,13 +15,16 @@ export default function Products() {
               name
               description
               currentPrice
+              image {
+                originalSrc
+              }
             }
           }
         }
       }
-    `
+    `,
+    {}
   )
-  console.log(products)
 
   return (
     <Flex
@@ -29,8 +34,8 @@ export default function Products() {
       justifyContent="center"
       paddingX={{md: 20, lg: 52}}
     >
-      {products?.edges.map(({node: product}, index) => (
-        <ProductCard key={index} product={product} />
+      {products?.edges.map(({node: product}) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </Flex>
   )
