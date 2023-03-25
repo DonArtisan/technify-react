@@ -71,7 +71,6 @@ dependencies:
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
   react-scripts: 5.0.1_y5if5ilun452jojlprqcuv67ge
   relay-runtime: 14.1.0
-  typescript: 4.9.5
   web-vitals: 2.1.4
   yup: 0.32.11
   zustand: 4.3.5_react@18.2.0
@@ -87,6 +86,7 @@ devDependencies:
   eslint-plugin-relay: 1.8.3
   prettier: 2.8.4
   relay-compiler: 14.1.0
+  typescript: 4.9.5
   vite: 4.1.4_@types+node@18.14.2
   vite-plugin-relay: 2.0.0_s6qqfn2gwvelxlrlymp6gb4ady
   vite-plugin-svgr: 2.4.0_rollup@2.79.1+vite@4.1.4

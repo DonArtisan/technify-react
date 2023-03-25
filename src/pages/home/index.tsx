@@ -9,16 +9,17 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import CategoriesList from 'components/CategoriesList'
+import ProductCard from 'components/ProductCard'
 import {FiHeadphones} from 'react-icons/fi'
 import {IoIosPricetag, IoMdContact} from 'react-icons/io'
 import {graphql, useLazyLoadQuery} from 'react-relay'
 import {Link as ReactRouterLink} from 'react-router-dom'
-import CategoriesList from '../../components/CategoriesList'
-import ProductCard from '../../components/ProductCard'
-import imageBackground from '../../utils/assets/image/bg-1.jpg'
+import imageBackground from 'utils/assets/image/bg-1.jpg'
+import {homeProductsQuery} from './__generated__/homeProductsQuery.graphql'
 
 export default function Home() {
-  const {products} = useLazyLoadQuery(
+  const {products} = useLazyLoadQuery<homeProductsQuery>(
     graphql`
       query homeProductsQuery {
         products(first: 10) {
@@ -35,7 +36,8 @@ export default function Home() {
           }
         }
       }
-    `
+    `,
+    {}
   )
 
   return (
@@ -86,12 +88,14 @@ export default function Home() {
           </Link>
         </Flex>
         <Flex width="full" paddingBlock="20px" gap="32px" overflowX="scroll">
-          {products?.edges.map(({node: product}, index) => (
-            <ProductCard key={index} product={product} />
+          {products?.edges.map(({node: product}) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </Flex>
         <Divider marginBlock="20px" />
-        <CategoriesList title="Custom Builds" />
+        <CategoriesList
+        // title="Custom Builds"
+        />
         <Divider marginBlockStart="30px" />
         <HStack spacing="100px" justify="center" marginBlock="40px">
           <Flex
