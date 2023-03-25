@@ -213,6 +213,7 @@ type Product {
   discount: Discount
   model: Model!
   status: ProductStatus
+  currentStock: Int
   image: Image
   attributes: Attributes!
   prices: [Price!]!
