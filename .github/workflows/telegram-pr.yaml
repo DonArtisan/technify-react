@@ -1,7 +1,7 @@
 name: telegram pr notif
 on: 
   pull_request:
-       types: [opened, synchronize]
+       types: [opened]
 jobs:
   pr-notif:
     runs-on: ubuntu-latest
