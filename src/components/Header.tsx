@@ -26,7 +26,13 @@ import DesktopNavigation from './DesktopNavigation'
 import Logo from './Logo'
 import MobileNavigation from './MobileNavigation'
 
-interface itemProps extends Product {
+type ProductType = Pick<
+  Product,
+  'id' | 'name' | 'currentPrice' | 'description'
+> & {
+  image: {readonly originalSrc: string} | null
+}
+interface itemType extends ProductType {
   quantity: number
 }
 
@@ -40,7 +46,7 @@ interface itemProps extends Product {
 export default function Header() {
   const cart = useCart()
   let itemNumbers = 0
-  cart.forEach((itm: itemProps) => {
+  cart.forEach((itm: itemType) => {
     itemNumbers += itm.quantity
   })
 
