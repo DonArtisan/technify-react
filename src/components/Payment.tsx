@@ -16,11 +16,17 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import {FastField, Form, Formik} from 'formik'
+import {FastField, Form, Formik, FormikHelpers} from 'formik'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
 import {useCart, useCartActions} from '../stores/useCartStore'
+
+interface FormValues {
+  mainDirection: string
+  departamento: string
+  municipio: string
+}
 
 export default function Payment() {
   const {addDirection} = useCartActions()
@@ -32,7 +38,8 @@ export default function Payment() {
   let subTotal = 0
 
   cart.forEach((itm) => {
-    subTotal += itm.quantity * itm.currentPrice
+    subTotal +=
+      itm.quantity * (itm.currentPrice ? itm.currentPrice * itm.quantity : 0)
   })
 
   let impuesto = subTotal * 0.15
@@ -51,7 +58,7 @@ export default function Payment() {
       value: subTotal + subTotal * 0.15,
     },
   ]
-  function handleSelect(e) {
+  function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     console.log(e.target.value)
     setSelectValue(e.target.value)
     if (e.target.value === 'delivery') {
@@ -59,7 +66,10 @@ export default function Payment() {
     }
   }
 
-  function handleSubmit(values) {
+  function handleSubmit(
+    values: FormValues,
+    formikBag: FormikHelpers<FormValues>
+  ) {
     console.log(values)
     addDirection(values.mainDirection)
     onClose()
@@ -108,6 +118,7 @@ export default function Payment() {
               <ModalBody>
                 <Stack>
                   <FastField name="mainDirection">
+                    {/* @ts-expect-error */}
                     {({field, meta: {error, touched}}) => (
                       <FormControl>
                         <FormLabel>Direccion Principal</FormLabel>
@@ -116,6 +127,7 @@ export default function Payment() {
                     )}
                   </FastField>
                   <FastField name="departamento">
+                    {/* @ts-expect-error */}
                     {({field, meta: {error, touched}}) => (
                       <FormControl>
                         <FormLabel>Departamento</FormLabel>
@@ -124,6 +136,7 @@ export default function Payment() {
                     )}
                   </FastField>
                   <FastField name="municipio">
+                    {/* @ts-expect-error */}
                     {({field, meta: {error, touched}}) => (
                       <FormControl>
                         <FormLabel>Municipio</FormLabel>

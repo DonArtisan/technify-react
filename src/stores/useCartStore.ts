@@ -1,7 +1,14 @@
 import {create} from 'zustand'
 import {Product} from '../../generated/graphql'
 
-interface itemType extends Product {
+type ProductType = Pick<
+  Product,
+  'id' | 'name' | 'currentPrice' | 'description'
+> & {
+  image: {readonly originalSrc: string} | null
+}
+
+interface itemType extends ProductType {
   quantity: number
 }
 interface CartProps {
@@ -12,7 +19,7 @@ interface CartProps {
     removeFromCart: (oldItem: itemType) => void
     updateCart: (updatedItem: itemType) => void
     cleanCart: () => void
-    addDirection: (newDirection: any) => void
+    addDirection: (newDirection: string) => void
   }
 }
 
@@ -22,7 +29,7 @@ const useCartStore = create<CartProps>()((set) => ({
   actions: {
     addToCart: (newItem) =>
       set((state) => {
-        const existingItem = state.items.find((itm) => itm.id === newItem.id)
+        const existingItem = state.items.find((item) => item.id === newItem.id)
         if (!existingItem) {
           return {...state, items: [...state.items, newItem]}
         }

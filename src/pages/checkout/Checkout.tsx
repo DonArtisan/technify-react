@@ -1,14 +1,18 @@
 import {Flex, Heading} from '@chakra-ui/react'
 import {Elements} from '@stripe/react-stripe-js'
-import {loadStripe} from '@stripe/stripe-js'
+import {loadStripe, Stripe} from '@stripe/stripe-js'
 import {useEffect, useState} from 'react'
 import {graphql, useMutation} from 'react-relay'
 import CheckoutForm from '../../components/CheckoutForm'
 import {useCart, useDirection} from '../../stores/useCartStore'
+import {CheckoutMutation} from './__generated__/CheckoutMutation.graphql'
 
 export default function Checkout() {
-  const [stripePromise, setStripePromise] = useState(null)
-  const [clientSecret, setClientSecreto] = useState('')
+  const [stripePromise, setStripePromise] =
+    useState<Promise<Stripe | null> | null>(null)
+  const [clientSecret, setClientSecreto] = useState<string | null | undefined>(
+    ''
+  )
 
   const cart = useCart()
   const direction = useDirection()
@@ -16,10 +20,11 @@ export default function Checkout() {
   let subTotal = 0
 
   cart.forEach((itm) => {
-    subTotal += itm.quantity * itm.currentPrice
+    subTotal +=
+      itm.quantity * (itm.currentPrice ? itm.currentPrice * itm.quantity : 0)
   })
 
-  const [commit] = useMutation(
+  const [commit] = useMutation<CheckoutMutation>(
     graphql`
       mutation CheckoutMutation($input: ClientSecretInput!) {
         clientSecret(input: $input) {
@@ -50,7 +55,7 @@ export default function Checkout() {
         },
       },
       onCompleted({clientSecret}) {
-        const clientSecreto = clientSecret.clientSecret
+        const clientSecreto = clientSecret?.clientSecret
         const stripeApiKey = import.meta.env.VITE_APP_STRIPE
 
         setStripePromise(loadStripe(stripeApiKey))
@@ -65,8 +70,8 @@ export default function Checkout() {
         //   navigate('/')
         // }
       },
-      onError({clientSecret}) {
-        console.log(clientSecret)
+      onError(error) {
+        console.log(error)
       },
     })
 

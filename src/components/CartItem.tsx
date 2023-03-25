@@ -15,12 +15,15 @@ import {useEffect, useState} from 'react'
 import {Product} from '../../generated/graphql'
 import {useCartActions} from '../stores/useCartStore'
 
-interface itemType extends Product {
-  quantity: number
-}
+type ProductType = Pick<
+  Product,
+  'id' | 'name' | 'currentPrice' | 'description'
+> & {
+  image: {readonly originalSrc: string} | null
+} & {quantity: number}
 
 interface CartItemProps {
-  data: itemType
+  data: ProductType
 }
 export default function CartItem({data}: CartItemProps) {
   const [subTotal, setSubTotal] = useState(data.currentPrice)

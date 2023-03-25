@@ -1,7 +1,12 @@
 import {Stack} from '@chakra-ui/react'
+import {ReactElement} from 'react'
 import Footer from './Footer'
 import Header from './Header'
-export default function Layout({children}) {
+
+interface LayoutProps {
+  children: ReactElement
+}
+export default function Layout({children}: LayoutProps) {
   return (
     <>
       <Header />

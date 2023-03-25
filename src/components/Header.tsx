@@ -30,12 +30,12 @@ interface itemProps extends Product {
   quantity: number
 }
 
-const links = [
-  {
-    text: 'Laptops',
-    href: '/',
-  },
-]
+// const links = [
+//   {
+//     text: 'Laptops',
+//     href: '/',
+//   },
+// ]
 
 export default function Header() {
   const cart = useCart()
@@ -91,7 +91,7 @@ export default function Header() {
     >
       <Hide below="lg">
         <Logo />
-        <DesktopNavigation links={links} />
+        <DesktopNavigation />
       </Hide>
       <Show below="lg">
         <MobileNavigation />
