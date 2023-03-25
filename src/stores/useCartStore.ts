@@ -1,6 +1,22 @@
-import {createStore} from 'zustand'
+import {create} from 'zustand'
+import {Product} from '../../generated/graphql'
 
-const useCartStore = createStore((set) => ({
+interface itemType extends Product {
+  quantity: number
+}
+interface CartProps {
+  items: itemType[]
+  direction: string
+  actions: {
+    addToCart: (newItem: itemType) => void
+    removeFromCart: (oldItem: itemType) => void
+    updateCart: (updatedItem: itemType) => void
+    cleanCart: () => void
+    addDirection: (newDirection: any) => void
+  }
+}
+
+const useCartStore = create<CartProps>()((set) => ({
   items: [],
   direction: '',
   actions: {
@@ -15,6 +31,7 @@ const useCartStore = createStore((set) => ({
             ? {...item, quantity: item.quantity + 1}
             : item
         )
+
         return {...state, items: updatedCart}
       }),
     removeFromCart: (oldItem) =>
@@ -58,5 +75,4 @@ const useCartStore = createStore((set) => ({
 
 export const useCart = () => useCartStore((state) => state.items)
 export const useDirection = () => useCartStore((state) => state.direction)
-
 export const useCartActions = () => useCartStore((state) => state.actions)
